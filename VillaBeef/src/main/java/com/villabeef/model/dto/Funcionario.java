@@ -1,4 +1,4 @@
-        package com.villabeef.model.dto;
+package com.villabeef.model.dto;
 
 public class Funcionario extends Usuario{
     
