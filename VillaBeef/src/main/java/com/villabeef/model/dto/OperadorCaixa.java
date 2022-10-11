@@ -1,10 +1,11 @@
+
 package com.villabeef.model.dto;
 
-public class Gerente extends Funcionario{
-
+public class OperadorCaixa extends Funcionario {
+    
     private String descricao;
     
-    public Gerente(String nome, double salario, double conta, String descricao) {
+    public OperadorCaixa(String nome, double salario, double conta, String descricao) {
         super(nome, salario, conta);
         this.descricao = descricao;
     }
@@ -16,7 +17,4 @@ public class Gerente extends Funcionario{
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-    
-    
-    
 }
