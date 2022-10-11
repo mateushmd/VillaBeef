@@ -4,17 +4,13 @@ public class Produto {
     private String marca;
     private String tipo;
     private int id;
-    private double preco;
-    private String validade;
-    private double peso;
-
-    public Produto(String marca, String tipo, int id, double preco, String validade, double peso) {
+    private int quantidade;
+    
+    public Produto(String marca, String tipo, int id) {
         this.marca = marca;
         this.tipo = tipo;
         this.id = id;
-        this.preco = preco;
-        this.validade = validade;
-        this.peso = peso;
+        quantidade = 0;
     }
     
     public String getMarca() {
@@ -28,17 +24,9 @@ public class Produto {
     public int getId() {
         return id;
     }
-
-    public double getPreco() {
-        return preco;
-    }
-
-    public String getValidade() {
-        return validade;
-    }
-
-    public double getPeso() {
-        return peso;
+    
+    public int getQuantidade() {
+        return quantidade;
     }
 
     public void setMarca(String marca) {
@@ -52,16 +40,8 @@ public class Produto {
     public void setId(int id) {
         this.id = id;
     }
-
-    public void setPreco(double preco) {
-        this.preco = preco;
-    }
-
-    public void setValidade(String validade) {
-        this.validade = validade;
-    }
-
-    public void setPeso(double peso) {
-        this.peso = peso;
+    
+    public void adicionarQuantidade(int quantidade) {
+        this.quantidade += quantidade;
     }
 }
