@@ -1,6 +1,6 @@
 package com.villabeef.model.dto;
 
-public class Funcionario extends Usuario{
+public class Funcionario{
     
     private String nome;
     private double salario;
