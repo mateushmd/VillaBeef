@@ -1,12 +1,12 @@
 # VillaBeef
 <a href="https://imgbox.com/vLySfUmh" target="_blank"><img src="https://thumbs2.imgbox.com/04/58/vLySfUmh_t.jpg" alt="image host"/></a>
 
-Descrição do sistema:
+# Descrição do sistema:
 
 O sistema deve facilitar o cadastro e gerência de funcionários e estoque, e realizar cálculos acerca dos ganhos e gastos, levando em conta possíveis descontos, mostrando organizadamente informações úteis, como o lucro gerado (em intervalos a critério do usuário), e possíveis gastos futuros, por exemplo. Os dados disponibilizados podem ser separados por estabelecimento, e, posteriormente, juntados, para atender grandes empresas.
 
 
-O que automatizar?
+# O que automatizar?
 
 Gerenciamento de:
   - Venda
@@ -34,24 +34,24 @@ Gerenciamento de:
   - Mostrar a situação financeira da empresa ao final de um intervalo qualquer;
 
 
-Por que automatizar?
+# Por que automatizar?
 
 O sistema será desenvolvido com a finalidade de proporcionar à empresa um maior controle de seus aspectos financeiros e de gerência de suas dependências, como estoque e funcionários, para que esta tenha uma maior segurança e melhor tomada de decisão.
 
 
-Benefícios
+# Benefícios
 
 - Controle total do fluxo de dinheiro dentro da empresa
 - Maior facilidade de gerenciamento geral e de cada estabelecimento
 - Maior facilidade de cadastro e gerenciamento de funcionários
 - Maior facilidade de gerenciamento do estoque, visando a quantidade e a qualidade dos produtos
 
-Usuários envolvidos
+# Usuários envolvidos
 
 Empresas e gerentes de empresas.
 
 
-Dados a serem tratados
+# Dados a serem tratados
 
 - Vendas
   - Quantidade de cada produto vendido;
@@ -79,7 +79,7 @@ Dados a serem tratados
 
 
 
-Funcionalidades:
+# Funcionalidades:
 
 - Estoque
 - Adicionar produto
