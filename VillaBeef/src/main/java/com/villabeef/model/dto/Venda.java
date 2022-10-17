@@ -1,13 +1,18 @@
 package com.villabeef.model.dto;
 
-public class Vendas {
+import java.util.HashSet;
+import java.util.Set;
+
+public class Venda {
     
     private int id;
     private String data;
-
-    public Vendas(int id, String data) {
+    private Set<Produto> produtos;
+    
+    public Venda(int id, String data, HashSet<Produto>produtos) {
         this.id = id;
         this.data = data;
+        this.produtos = produtos;
     }
 
     public int getId() {
@@ -18,6 +23,10 @@ public class Vendas {
         return data;
     }
 
+    public Set<Produto> getProdutos() {
+        return produtos;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -25,5 +34,10 @@ public class Vendas {
     public void setData(String data) {
         this.data = data;
     }
+
+    public void setProdutos(HashSet<Produto> produtos) {
+        this.produtos = produtos;
+    }
+    
     
 }
