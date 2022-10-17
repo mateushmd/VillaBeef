@@ -5,17 +5,23 @@ public class itemProduto {
     private int idProduto;
     private String validade;
     private boolean vendido;
+    private double valor;
 
-    public itemProduto(int id, int idProduto, String validade) {
+    public itemProduto(int id, int idProduto, String validade, double valor) {
         this.id = id;
         this.idProduto = idProduto;
         this.validade = validade;
         this.vendido = false;
+        this.valor = valor;
         
     }
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public void setValor(double valor) {
+        this.valor = valor;
     }
 
     public void setIdProduto(int idProduto) {
@@ -34,6 +40,10 @@ public class itemProduto {
         return id;
     }
 
+    public double getValor() {
+        return valor;
+    }
+
     public int getIdProduto() {
         return idProduto;
     }
@@ -42,8 +52,12 @@ public class itemProduto {
         return validade;
     }
 
-    public boolean isVendido() {
+    public boolean estaVendido() {
         return vendido;
+    }
+    
+    public boolean estaVencido() {
+        return false;
     }
 }
 
