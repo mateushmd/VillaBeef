@@ -4,13 +4,18 @@ public class Funcionario{
     
     private String nome;
     private double salario;
-    private double conta;        
+    private double conta;
+    private String tipo;
     
-    public Funcionario(String nome, double salario, double conta) {
+    
+    public Funcionario(String nome, double salario, double conta, String tipo) {
         this.nome = nome;
         this.salario = salario;
         this.conta = conta;
+        this.tipo = tipo;
+        
     }
+
 
     public String getNome() {
         return nome;
@@ -23,6 +28,10 @@ public class Funcionario{
     public double getConta() {
         return conta;
     }
+    
+    public String getTipo() {
+        return tipo;
+}
 
     public void setNome(String nome) {
         this.nome = nome;
@@ -35,6 +44,11 @@ public class Funcionario{
     public void setConta(double conta) {
         this.conta = conta;
     }
+    
+        public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+    
 }
 
 
