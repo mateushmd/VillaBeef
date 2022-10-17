@@ -6,14 +6,15 @@ public class Funcionario{
     private double salario;
     private double conta;
     private String tipo;
+    private int id;
     
     
-    public Funcionario(String nome, double salario, double conta, String tipo) {
+    public Funcionario(String nome, double salario, double conta, String tipo, int id) {
         this.nome = nome;
         this.salario = salario;
         this.conta = conta;
         this.tipo = tipo;
-        
+        this.id = id;
     }
 
 
@@ -21,6 +22,10 @@ public class Funcionario{
         return nome;
     }
 
+    public int getId() {
+        return id;
+    }
+    
     public double getSalario() {
         return salario;
     }
@@ -44,6 +49,11 @@ public class Funcionario{
     public void setConta(double conta) {
         this.conta = conta;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     
         public void setTipo(String tipo) {
         this.tipo = tipo;
