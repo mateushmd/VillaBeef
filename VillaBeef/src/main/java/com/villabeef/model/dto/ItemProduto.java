@@ -1,13 +1,13 @@
 package com.villabeef.model.dto;
 
-public class itemProduto {
+public class ItemProduto {
     private int id;
     private int idProduto;
     private String validade;
     private boolean vendido;
     private double valor;
 
-    public itemProduto(int id, int idProduto, String validade, double valor) {
+    public ItemProduto(int id, int idProduto, String validade, double valor) {
         this.id = id;
         this.idProduto = idProduto;
         this.validade = validade;
