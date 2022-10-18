@@ -54,8 +54,7 @@ public class Funcionario{
         this.id = id;
     }
     
-    
-        public void setTipo(String tipo) {
+    public void setTipo(String tipo) {
         this.tipo = tipo;
     }
     

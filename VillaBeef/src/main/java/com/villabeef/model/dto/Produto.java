@@ -1,16 +1,25 @@
 package com.villabeef.model.dto;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class Produto {
     private String marca;
     private String tipo;
     private int id;
     private int quantidade;
+    private int quantidadeMinima;
     
-    public Produto(String marca, String tipo, int id) {
+    private Set<ItemProduto> itens;
+    
+    public Produto(String marca, String tipo, int id, int quantidadeMinima, HashSet<ItemProduto> itens) {
         this.marca = marca;
         this.tipo = tipo;
         this.id = id;
-        quantidade = 0;
+        this.quantidadeMinima = quantidadeMinima;
+        this.itens = itens;
+        quantidade = this.itens.size();
+        
     }
     
     public String getMarca() {
@@ -29,6 +38,18 @@ public class Produto {
         return quantidade;
     }
 
+    public int getQuantidadeMinima() {
+        return quantidadeMinima;
+    }
+
+    public Set<ItemProduto> getItens() {
+        return itens;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
+    }
+
     public void setMarca(String marca) {
         this.marca = marca;
     }
@@ -40,8 +61,7 @@ public class Produto {
     public void setId(int id) {
         this.id = id;
     }
-    
-    public void adicionarQuantidade(int quantidade) {
-        this.quantidade += quantidade;
+    public void setQuantidadeMinima(int quantidadeMinima) {
+        this.quantidadeMinima = quantidadeMinima;
     }
 }
