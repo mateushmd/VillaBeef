@@ -39,6 +39,7 @@ public class MenuGerente extends javax.swing.JFrame {
         jMenuItem1.setText("jMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Menu Gerente");
 
         jMenu1.setText("Arquivo");
         jMenuBar1.add(jMenu1);

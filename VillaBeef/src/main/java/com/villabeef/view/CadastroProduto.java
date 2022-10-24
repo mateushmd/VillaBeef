@@ -77,6 +77,7 @@ public class CadastroProduto extends javax.swing.JDialog {
         quantidade = new javax.swing.JTextField();
         labelTipo = new java.awt.Label();
 
+        setTitle("Cadastrar Produto");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 closeDialog(evt);

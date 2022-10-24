@@ -78,6 +78,7 @@ public class CadastroFuncionario extends javax.swing.JDialog {
         salario = new javax.swing.JTextField();
         labelNome = new java.awt.Label();
 
+        setTitle("Cadastrar Funcionário");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 closeDialog(evt);

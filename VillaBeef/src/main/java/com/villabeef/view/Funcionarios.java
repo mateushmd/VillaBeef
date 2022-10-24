@@ -33,7 +33,7 @@ public class Funcionarios extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(530, 380));
+        setTitle("Funcionários");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
