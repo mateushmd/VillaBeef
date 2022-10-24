@@ -1,6 +1,6 @@
 package com.villabeef;
 
-import com.villabeef.view.Funcionarios;
+import com.villabeef.view.MenuGerente;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -12,7 +12,7 @@ public class VillaBeef {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new Funcionarios().setVisible(true);
+                new MenuGerente().setVisible(true);
             }
         });
     }
