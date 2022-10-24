@@ -25,10 +25,6 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                      <Component id="labelSalario" min="-2" max="-2" attributes="0"/>
-                  </Group>
                   <Group type="102" attributes="0">
                       <EmptySpace min="215" pref="215" max="-2" attributes="0"/>
                       <Component id="okButton" min="-2" pref="110" max="-2" attributes="0"/>
@@ -37,28 +33,36 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="labelQuantidade" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace pref="21" max="32767" attributes="0"/>
+                              <Component id="quantidade" min="-2" pref="299" max="-2" attributes="0"/>
+                          </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="labelNome" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="labelContaBancaria" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="labelTipo" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="labelMarca" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="labelValor" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
-                              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="valor" alignment="0" pref="299" max="32767" attributes="0"/>
+                                  <Component id="marca" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="tipo" alignment="0" max="32767" attributes="0"/>
+                              </Group>
                           </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="labelFuncao" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="funcao" alignment="0" pref="299" max="32767" attributes="0"/>
-                          <Component id="salario" alignment="0" max="32767" attributes="0"/>
-                          <Component id="contaBancaria" alignment="0" max="32767" attributes="0"/>
-                          <Component id="nome" alignment="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="13" max="32767" attributes="0"/>
+              <EmptySpace pref="20" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -68,35 +72,38 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-                      <Component id="labelNome" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelTipo" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="tipo" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                      <Component id="labelMarca" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="marca" alignment="0" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                      <Component id="labelValor" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                      <Component id="nome" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="valor" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="labelContaBancaria" min="-2" max="-2" attributes="0"/>
-                  <Component id="contaBancaria" min="-2" max="-2" attributes="0"/>
+                  <Component id="labelQuantidade" min="-2" max="-2" attributes="0"/>
+                  <Component id="quantidade" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="5" pref="5" max="-2" attributes="0"/>
-                      <Component id="labelFuncao" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Component id="funcao" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="5" pref="5" max="-2" attributes="0"/>
-                      <Component id="labelSalario" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Component id="salario" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="okButton" min="-2" max="-2" attributes="0"/>
                   <Component id="cancelButton" min="-2" max="-2" attributes="0"/>
@@ -126,38 +133,38 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cancelButtonActionPerformed"/>
       </Events>
     </Component>
-    <Component class="java.awt.Label" name="labelContaBancaria">
+    <Component class="java.awt.Label" name="labelMarca">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Conta Banc&#xe1;ria:"/>
+        <Property name="text" type="java.lang.String" value="Marca:"/>
       </Properties>
     </Component>
-    <Component class="java.awt.Label" name="labelFuncao">
+    <Component class="java.awt.Label" name="labelValor">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Fun&#xe7;&#xe3;o:"/>
+        <Property name="text" type="java.lang.String" value="Valor:"/>
       </Properties>
     </Component>
-    <Component class="java.awt.Label" name="labelSalario">
+    <Component class="java.awt.Label" name="labelQuantidade">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Sal&#xe1;rio:"/>
+        <Property name="text" type="java.lang.String" value="Quantidade:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="nome">
+    <Component class="javax.swing.JTextField" name="tipo">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nomeActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tipoActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="contaBancaria">
+    <Component class="javax.swing.JTextField" name="marca">
       <Properties>
         <Property name="toolTipText" type="java.lang.String" value="Formato: 0000.00"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="funcao">
+    <Component class="javax.swing.JTextField" name="valor">
     </Component>
-    <Component class="javax.swing.JTextField" name="salario">
+    <Component class="javax.swing.JTextField" name="quantidade">
     </Component>
-    <Component class="java.awt.Label" name="labelNome">
+    <Component class="java.awt.Label" name="labelTipo">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Nome completo:"/>
+        <Property name="text" type="java.lang.String" value="Tipo:"/>
       </Properties>
     </Component>
   </SubComponents>
