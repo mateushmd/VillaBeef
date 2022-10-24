@@ -1,20 +1,25 @@
 package com.villabeef.model.dto;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class Produto {
     private String marca;
     private String tipo;
     private int id;
-    private double preco;
-    private String validade;
-    private double peso;
-
-    public Produto(String marca, String tipo, int id, double preco, String validade, double peso) {
+    private int quantidade;
+    private int quantidadeMinima;
+    
+    private Set<ItemProduto> itens;
+    
+    public Produto(String marca, String tipo, int id, int quantidadeMinima, HashSet<ItemProduto> itens) {
         this.marca = marca;
         this.tipo = tipo;
         this.id = id;
-        this.preco = preco;
-        this.validade = validade;
-        this.peso = peso;
+        this.quantidadeMinima = quantidadeMinima;
+        this.itens = itens;
+        quantidade = this.itens.size();
+        
     }
     
     public String getMarca() {
@@ -28,17 +33,21 @@ public class Produto {
     public int getId() {
         return id;
     }
-
-    public double getPreco() {
-        return preco;
+    
+    public int getQuantidade() {
+        return quantidade;
     }
 
-    public String getValidade() {
-        return validade;
+    public int getQuantidadeMinima() {
+        return quantidadeMinima;
     }
 
-    public double getPeso() {
-        return peso;
+    public Set<ItemProduto> getItens() {
+        return itens;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
     }
 
     public void setMarca(String marca) {
@@ -52,16 +61,7 @@ public class Produto {
     public void setId(int id) {
         this.id = id;
     }
-
-    public void setPreco(double preco) {
-        this.preco = preco;
-    }
-
-    public void setValidade(String validade) {
-        this.validade = validade;
-    }
-
-    public void setPeso(double peso) {
-        this.peso = peso;
+    public void setQuantidadeMinima(int quantidadeMinima) {
+        this.quantidadeMinima = quantidadeMinima;
     }
 }
