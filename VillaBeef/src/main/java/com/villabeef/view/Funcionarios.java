@@ -11,6 +11,7 @@ import java.text.DecimalFormat;
 import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -49,9 +50,9 @@ public class Funcionarios extends javax.swing.JFrame {
                 funcionario.getNome(), funcionario.getFuncao(), "R$ " + formato.format(funcionario.getSalario())});
             }
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Funcionarios.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(rootPane, "Ocorreu um erro inesperado.", "Erro", JOptionPane.ERROR_MESSAGE);
         } catch (SQLException ex) {
-            Logger.getLogger(Funcionarios.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Falha na conexão com o banco de dados.", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -133,6 +134,7 @@ public class Funcionarios extends javax.swing.JFrame {
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         CadastroFuncionario c = new CadastroFuncionario(this, true);
         c.setVisible(true);
+        atualizarTabela();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
