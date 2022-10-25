@@ -90,6 +90,9 @@ Empresas e gerentes de empresas.
 - Registro de vendas
 - Total gerado em um intervalo de tempo modificável, desconsiderando gastos e considerando descontos
 - Funcionários
+
+<a href="https://imgbox.com/G3Xk4pCY" target="_blank"><img src="https://thumbs2.imgbox.com/0e/a2/G3Xk4pCY_t.png" alt="image host"/></a>
+
 - Adição e remoção
 - Cadastro de funcionários no sistema
 - Remoção de funcionários do sistema
