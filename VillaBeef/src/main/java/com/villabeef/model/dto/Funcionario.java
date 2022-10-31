@@ -4,16 +4,16 @@ public class Funcionario{
     
     private String nome;
     private double salario;
-    private double conta;
-    private String tipo;
-    private int id;
+    private String conta;
+    private String funcao;
+    private String id;
     
     
-    public Funcionario(String nome, double salario, double conta, String tipo, int id) {
+    public Funcionario(String nome, double salario, String conta, String funcao, String id) {
         this.nome = nome;
         this.salario = salario;
         this.conta = conta;
-        this.tipo = tipo;
+        this.funcao = funcao;
         this.id = id;
     }
 
@@ -22,7 +22,7 @@ public class Funcionario{
         return nome;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
     
@@ -30,12 +30,12 @@ public class Funcionario{
         return salario;
     }
 
-    public double getConta() {
+    public String getConta() {
         return conta;
     }
     
-    public String getTipo() {
-        return tipo;
+    public String getFuncao() {
+        return funcao;
 }
 
     public void setNome(String nome) {
@@ -46,16 +46,16 @@ public class Funcionario{
         this.salario = salario;
     }
 
-    public void setConta(double conta) {
+    public void setConta(String conta) {
         this.conta = conta;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
     
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setTipo(String funcao) {
+        this.funcao = funcao;
     }
     
 }
