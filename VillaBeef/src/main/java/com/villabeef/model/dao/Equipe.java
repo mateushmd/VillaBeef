@@ -189,7 +189,7 @@ public class Equipe {
         return funcionario;
     }
 
-    public static Funcionario obter(String nome) throws ClassNotFoundException, SQLException {
+    public static Funcionario obterPorNome(String nome) throws ClassNotFoundException, SQLException {
         Funcionario funcionario = null;
 
         String sql = "SELECT * FROM equipe WHERE nome = '" + nome + "'";
