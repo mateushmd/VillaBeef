@@ -74,14 +74,14 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="jTable1">
+        <Component class="javax.swing.JTable" name="tabelaFuncionarios">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="4" rowCount="4">
+              <Table columnCount="4" rowCount="0">
                 <Column editable="true" title="Identifica&#xe7;&#xe3;o" type="java.lang.String"/>
                 <Column editable="true" title="Nome" type="java.lang.String"/>
                 <Column editable="true" title="Fun&#xe7;&#xe3;o" type="java.lang.String"/>
-                <Column editable="true" title="Sal&#xe1;rio" type="java.lang.Object"/>
+                <Column editable="true" title="Sal&#xe1;rio" type="java.lang.String"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
