@@ -82,24 +82,31 @@ Empresas e gerentes de empresas.
 # Funcionalidades:
 
 - Estoque
-- Adicionar produto
-- Remover Produto
-- Sistema de alerta sobre vencimento dos produtos
+  - Adicionar produto
+  - Remover Produto
+  - Sistema de alerta sobre vencimento dos produtos
+
 - Vendas
-- Sistema de caixa
-- Registro de vendas
-- Total gerado em um intervalo de tempo modificável, desconsiderando gastos e considerando descontos
+  - Sistema de caixa
+  - Registro de vendas
+  - Total gerado em um intervalo de tempo modificável, desconsiderando gastos e considerando descontos
+
 - Funcionários
-- Adição e remoção
-- Cadastro de funcionários no sistema
-- Remoção de funcionários do sistema
+  - Adição e remoção
+  - Cadastro de funcionários no sistema
+  - Remoção de funcionários do sistema
+<a href="https://imgbox.com/Vf670m9X" target="_blank"><img src="https://thumbs2.imgbox.com/ca/83/Vf670m9X_t.png" alt="image host"/></a>
+
+  
 - Gerenciamento dos salários
-- Atualizar salários
-- Aplicação de bônus
-- Pagar salários automaticamente
+  - Atualizar salários
+  - Aplicação de bônus
+  - Pagar salários automaticamente
+
 - Gastos
-- Feedback sobre próximos gastos (apenas considera gastos constantes, como salários e impostos)
-- Cálculo de outros gastos
+  - Feedback sobre próximos gastos (apenas considera gastos constantes, como salários e impostos)
+  - Cálculo de outros gastos
+
 - Lucro
-- Mostrar situação financeira após um intervalo de tempo modificável
+  - Mostrar situação financeira após um intervalo de tempo modificável
 

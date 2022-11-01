@@ -6,76 +6,95 @@ package com.villabeef.model.dao;
 
 import com.villabeef.model.dto.Funcionario;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Equipe {
-    private Equipe() {}
-    
-    private static Set<Funcionario> funcionarios;
-    
-    static {
-        funcionarios = new HashSet<>();
+
+    private Equipe() {
     }
-    
-    public static boolean inserir(Funcionario funcionario) {
-        Connection conexao = ConexaoBD.getConexao();
+
+    public static boolean inserir(Funcionario funcionario) throws ClassNotFoundException, SQLException {
+        String sql = "INSERT INTO equipe VALUES('" + funcionario.getId() + "', '" + funcionario.getNome() + "', '"
+                + funcionario.getFuncao() + "', '" + funcionario.getSalario() + "', '" + funcionario.getConta() + "')";
         
-        String sql = "INSERT INTO equipe VALUES('" + funcionario.getId() + "', '" + funcionario.getNome() + "', '" + 
-                funcionario.getTipo() + "', '" + funcionario.getSalario() + "', '" + funcionario.getConta() + "')";
+        Connection conexao = null;
+        
+        Statement comando = null;
+        
+        int resultado = 0;
         
         try {
-            Statement stmt = conexao.createStatement();
+            conexao = ConexaoBD.getConexao();
             
-            int resultado = stmt.executeUpdate(sql);
-            
-            return resultado > 0;
-        } catch (SQLException ex) {
-            System.out.println("Não foi possível criar uma statement");
+            comando = conexao.createStatement();
+
+            resultado = comando.executeUpdate(sql);
+        } finally {
+            ConexaoBD.fecharConexao(conexao, comando);
         }
-        
+
+        return resultado > 0;
+    }
+
+    public static boolean alterar(Funcionario funcionario, Funcionario novo) {
         return false;
     }
-    
-    public static boolean alterar(Funcionario funcionario, Funcionario novo) {
-        boolean status = excluir(funcionario);
-        
-        if(status)
-            funcionarios.add(novo);
-        
-        return status;
-    }
-    
+
     public static boolean excluir(Funcionario funcionario) {
-        funcionarios.remove(funcionario);
-        return true;
+        return false;
     }
-    
-    public static HashSet<Funcionario> listar() {
-        return (HashSet<Funcionario>)funcionarios;
+
+    public static HashSet<Funcionario> listar() throws ClassNotFoundException, SQLException {
+        HashSet<Funcionario> lista = new HashSet<>();
+
+        Funcionario funcionario;
+
+        String sql = "SELECT * FROM equipe";
+        
+        Connection conexao = null;
+        
+        Statement comando = null;
+        
+        ResultSet rs = null;
+
+        try {
+
+            conexao = ConexaoBD.getConexao();
+            comando = conexao.createStatement();
+            
+            rs = comando.executeQuery(sql);
+            
+            while(rs.next()) {
+                funcionario = new Funcionario(rs.getString("nome"),
+                        rs.getDouble("salario"),
+                        rs.getString("conta_bancaria"),
+                        rs.getString("funcao"),
+                        rs.getString("id"));
+                
+                lista.add(funcionario);
+            }
+        } finally {
+            ConexaoBD.fecharConexao(conexao, comando, rs);
+        }
+        
+        return lista;
     }
-    
+
     public static HashSet<Funcionario> listar(String tipo) {
         return null;
     }
-    
+
     public static Funcionario obter(int id) {
-        for(Funcionario f : funcionarios) {
-            if(f.getId() == id)
-                return f;
-        }
-        
         return null;
     }
-    
+
     public static Funcionario obter(String nome) {
-        for(Funcionario f : funcionarios) {
-            if(f.getNome().equals(nome))
-                return f;
-        }
-        
         return null;
     }
 }

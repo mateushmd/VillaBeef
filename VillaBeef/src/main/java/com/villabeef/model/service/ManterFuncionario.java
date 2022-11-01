@@ -6,6 +6,8 @@ package com.villabeef.model.service;
 
 import com.villabeef.model.dao.Equipe;
 import com.villabeef.model.dto.Funcionario;
+import java.sql.SQLException;
+import java.util.HashSet;
 
 /**
  *
@@ -14,8 +16,12 @@ import com.villabeef.model.dto.Funcionario;
 public class ManterFuncionario {
     private ManterFuncionario() {}
     
-    public static void adicionarFuncionario(String nome, double salario, int conta, String funcao)
+    public static void adicionarFuncionario(String nome, double salario, String conta, String funcao, String cpf) throws ClassNotFoundException, SQLException
     {
-        Equipe.inserir(new Funcionario(nome, salario, conta, funcao, 0));
+        Equipe.inserir(new Funcionario(nome, salario, conta, funcao, cpf));
+    }
+    
+    public static HashSet<Funcionario> listar() throws ClassNotFoundException, SQLException {
+        return Equipe.listar();
     }
 }

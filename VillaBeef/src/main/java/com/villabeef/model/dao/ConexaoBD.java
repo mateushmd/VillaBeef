@@ -7,7 +7,9 @@ package com.villabeef.model.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 
 public class ConexaoBD {
@@ -16,18 +18,28 @@ public class ConexaoBD {
     private static final String USUARIO = "management";
     private static final String SENHA = "cefetaindamemata";
     
-    private static Connection conexao;
-    
-    static {
-        try {
-            Class.forName(DRIVER);
-            conexao = DriverManager.getConnection(URL, USUARIO, SENHA);
-        } catch (ClassNotFoundException | SQLException ex) {
-            System.out.println(ex);
-        }
+    public static Connection getConexao() throws ClassNotFoundException, SQLException {
+        Connection conexao = null;
+        
+        Class.forName(DRIVER);
+        
+        conexao = DriverManager.getConnection(URL, USUARIO, SENHA);
+        
+        return conexao;
     }
     
-    public static Connection getConexao() {
-        return conexao;
+    public static void fecharConexao(Connection conexao, Statement comando) throws SQLException{
+        if(comando != null)
+            comando.close();
+        
+        if(conexao != null)
+            conexao.close();
+    }
+    
+    public static void fecharConexao(Connection conexao, Statement comando, ResultSet rs) throws SQLException {
+        fecharConexao(conexao, comando);
+        
+        if(rs != null)
+            rs.close();
     }
 }

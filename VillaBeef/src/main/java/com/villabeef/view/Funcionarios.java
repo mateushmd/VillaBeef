@@ -4,17 +4,56 @@
  */
 package com.villabeef.view;
 
+import com.villabeef.model.dto.Funcionario;
+import com.villabeef.model.service.ManterFuncionario;
+import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.util.HashSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author chsdi
  */
 public class Funcionarios extends javax.swing.JFrame {
 
+    DefaultTableModel modelo = null;
+
     /**
      * Creates new form Funcionarios
      */
     public Funcionarios() {
         initComponents();
+
+        modelo = (DefaultTableModel) tabelaFuncionarios.getModel();
+        
+        atualizarTabela();
+    }
+
+    public void atualizarTabela() {
+        
+        DecimalFormat formato = new DecimalFormat("0.00");
+        
+        try {
+            HashSet<Funcionario> lista = ManterFuncionario.listar();
+            
+            if (modelo != null) {
+                modelo.getDataVector().removeAllElements();
+                modelo.fireTableDataChanged();
+            }
+
+            for (Funcionario funcionario : lista) {
+                modelo.insertRow(modelo.getRowCount(), new Object[] {funcionario.getId(), 
+                funcionario.getNome(), funcionario.getFuncao(), "R$ " + formato.format(funcionario.getSalario())});
+            }
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Ocorreu um erro inesperado.", "Erro", JOptionPane.ERROR_MESSAGE);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Falha na conexão com o banco de dados.", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     /**
@@ -27,7 +66,7 @@ public class Funcionarios extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabelaFuncionarios = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -35,26 +74,23 @@ public class Funcionarios extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Funcionários");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaFuncionarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Identificação", "Nome", "Função", "Salário"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tabelaFuncionarios);
 
         jMenu1.setText("Arquivo");
         jMenu1.addActionListener(new java.awt.event.ActionListener() {
@@ -98,10 +134,11 @@ public class Funcionarios extends javax.swing.JFrame {
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         CadastroFuncionario c = new CadastroFuncionario(this, true);
         c.setVisible(true);
+        atualizarTabela();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
-        
+
     }//GEN-LAST:event_jMenu1ActionPerformed
 
     /**
@@ -145,6 +182,6 @@ public class Funcionarios extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tabelaFuncionarios;
     // End of variables declaration//GEN-END:variables
 }

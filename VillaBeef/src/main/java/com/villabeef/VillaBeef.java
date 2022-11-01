@@ -1,5 +1,6 @@
 package com.villabeef;
 
+import com.villabeef.view.Funcionarios;
 import com.villabeef.view.MenuGerente;
 
 /*
@@ -12,7 +13,7 @@ public class VillaBeef {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new MenuGerente().setVisible(true);
+                new Funcionarios().setVisible(true);
             }
         });
     }
