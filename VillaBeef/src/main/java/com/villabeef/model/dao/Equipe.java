@@ -18,7 +18,7 @@ public class Equipe {
     
     public static boolean inserir(Funcionario funcionario) throws ClassNotFoundException, SQLException {
         String sql = "INSERT INTO equipe VALUES('" + funcionario.getId() + "', '" + funcionario.getNome() + "', '"
-                + funcionario.getFuncao() + "', '" + funcionario.getSalario() + "', '" + funcionario.getConta() + "')";
+                + funcionario.getSalario() + "', '" + funcionario.getConta() + "', '" + funcionario.getFuncao() + "')";
         
         Connection conexao = null;
         

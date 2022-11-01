@@ -14,9 +14,9 @@ import java.sql.Statement;
 
 public class ConexaoBD {
     private static final String DRIVER = "com.mysql.jdbc.Driver";
-    private static final String URL = "jdbc:mysql://db4free.net:3306/villabeef";
-    private static final String USUARIO = "management";
-    private static final String SENHA = "cefetaindamemata";
+    private static final String URL = "jdbc:mysql://us-cdbr-east-06.cleardb.net:3306/heroku_b695d40b1c0e531";
+    private static final String USUARIO = "b4ef7c73d61cc7";
+    private static final String SENHA = "c101e0f6";
     
     public static Connection getConexao() throws ClassNotFoundException, SQLException {
         Connection conexao = null;
