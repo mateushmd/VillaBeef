@@ -1,17 +1,19 @@
 package com.villabeef.model.dto;
 
 public class Compra {   
-    private int id;
+    private String id;
     private String data;
     private Produto produto;
+    private double valor;
 
-    public Compra(int id, String data, Produto produto) {
+    public Compra(String id, String data, Produto produto, double valor) {
         this.id = id;
         this.data = data;
         this.produto = produto;
+        this.valor = valor;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -23,7 +25,11 @@ public class Compra {
         return produto;
     }
 
-    public void setId(int id) {
+    public double getValor() {
+        return valor;
+    }
+
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -33,6 +39,10 @@ public class Compra {
 
     public void setProduto(Produto produto) {
         this.produto = produto;
+    }
+
+    public void setValor(double valor) {
+        this.valor = valor;
     }
     
 }
