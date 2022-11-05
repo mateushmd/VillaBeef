@@ -7,6 +7,7 @@ package com.villabeef.model.dao;
 import com.villabeef.model.dto.Produto;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashSet;
 
@@ -21,7 +22,7 @@ public class Estoque {
         return false;
     }
     
-    public static HashSet<Produto> listar() {
+    public static HashSet<Produto> listar() throws ClassNotFoundException, SQLException {
         HashSet<Produto> lista = new HashSet<>();
 
         Produto produto;
@@ -43,12 +44,12 @@ public class Estoque {
             
             while(rs.next()) {
                 produto = new Produto(rs.getString("id"),
-                        rs.getDouble("marca"),
+                        rs.getString("marca"),
                         rs.getString("tipo"),
-                        rs.getString("quantidade"),
-                        rs.getString("quantidade_minima"));
+                        rs.getInt("quantidade"),
+                        rs.getInt("quantidade_minima"));
                 
-                lista.add(funcionario);
+                lista.add(produto);
             }
         } finally {
             ConexaoBD.fecharConexao(conexao, comando, rs);
@@ -57,7 +58,7 @@ public class Estoque {
         return lista;
     }
     
-    public static HashSet<Produto> listar(String tipo) {
+    public static HashSet<Produto> listar(String tipo) throws ClassNotFoundException, SQLException {
         HashSet<Produto> lista = new HashSet<>();
 
         Produto produto;
@@ -79,12 +80,12 @@ public class Estoque {
             
             while(rs.next()) {
                 produto = new Produto(rs.getString("id"),
-                        rs.getDouble("marca"),
+                        rs.getString("marca"),
                         rs.getString("tipo"),
-                        rs.getString("quantidade"),
-                        rs.getString("quantidade_minima"));
+                        rs.getInt("quantidade"),
+                        rs.getInt("quantidade_minima"));
                 
-                lista.add(funcionario);
+                lista.add(produto);
             }
         } finally {
             ConexaoBD.fecharConexao(conexao, comando, rs);

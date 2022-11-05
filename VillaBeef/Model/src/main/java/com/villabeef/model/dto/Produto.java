@@ -6,13 +6,13 @@ import java.util.Set;
 public class Produto {
     private String marca;
     private String tipo;
-    private int id;
+    private String id;
     private int quantidade;
     private int quantidadeMinima;
     
     private Set<ItemProduto> itens;
     
-    public Produto(, String marca, String tipo, int quantidade, int quantidadeMinima) {
+    public Produto(String id, String marca, String tipo, int quantidade, int quantidadeMinima) {
         this.marca = marca;
         this.tipo = tipo;
         this.id = id;
@@ -30,7 +30,7 @@ public class Produto {
         return tipo;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
     
@@ -58,7 +58,7 @@ public class Produto {
         this.tipo = tipo;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
     public void setQuantidadeMinima(int quantidadeMinima) {
