@@ -31,4 +31,11 @@ public class ManterFuncionario {
     public static Funcionario obterPorId(String id) throws ClassNotFoundException, SQLException {
         return Equipe.obterPorId(id);
     }
+    
+    public static HashSet<Funcionario> pesquisar(String pesquisa, int modo) throws ClassNotFoundException, SQLException {
+        if(pesquisa.isBlank())
+            return Equipe.listar();
+
+        return Equipe.pesquisar(pesquisa, modo);
+    } 
 }
