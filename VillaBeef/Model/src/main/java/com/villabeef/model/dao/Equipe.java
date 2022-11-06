@@ -53,9 +53,10 @@ public class Equipe {
             
             comando = conexao.createStatement();
 
-            resultado = comando.executeUpdate(sql);
+            resultado = excluir(funcionario) == true ? 1 : 0;
             
-            resultado = inserir(novo) == true ? 1 : 0;
+            if(resultado > 0)
+                resultado = inserir(novo) == true ? 1 : 0;
         } finally {
             ConexaoBD.fecharConexao(conexao, comando);
         }

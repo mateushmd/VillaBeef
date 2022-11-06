@@ -4,6 +4,7 @@
  */
 package com.villabeef.view;
 
+import com.villabeef.common.FuncionarioInexistenteException;
 import com.villabeef.model.service.ManterUsuario;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -175,6 +176,8 @@ public class CadastroUsuario extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(rootPane, "Ocorreu um erro inesperado.", "Erro", JOptionPane.ERROR_MESSAGE);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Falha na conexão com o banco de dados.", JOptionPane.ERROR_MESSAGE);
+        } catch (FuncionarioInexistenteException ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Não foi possível concluir o cadastro do usuário.", JOptionPane.ERROR_MESSAGE);
         }
     }
 

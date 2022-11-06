@@ -16,10 +16,13 @@ import java.util.HashSet;
 public class ManterFuncionario {
     private ManterFuncionario() {}
     
-    public static void adicionarFuncionario(String nome, double salario, String conta, String funcao, String cpf) throws ClassNotFoundException, SQLException
-    {
+    public static void adicionar(String nome, double salario, String conta, String funcao, String cpf) throws ClassNotFoundException, SQLException {
         Equipe.inserir(new Funcionario(nome, salario, conta, funcao, cpf));
     }
+    
+    public static void alterar(Funcionario funcionario, Funcionario novo) throws ClassNotFoundException, SQLException {
+        Equipe.alterar(funcionario, novo);
+    }   
     
     public static HashSet<Funcionario> listar() throws ClassNotFoundException, SQLException {
         return Equipe.listar();

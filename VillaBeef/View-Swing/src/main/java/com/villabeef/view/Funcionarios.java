@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -90,6 +91,11 @@ public class Funcionarios extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        tabelaFuncionarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaFuncionariosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tabelaFuncionarios);
 
         jMenu1.setText("Arquivo");
@@ -140,6 +146,23 @@ public class Funcionarios extends javax.swing.JFrame {
     private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
 
     }//GEN-LAST:event_jMenu1ActionPerformed
+
+    private void tabelaFuncionariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaFuncionariosMouseClicked
+        try {
+            int index = tabelaFuncionarios.getSelectedRow();
+            
+            TableModel modelo = tabelaFuncionarios.getModel();
+            
+            VisualizarFuncionario v = new VisualizarFuncionario(this, true, ManterFuncionario.obterPorId(modelo.getValueAt(index, 0).toString()));
+            v.setVisible(true);
+            
+            atualizarTabela();
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Ocorreu um erro inesperado.", "Erro", JOptionPane.ERROR_MESSAGE);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Falha na conexão com o banco de dados.", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_tabelaFuncionariosMouseClicked
 
     /**
      * @param args the command line arguments
