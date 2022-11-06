@@ -5,6 +5,9 @@
 package com.villabeef.model.dao;
 
 import com.villabeef.model.dto.Produto;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.HashSet;
 
 public class Estoque {
@@ -19,11 +22,75 @@ public class Estoque {
     }
     
     public static HashSet<Produto> listar() {
-        return null;
+        HashSet<Produto> lista = new HashSet<>();
+
+        Produto produto;
+
+        String sql = "SELECT * FROM produtos";
+        
+        Connection conexao = null;
+        
+        Statement comando = null;
+        
+        ResultSet rs = null;
+
+        try {
+
+            conexao = ConexaoBD.getConexao();
+            comando = conexao.createStatement();
+            
+            rs = comando.executeQuery(sql);
+            
+            while(rs.next()) {
+                produto = new Produto(rs.getString("id"),
+                        rs.getDouble("marca"),
+                        rs.getString("tipo"),
+                        rs.getString("quantidade"),
+                        rs.getString("quantidade_minima"));
+                
+                lista.add(funcionario);
+            }
+        } finally {
+            ConexaoBD.fecharConexao(conexao, comando, rs);
+        }
+        
+        return lista;
     }
     
     public static HashSet<Produto> listar(String tipo) {
-        return null;
+        HashSet<Produto> lista = new HashSet<>();
+
+        Produto produto;
+
+        String sql = "SELECT * FROM produtos WHERE tipo = '" + tipo + "'";
+        
+        Connection conexao = null;
+        
+        Statement comando = null;
+        
+        ResultSet rs = null;
+
+        try {
+
+            conexao = ConexaoBD.getConexao();
+            comando = conexao.createStatement();
+            
+            rs = comando.executeQuery(sql);
+            
+            while(rs.next()) {
+                produto = new Produto(rs.getString("id"),
+                        rs.getDouble("marca"),
+                        rs.getString("tipo"),
+                        rs.getString("quantidade"),
+                        rs.getString("quantidade_minima"));
+                
+                lista.add(funcionario);
+            }
+        } finally {
+            ConexaoBD.fecharConexao(conexao, comando, rs);
+        }
+        
+        return lista;
     }
     
     public static Produto obter(int id) {

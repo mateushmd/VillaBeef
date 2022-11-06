@@ -12,7 +12,7 @@ public class Produto {
     
     private Set<ItemProduto> itens;
     
-    public Produto(String marca, String tipo, int id, int quantidadeMinima, HashSet<ItemProduto> itens) {
+    public Produto(, String marca, String tipo, int quantidade, int quantidadeMinima) {
         this.marca = marca;
         this.tipo = tipo;
         this.id = id;
