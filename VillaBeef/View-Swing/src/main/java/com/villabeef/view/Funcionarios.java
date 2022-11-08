@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -30,29 +31,27 @@ public class Funcionarios extends javax.swing.JFrame {
 
         modelo = (DefaultTableModel) tabelaFuncionarios.getModel();
         
-        atualizarTabela();
-    }
-
-    public void atualizarTabela() {
-        
-        DecimalFormat formato = new DecimalFormat("0.00");
-        
         try {
-            HashSet<Funcionario> lista = ManterFuncionario.listar();
-            
-            if (modelo != null) {
-                modelo.getDataVector().removeAllElements();
-                modelo.fireTableDataChanged();
-            }
-
-            for (Funcionario funcionario : lista) {
-                modelo.insertRow(modelo.getRowCount(), new Object[] {funcionario.getId(), 
-                funcionario.getNome(), funcionario.getFuncao(), "R$ " + formato.format(funcionario.getSalario())});
-            }
+            atualizarTabela(ManterFuncionario.listar());
         } catch (ClassNotFoundException ex) {
             JOptionPane.showMessageDialog(rootPane, "Ocorreu um erro inesperado.", "Erro", JOptionPane.ERROR_MESSAGE);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Falha na conexão com o banco de dados.", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public void atualizarTabela(HashSet<Funcionario> lista) {
+        
+        DecimalFormat formato = new DecimalFormat("0.00");
+        
+        if (modelo != null) {
+            modelo.getDataVector().removeAllElements();
+            modelo.fireTableDataChanged();
+        }
+
+        for (Funcionario funcionario : lista) {
+            modelo.insertRow(modelo.getRowCount(), new Object[] {funcionario.getId(), 
+            funcionario.getNome(), funcionario.getFuncao(), "R$ " + formato.format(funcionario.getSalario())});
         }
     }
 
@@ -67,6 +66,9 @@ public class Funcionarios extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaFuncionarios = new javax.swing.JTable();
+        pesquisa = new javax.swing.JTextField();
+        label1 = new java.awt.Label();
+        filtro = new javax.swing.JComboBox<>();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -90,7 +92,22 @@ public class Funcionarios extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        tabelaFuncionarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaFuncionariosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tabelaFuncionarios);
+
+        pesquisa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pesquisaActionPerformed(evt);
+            }
+        });
+
+        label1.setText("Pesquisar por:");
+
+        filtro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nome / ID", "Função" }));
 
         jMenu1.setText("Arquivo");
         jMenu1.addActionListener(new java.awt.event.ActionListener() {
@@ -117,14 +134,27 @@ public class Funcionarios extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 518, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(pesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(filtro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(pesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(filtro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -134,12 +164,46 @@ public class Funcionarios extends javax.swing.JFrame {
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         CadastroFuncionario c = new CadastroFuncionario(this, true);
         c.setVisible(true);
-        atualizarTabela();
+        
+        try {
+            atualizarTabela(ManterFuncionario.listar());
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Ocorreu um erro inesperado.", "Erro", JOptionPane.ERROR_MESSAGE);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Falha na conexão com o banco de dados.", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
 
     }//GEN-LAST:event_jMenu1ActionPerformed
+
+    private void tabelaFuncionariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaFuncionariosMouseClicked
+        try {
+            int index = tabelaFuncionarios.getSelectedRow();
+            
+            TableModel modelo = tabelaFuncionarios.getModel();
+            
+            VisualizarFuncionario v = new VisualizarFuncionario(this, true, ManterFuncionario.obterPorId(modelo.getValueAt(index, 0).toString()));
+            v.setVisible(true);
+            
+            atualizarTabela(ManterFuncionario.listar());
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Ocorreu um erro inesperado.", "Erro", JOptionPane.ERROR_MESSAGE);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Falha na conexão com o banco de dados.", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_tabelaFuncionariosMouseClicked
+
+    private void pesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisaActionPerformed
+        try {
+            atualizarTabela(ManterFuncionario.pesquisar(pesquisa.getText(), filtro.getSelectedIndex()));
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Ocorreu um erro inesperado.", "Erro", JOptionPane.ERROR_MESSAGE);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Falha na conexão com o banco de dados.", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_pesquisaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -178,10 +242,13 @@ public class Funcionarios extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> filtro;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JScrollPane jScrollPane1;
+    private java.awt.Label label1;
+    private javax.swing.JTextField pesquisa;
     private javax.swing.JTable tabelaFuncionarios;
     // End of variables declaration//GEN-END:variables
 }
