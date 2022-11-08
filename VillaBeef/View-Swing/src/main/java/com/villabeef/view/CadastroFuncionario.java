@@ -235,7 +235,7 @@ public class CadastroFuncionario extends javax.swing.JDialog {
                 String cpf = campoCpf.getText();
                 double salario = Double.valueOf(campoSalario.getText());
 
-                ManterFuncionario.adicionarFuncionario(nome, salario, conta, funcao, cpf);
+                ManterFuncionario.adicionar(nome, salario, conta, funcao, cpf);
             }
             returnStatus = retStatus;
             setVisible(false);

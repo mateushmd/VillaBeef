@@ -4,17 +4,61 @@
  */
 package com.villabeef.view;
 
+import com.villabeef.model.dto.ItemProduto;
+import com.villabeef.model.dto.Produto;
+import com.villabeef.model.service.ManterEstoque;
+import com.villabeef.model.service.ManterFuncionario;
+import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.util.HashSet;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+
 /**
  *
  * @author Aluno
  */
 public class Estoque extends javax.swing.JFrame {
 
+    DefaultTableModel modelo = null;
+
     /**
      * Creates new form Estoque
      */
     public Estoque() {
         initComponents();
+
+        modelo = (DefaultTableModel) tabela.getModel();
+        try {
+            atualizarTabela(ManterEstoque.listar());
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Ocorreu um erro inesperado.", "Erro", JOptionPane.ERROR_MESSAGE);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Falha na conexão com o banco de dados.", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public void atualizarTabela(HashSet<ItemProduto> lista) {
+        DecimalFormat formato = new DecimalFormat("0.00");
+        
+        if (modelo != null) {
+            modelo.getDataVector().removeAllElements();
+            modelo.fireTableDataChanged();
+        }
+        
+        try {
+            for (ItemProduto item : lista) {
+                Produto produto = ManterEstoque.obterProduto(item.getIdProduto());
+
+                modelo.insertRow(modelo.getRowCount(), new Object[] {produto.getTipo(), 
+                produto.getMarca(), item.getId(), item.getValidade(), "R$ " + formato.format(item.getValor())});
+            }
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Ocorreu um erro inesperado.", "Erro", JOptionPane.ERROR_MESSAGE);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Falha na conexão com o banco de dados.", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     /**
@@ -32,7 +76,7 @@ public class Estoque extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabela = new javax.swing.JTable();
         jMenuBar2 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -47,7 +91,7 @@ public class Estoque extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -58,7 +102,7 @@ public class Estoque extends javax.swing.JFrame {
                 "Tipo", "Marca", "ID", "Validade", "Valor"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tabela);
 
         jMenu3.setText("Arquivo");
 
@@ -78,18 +122,33 @@ public class Estoque extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(42, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
+        /*RegistroProduto r = new RegistroProduto(this, true);
+        r.setVisible(true);
+
+        try {
+            atualizarTabela(ManterEstoque.listar());
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Ocorreu um erro inesperado.", "Erro", JOptionPane.ERROR_MESSAGE);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Falha na conexão com o banco de dados.", JOptionPane.ERROR_MESSAGE);
+        }*/
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
@@ -136,7 +195,7 @@ public class Estoque extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTable tabela;
     // End of variables declaration//GEN-END:variables
 }
