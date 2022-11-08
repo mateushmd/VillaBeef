@@ -1,31 +1,33 @@
 package com.villabeef.model.dto;
 
 public class ItemProduto {
-    private int id;
-    private int idProduto;
+    private String id;
+    private String idProduto = " ";
     private String validade;
     private boolean vendido;
     private double valor;
 
-    public ItemProduto(int id, int idProduto, String validade, double valor) {
+    public ItemProduto(String id, String validade, double valor) {
         this.id = id;
-        this.idProduto = idProduto;
         this.validade = validade;
         this.vendido = false;
         this.valor = valor;
-        
     }
 
-    public void setId(int id) {
+
+    public ItemProduto(String id, String idProduto, String validade, double valor) {
+        this(id, validade, valor);
+        
+        this.idProduto = idProduto;
+        
+    }
+    
+    public void setId(String id) {
         this.id = id;
     }
 
     public void setValor(double valor) {
         this.valor = valor;
-    }
-
-    public void setIdProduto(int idProduto) {
-        this.idProduto = idProduto;
     }
 
     public void setValidade(String validade) {
@@ -36,16 +38,18 @@ public class ItemProduto {
         this.vendido = vendido;
     }
 
-    public int getId() {
+    public void setIdProduto(String idProduto) {
+        this.idProduto = idProduto;
+    }
+    
+    
+
+    public String getId() {
         return id;
     }
 
     public double getValor() {
         return valor;
-    }
-
-    public int getIdProduto() {
-        return idProduto;
     }
 
     public String getValidade() {
@@ -59,5 +63,9 @@ public class ItemProduto {
     public boolean estaVencido() {
         return false;
     }
+
+    public String getIdProduto() {
+        return idProduto;
+    }   
 }
 
