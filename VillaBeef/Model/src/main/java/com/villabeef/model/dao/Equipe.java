@@ -53,9 +53,10 @@ public class Equipe {
             
             comando = conexao.createStatement();
 
-            resultado = comando.executeUpdate(sql);
+            resultado = excluir(funcionario) == true ? 1 : 0;
             
-            resultado = inserir(novo) == true ? 1 : 0;
+            if(resultado > 0)
+                resultado = inserir(novo) == true ? 1 : 0;
         } finally {
             ConexaoBD.fecharConexao(conexao, comando);
         }
@@ -220,4 +221,41 @@ public class Equipe {
         
         return funcionario;
     }
+    
+    public static HashSet<Funcionario> pesquisar(String pesquisa, int modo) throws ClassNotFoundException, SQLException {
+        HashSet<Funcionario> lista = Equipe.listar();
+        
+        HashSet<Funcionario> filtrado = new HashSet<>();
+        
+        String comparar = null;
+        
+        for(Funcionario f : lista) {
+            boolean possuiLetrasIguais = true;
+            
+            if(modo == 0) {
+                if(!Character.isDigit(pesquisa.charAt(0)))
+                    comparar = f.getNome();
+                else
+                    comparar = f.getId();
+            }
+            else
+                comparar = f.getFuncao();
+            
+            if(comparar.length() < pesquisa.length())
+                continue;
+            
+            for(int i = 0; i < pesquisa.length(); i++)
+            {
+                if(Character.toLowerCase(comparar.charAt(i)) - Character.toLowerCase(pesquisa.charAt(i)) == 0)
+                    continue;
+                
+                possuiLetrasIguais = false;
+            }
+            
+            if(possuiLetrasIguais)
+                filtrado.add(f);
+        }
+        
+        return filtrado;
+    }  
 }
