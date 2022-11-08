@@ -101,7 +101,7 @@ public class MenuGerente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuCadastrarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCadastrarProdutoActionPerformed
-        CadastroProduto c = new CadastroProduto(this, true);
+        RegistroProduto c = new RegistroProduto(this, true);
         c.setVisible(true);
     }//GEN-LAST:event_menuCadastrarProdutoActionPerformed
 
