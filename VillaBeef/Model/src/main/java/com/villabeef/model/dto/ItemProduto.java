@@ -2,7 +2,7 @@ package com.villabeef.model.dto;
 
 public class ItemProduto {
     private String id;
-    private String idProduto = " ";
+    private String idProduto = "";
     private String validade;
     private boolean vendido;
     private double valor;
