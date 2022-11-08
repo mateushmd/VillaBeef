@@ -28,6 +28,8 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
+        
+        setLocationRelativeTo(null);
     }
     
     /**
@@ -144,13 +146,9 @@ public class Login extends javax.swing.JFrame {
             if (retStatus == RET_OK) {
                 if(ManterUsuario.login(login.getText(), senha.getText())) {
                     
-                    Funcionarios funcionarios = new Funcionarios();
-                    funcionarios.setVisible(true);
-                    
-                    /*
-                    Estoque estoque = new Estoque();
-                    estoque.setVisible(true);
-                    */
+                    MenuGerencia m = new MenuGerencia();
+                    m.setVisible(true);
+                    m.setLocationRelativeTo(null);
                 }
                 else {
                     JOptionPane.showMessageDialog(rootPane, "Login ou senha incorretos.", "Erro", JOptionPane.WARNING_MESSAGE);

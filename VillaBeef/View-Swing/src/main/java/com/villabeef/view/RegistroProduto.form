@@ -183,7 +183,7 @@
     </Component>
     <Component class="java.awt.Label" name="label1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="ID"/>
+        <Property name="text" type="java.lang.String" value="ID:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="idField">

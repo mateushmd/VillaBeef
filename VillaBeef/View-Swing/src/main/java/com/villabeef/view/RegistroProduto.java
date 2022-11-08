@@ -124,7 +124,7 @@ public class RegistroProduto extends javax.swing.JDialog {
 
         labelValor1.setText("Valor:");
 
-        label1.setText("ID");
+        label1.setText("ID:");
 
         idField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
