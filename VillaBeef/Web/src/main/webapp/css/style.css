@@ -1,0 +1,75 @@
+@font-face {
+    font-family: "Gallient";
+    src: url(fonts/Gallient.ttf) format('truetype');
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
+header {
+    background: hsl(348deg 56% 19%);
+    color: wheat;
+    display: flex;
+    text-align: center;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    height: 80px;
+    font-family: 'Gallient';
+}
+
+body {
+    margin: 0;
+    background: wheat;
+    height: 100vh;
+}
+
+#header-logo {
+    position: absolute;
+    top: 10px;
+    left: 5px;
+    width: 60px;
+}
+
+#header-title {
+    margin: 0;
+    font-weight: 300;
+}
+
+.icon {
+    fill: wheat;
+    width: 80%;
+    position: relative;
+}
+
+.container {
+    width: 200px;
+    height: 200px;
+    background-color: hsl(348deg 56% 19%);
+    padding: 30px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    font-family: 'Lato', sans-serif;
+    color: wheat;
+    font-size: 22px;
+    cursor: pointer;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+article {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    width: 40%;
+    height: 70vh;
+    align-items: center;
+}
+
+#wrap-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
