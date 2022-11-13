@@ -1,6 +1,5 @@
 package com.villabeef.model.dto;
 
-import java.util.HashSet;
 import java.util.Set;
 
 public class Produto {
@@ -17,8 +16,7 @@ public class Produto {
         this.tipo = tipo;
         this.id = id;
         this.quantidadeMinima = quantidadeMinima;
-        this.itens = itens;
-        quantidade = this.itens.size();
+        quantidade = this.quantidade;
         
     }
     
