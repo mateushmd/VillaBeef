@@ -40,26 +40,10 @@ public class Equipe {
     }
 
     public static boolean alterar(Funcionario funcionario, Funcionario novo) throws ClassNotFoundException, SQLException {
-        String sql = "DELETE FROM equipe WHERE id = '" + funcionario.getId() + "'";
-        
-        Connection conexao = null;
-        
-        Statement comando = null;
-        
-        int resultado = 0;
-        
-        try {
-            conexao = ConexaoBD.getConexao();
+        int resultado = excluir(funcionario) == true ? 1 : 0;
             
-            comando = conexao.createStatement();
-
-            resultado = excluir(funcionario) == true ? 1 : 0;
-            
-            if(resultado > 0)
-                resultado = inserir(novo) == true ? 1 : 0;
-        } finally {
-            ConexaoBD.fecharConexao(conexao, comando);
-        }
+        if(resultado > 0)
+            resultado = inserir(novo) == true ? 1 : 0;
 
         return resultado > 0; 
     }
