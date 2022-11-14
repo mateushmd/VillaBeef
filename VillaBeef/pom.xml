@@ -24,7 +24,7 @@
                 
     
     <module>View-Swing</module>
-    <module>../../../Web</module>
+    <module>Web</module>
   </modules>
         
   
