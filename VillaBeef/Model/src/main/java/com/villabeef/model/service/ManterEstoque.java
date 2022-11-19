@@ -20,8 +20,8 @@ public class ManterEstoque {
          EstoqueDAO.inserir(produto, item);
      }
      
-     public static void alterar() {
-         
+     public static void alterar(Produto novoProduto, ItemProduto item, ItemProduto novoItem) throws ClassNotFoundException, SQLException {
+         EstoqueDAO.alterar(novoProduto, item, novoItem);
      }
      
      public static HashSet<ItemProduto> listar() throws ClassNotFoundException, SQLException {
@@ -32,8 +32,8 @@ public class ManterEstoque {
          return null;
      }
      
-     public static ItemProduto obter(int id){
-         return null;
+     public static ItemProduto obterPorId(String id) throws ClassNotFoundException, SQLException{
+         return EstoqueDAO.obterPorId(id);
      }
      
      public static ItemProduto obter(String marca) {
