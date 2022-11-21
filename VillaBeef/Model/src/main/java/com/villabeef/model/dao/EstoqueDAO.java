@@ -68,8 +68,35 @@ public class EstoqueDAO {
         return resultado > 0;
     }
     
-    public static boolean alterar(HashSet<Produto> produtos) {
-        return false;
+    public static boolean alterar(Produto novoProduto, ItemProduto item, ItemProduto novoItem) throws ClassNotFoundException, SQLException {
+        int resultado = excluir(item) == true ? 1 : 0;
+
+        if(resultado > 0) 
+            resultado = inserir(novoProduto, novoItem) == true ? 1 : 0;
+        
+        return resultado > 0;
+    }
+    
+    public static boolean excluir(ItemProduto produto) throws ClassNotFoundException, SQLException {
+        String sql = "DELETE FROM estoque WHERE id = '" + produto.getId() + "'";
+        
+        Connection conexao = null;
+        
+        Statement comando = null;
+        
+        int resultado = 0;
+        
+        try {
+            conexao = ConexaoBD.getConexao();
+            
+            comando = conexao.createStatement();
+
+            resultado = comando.executeUpdate(sql);
+        } finally {
+            ConexaoBD.fecharConexao(conexao, comando);
+        }
+
+        return resultado > 0;
     }
     
     public static HashSet<ItemProduto> listar() throws ClassNotFoundException, SQLException {
@@ -143,8 +170,35 @@ public class EstoqueDAO {
         return lista;
     }
     
-    public static ItemProduto obter(int id) {
-        return null;
+    public static ItemProduto obterPorId(String id) throws ClassNotFoundException, SQLException {
+        ItemProduto item = null;
+
+        String sql = "SELECT * FROM estoque WHERE id = '" + id + "'";
+        
+        Connection conexao = null;
+        
+        Statement comando = null;
+        
+        ResultSet rs = null;
+
+        try {
+
+            conexao = ConexaoBD.getConexao();
+            comando = conexao.createStatement();
+            
+            rs = comando.executeQuery(sql);
+            
+            while(rs.next()) {
+                item = new ItemProduto(rs.getString("id"),
+                        rs.getString("id_produto"),
+                        rs.getString("validade"),
+                        rs.getDouble("valor"));
+            }
+        } finally {
+            ConexaoBD.fecharConexao(conexao, comando, rs);
+        }
+        
+        return item;
     }
     
     

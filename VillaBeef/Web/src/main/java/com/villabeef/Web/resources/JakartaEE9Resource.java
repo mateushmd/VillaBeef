@@ -1,4 +1,4 @@
-package com.villabeef.Web.resources;
+package com.villabeef.web.resources;
 
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;

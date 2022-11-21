@@ -8,9 +8,12 @@ import com.villabeef.model.dto.ItemProduto;
 import com.villabeef.model.dto.Produto;
 import com.villabeef.model.service.ManterEstoque;
 import com.villabeef.model.service.ManterFuncionario;
+import com.villabeef.model.service.ManterProduto;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.HashSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -29,7 +32,7 @@ public class Estoque extends javax.swing.JFrame {
     public Estoque() {
         initComponents();
 
-        modelo = (DefaultTableModel) tabela.getModel();
+        modelo = (DefaultTableModel) tabelaEstoque.getModel();
         try {
             atualizarTabela(ManterEstoque.listar());
         } catch (ClassNotFoundException ex) {
@@ -76,7 +79,7 @@ public class Estoque extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tabela = new javax.swing.JTable();
+        tabelaEstoque = new javax.swing.JTable();
         jMenuBar2 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -91,18 +94,20 @@ public class Estoque extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        tabela.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaEstoque.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Tipo", "Marca", "ID", "Validade", "Valor"
             }
         ));
-        jScrollPane1.setViewportView(tabela);
+        tabelaEstoque.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaEstoqueMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tabelaEstoque);
 
         jMenu3.setText("Arquivo");
 
@@ -139,7 +144,7 @@ public class Estoque extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        /*RegistroProduto r = new RegistroProduto(this, true);
+        RegistroProduto r = new RegistroProduto(this, true);
         r.setVisible(true);
 
         try {
@@ -148,8 +153,25 @@ public class Estoque extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Ocorreu um erro inesperado.", "Erro", JOptionPane.ERROR_MESSAGE);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Falha na conexão com o banco de dados.", JOptionPane.ERROR_MESSAGE);
-        }*/
+        }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void tabelaEstoqueMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaEstoqueMouseClicked
+        try {
+            int index = tabelaEstoque.getSelectedRow();
+            
+            TableModel modelo = tabelaEstoque.getModel();
+            
+            VisualizarProduto v = new VisualizarProduto(this, true, ManterEstoque.obterPorId(modelo.getValueAt(index, 2).toString()));
+            v.setVisible(true);
+            
+            atualizarTabela(ManterEstoque.listar());
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Ocorreu um erro inesperado.", "Erro", JOptionPane.ERROR_MESSAGE);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Falha na conexão com o banco de dados.", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_tabelaEstoqueMouseClicked
 
     /**
      * @param args the command line arguments
@@ -196,6 +218,6 @@ public class Estoque extends javax.swing.JFrame {
     private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTable tabela;
+    private javax.swing.JTable tabelaEstoque;
     // End of variables declaration//GEN-END:variables
 }
