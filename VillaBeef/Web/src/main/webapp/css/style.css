@@ -99,7 +99,8 @@ article {
     padding: 30px!important;
 }
 
-.custom-table tbody td {
+.custom-table td,
+.custom-table th{
     color: wheat!important;
     opacity: 80%;
 }
