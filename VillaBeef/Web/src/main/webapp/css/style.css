@@ -32,6 +32,13 @@ body {
     width: 60px;
 }
 
+#header-back{
+    position: absolute;
+    top: 20px;
+    left: 10px;
+    width: 40px;
+}
+
 #header-title {
     margin: 0;
     font-weight: 300;
@@ -92,7 +99,8 @@ article {
     padding: 30px!important;
 }
 
-.custom-table tbody td {
+.custom-table td,
+.custom-table th{
     color: wheat!important;
     opacity: 80%;
 }
