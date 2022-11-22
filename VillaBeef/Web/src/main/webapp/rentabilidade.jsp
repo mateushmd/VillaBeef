@@ -40,9 +40,9 @@
                                 </label>
                             </th>
                             <th scope="col">ID</th>
-                            <th scope="col">Nome</th>
-                            <th scope="col">Ocupação</th>
-                            <th scope="col">Salário</th>
+                            <th scope="col">Vendedor</th>
+                            <th scope="col">Data</th>
+                            <th scope="col">Valor</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -61,6 +61,15 @@
                             </tr>
                         </c:forEach>
                     </tbody>
+                    <tfoot>
+                        <tr style="font-weight: 700">
+                            <th scope="row">Total</th>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>R$ 900,00</td>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>
