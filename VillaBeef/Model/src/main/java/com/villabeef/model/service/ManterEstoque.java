@@ -4,6 +4,7 @@
  */
 package com.villabeef.model.service;
 
+import com.villabeef.model.dao.Equipe;
 import com.villabeef.model.dao.EstoqueDAO;
 import com.villabeef.model.dto.ItemProduto;
 import com.villabeef.model.dto.Produto;
@@ -42,5 +43,9 @@ public class ManterEstoque {
     
     public static Produto obterProduto(String idProduto) throws ClassNotFoundException, SQLException {
         return EstoqueDAO.obterProduto(idProduto);
+    }
+    
+    public static void excluir (ItemProduto item) throws ClassNotFoundException, SQLException {
+        EstoqueDAO.excluir(item);
     }
 }
