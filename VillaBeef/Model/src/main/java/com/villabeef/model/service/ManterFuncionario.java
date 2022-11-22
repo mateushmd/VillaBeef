@@ -38,4 +38,8 @@ public class ManterFuncionario {
 
         return Equipe.pesquisar(pesquisa, modo);
     } 
+    
+    public static void excluir(Funcionario funcionario) throws ClassNotFoundException, SQLException {
+        Equipe.excluir(funcionario);
+    }
 }

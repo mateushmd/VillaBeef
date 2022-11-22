@@ -109,8 +109,10 @@ public class Estoque extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tabelaEstoque);
 
+        jMenu3.setMnemonic('A');
         jMenu3.setText("Arquivo");
 
+        jMenuItem1.setMnemonic('C');
         jMenuItem1.setText("Cadastrar produtos");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

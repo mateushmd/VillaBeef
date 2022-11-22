@@ -112,6 +112,7 @@ public class VisualizarProduto extends javax.swing.JDialog {
             }
         });
 
+        okButton.setMnemonic('O');
         okButton.setText("OK");
         okButton.setEnabled(false);
         okButton.addActionListener(new java.awt.event.ActionListener() {
@@ -120,6 +121,7 @@ public class VisualizarProduto extends javax.swing.JDialog {
             }
         });
 
+        cancelButton.setMnemonic('C');
         cancelButton.setText("Cancel");
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -163,6 +165,7 @@ public class VisualizarProduto extends javax.swing.JDialog {
             }
         });
 
+        jButton1.setMnemonic('E');
         jButton1.setText("Editar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -178,7 +181,6 @@ public class VisualizarProduto extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
