@@ -109,6 +109,7 @@ public class Funcionarios extends javax.swing.JFrame {
 
         filtro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nome / ID", "Função" }));
 
+        jMenu1.setMnemonic('A');
         jMenu1.setText("Arquivo");
         jMenu1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -116,6 +117,7 @@ public class Funcionarios extends javax.swing.JFrame {
             }
         });
 
+        jMenuItem1.setMnemonic('C');
         jMenuItem1.setText("Cadastrar funcionário");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

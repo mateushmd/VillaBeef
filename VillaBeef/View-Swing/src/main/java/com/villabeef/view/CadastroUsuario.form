@@ -76,7 +76,9 @@
   <SubComponents>
     <Component class="javax.swing.JButton" name="okButton">
       <Properties>
+        <Property name="mnemonic" type="int" value="79"/>
         <Property name="text" type="java.lang.String" value="OK"/>
+        <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="okButtonActionPerformed"/>
@@ -87,6 +89,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="cancelButton">
       <Properties>
+        <Property name="mnemonic" type="int" value="67"/>
         <Property name="text" type="java.lang.String" value="Cancelar"/>
         <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
