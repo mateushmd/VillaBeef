@@ -35,6 +35,8 @@ public class VisualizarProduto extends javax.swing.JDialog {
      */
     public static final int RET_OK = 1;
     
+    public static final int RET_EXCLUIR = 2;
+    
     Produto produto;
     ItemProduto item;
     
@@ -105,6 +107,7 @@ public class VisualizarProduto extends javax.swing.JDialog {
         label1 = new java.awt.Label();
         idField = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -173,6 +176,13 @@ public class VisualizarProduto extends javax.swing.JDialog {
             }
         });
 
+        jButton2.setText("Excluir");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -181,6 +191,9 @@ public class VisualizarProduto extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -239,7 +252,8 @@ public class VisualizarProduto extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelButton)
                     .addComponent(okButton)
-                    .addComponent(jButton1))
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
                 .addContainerGap())
         );
 
@@ -283,6 +297,14 @@ public class VisualizarProduto extends javax.swing.JDialog {
         idField.setEnabled(true);
         okButton.setEnabled(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+       int resultado = JOptionPane.showConfirmDialog(rootPane, "Remover item?", "Confirmação", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+       
+       if(resultado == JOptionPane.YES_OPTION)
+           doClose(RET_EXCLUIR);
+    }//GEN-LAST:event_jButton2ActionPerformed
     
     private void doClose(int retStatus) {
         try { 
@@ -301,6 +323,9 @@ public class VisualizarProduto extends javax.swing.JDialog {
                 
                 ManterEstoque.alterar(novoProduto, item, novoItem);
             } 
+            else if(retStatus == RET_EXCLUIR) {
+                ManterEstoque.excluir(item);
+            }
                        
             returnStatus = retStatus;
             setVisible(false);
@@ -316,6 +341,7 @@ public class VisualizarProduto extends javax.swing.JDialog {
     private javax.swing.JButton cancelButton;
     private javax.swing.JTextField idField;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private java.awt.Label label1;
     private java.awt.Label labelMarca;
     private java.awt.Label labelTipo;
