@@ -79,13 +79,16 @@ public class CadastroUsuario extends javax.swing.JDialog {
             }
         });
 
+        okButton.setMnemonic('O');
         okButton.setText("OK");
+        okButton.setToolTipText("");
         okButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 okButtonActionPerformed(evt);
             }
         });
 
+        cancelButton.setMnemonic('C');
         cancelButton.setText("Cancelar");
         cancelButton.setToolTipText("");
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
