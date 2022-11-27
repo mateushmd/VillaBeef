@@ -5,6 +5,7 @@
 package com.villabeef.view;
 
 import com.villabeef.model.service.ManterUsuario;
+import java.awt.Color;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import java.awt.event.KeyEvent;
@@ -24,6 +25,8 @@ public class Login extends javax.swing.JFrame {
      */
     public static final int RET_OK = 1;
     
+    private int mouseX, mouseY;
+    
     /**
      * Creates new form Login
      */
@@ -31,6 +34,8 @@ public class Login extends javax.swing.JFrame {
         initComponents();
         
         setLocationRelativeTo(null);
+        
+        getContentPane().requestFocusInWindow();
     }
     
     /**
@@ -49,117 +54,315 @@ public class Login extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        login = new javax.swing.JTextField();
-        label1 = new java.awt.Label();
-        label2 = new java.awt.Label();
-        senha = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        background = new javax.swing.JPanel();
+        empresa = new javax.swing.JPanel();
+        logo = new javax.swing.JLabel();
+        nome = new javax.swing.JLabel();
+        iniciarSessao = new javax.swing.JLabel();
+        senha = new javax.swing.JLabel();
+        usuarioCampo = new javax.swing.JTextField();
+        usuario = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        senhaCampo = new javax.swing.JPasswordField();
+        jSeparator2 = new javax.swing.JSeparator();
+        entrarButton = new javax.swing.JPanel();
+        entrarTxt = new javax.swing.JLabel();
+        cadastrarButton = new javax.swing.JPanel();
+        cadastrarTxt = new javax.swing.JLabel();
+        header = new javax.swing.JPanel();
+        fecharButton = new javax.swing.JPanel();
+        fecharTxt = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
+        setResizable(false);
+        setSize(new java.awt.Dimension(800, 500));
         addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 formKeyReleased(evt);
             }
         });
 
-        label1.setText("Usuário");
+        background.setBackground(new java.awt.Color(245, 222, 179));
+        background.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        label2.setText("Senha");
+        empresa.setBackground(new java.awt.Color(76, 21, 32));
+        empresa.setMaximumSize(new java.awt.Dimension(290, 500));
+        empresa.setMinimumSize(new java.awt.Dimension(290, 500));
+        empresa.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setMnemonic('E');
-        jButton1.setText("Entrar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logoB.png"))); // NOI18N
+        logo.setText("jLabel3");
+        logo.setPreferredSize(new java.awt.Dimension(128, 128));
+        empresa.add(logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(81, 117, -1, -1));
+
+        nome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/VILLA.png"))); // NOI18N
+        empresa.add(nome, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, -1, -1));
+
+        background.add(empresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 0, 280, 500));
+
+        iniciarSessao.setFont(new java.awt.Font("SansSerif", 1, 36)); // NOI18N
+        iniciarSessao.setForeground(new java.awt.Color(76, 21, 32));
+        iniciarSessao.setText("INICIAR SESSÃO");
+        background.add(iniciarSessao, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, -1, -1));
+
+        senha.setBackground(usuario.getBackground());
+        senha.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        senha.setForeground(empresa.getBackground());
+        senha.setText("SENHA");
+        background.add(senha, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, -1, -1));
+
+        usuarioCampo.setBackground(background.getBackground());
+        usuarioCampo.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        usuarioCampo.setForeground(java.awt.Color.gray);
+        usuarioCampo.setText("123.456.789-01");
+        usuarioCampo.setToolTipText("");
+        usuarioCampo.setBorder(null);
+        usuarioCampo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                usuarioCampoFocusGained(evt);
+            }
+        });
+        background.add(usuarioCampo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 400, 30));
+
+        usuario.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        usuario.setForeground(empresa.getBackground());
+        usuario.setText("USUÁRIO");
+        background.add(usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, -1, -1));
+
+        jSeparator1.setBackground(new java.awt.Color(0, 0, 0));
+        jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
+        background.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 360, 400, 10));
+
+        senhaCampo.setBackground(usuarioCampo.getBackground());
+        senhaCampo.setFont(usuarioCampo.getFont());
+        senhaCampo.setForeground(usuarioCampo.getForeground());
+        senhaCampo.setText("********");
+        senhaCampo.setBorder(null);
+        senhaCampo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                senhaCampoFocusGained(evt);
+            }
+        });
+        background.add(senhaCampo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, 400, 30));
+
+        jSeparator2.setBackground(new java.awt.Color(0, 0, 0));
+        jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
+        background.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, 400, 10));
+
+        entrarButton.setBackground(empresa.getBackground());
+        entrarButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        entrarTxt.setBackground(new java.awt.Color(187, 187, 187));
+        entrarTxt.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        entrarTxt.setForeground(new java.awt.Color(255, 255, 255));
+        entrarTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        entrarTxt.setText("ENTRAR");
+        entrarTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        entrarTxt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                entrarTxtMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                entrarTxtMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                entrarTxtMouseExited(evt);
             }
         });
 
-        jButton2.setMnemonic('C');
-        jButton2.setText("Cancelar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+        javax.swing.GroupLayout entrarButtonLayout = new javax.swing.GroupLayout(entrarButton);
+        entrarButton.setLayout(entrarButtonLayout);
+        entrarButtonLayout.setHorizontalGroup(
+            entrarButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(entrarTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+        );
+        entrarButtonLayout.setVerticalGroup(
+            entrarButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(entrarTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+        );
+
+        background.add(entrarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 390, 140, 50));
+
+        cadastrarButton.setBackground(empresa.getBackground());
+        cadastrarButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        cadastrarTxt.setBackground(new java.awt.Color(187, 187, 187));
+        cadastrarTxt.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        cadastrarTxt.setForeground(new java.awt.Color(255, 255, 255));
+        cadastrarTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        cadastrarTxt.setText("CADASTRAR");
+        cadastrarTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cadastrarTxt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cadastrarTxtMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                cadastrarTxtMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                cadastrarTxtMouseExited(evt);
             }
         });
 
-        jButton3.setMnemonic('a');
-        jButton3.setText("Cadastrar");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+        javax.swing.GroupLayout cadastrarButtonLayout = new javax.swing.GroupLayout(cadastrarButton);
+        cadastrarButton.setLayout(cadastrarButtonLayout);
+        cadastrarButtonLayout.setHorizontalGroup(
+            cadastrarButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(cadastrarTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+        );
+        cadastrarButtonLayout.setVerticalGroup(
+            cadastrarButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(cadastrarTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+        );
+
+        background.add(cadastrarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 390, 140, 50));
+
+        header.setBackground(background.getBackground());
+        header.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                headerMouseDragged(evt);
             }
         });
+        header.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                headerMousePressed(evt);
+            }
+        });
+        header.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        fecharButton.setBackground(background.getBackground());
+        fecharButton.setPreferredSize(new java.awt.Dimension(40, 40));
+
+        fecharTxt.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
+        fecharTxt.setForeground(iniciarSessao.getForeground());
+        fecharTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        fecharTxt.setText("X");
+        fecharTxt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                fecharTxtMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                fecharTxtMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                fecharTxtMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout fecharButtonLayout = new javax.swing.GroupLayout(fecharButton);
+        fecharButton.setLayout(fecharButtonLayout);
+        fecharButtonLayout.setHorizontalGroup(
+            fecharButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(fecharTxt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+        fecharButtonLayout.setVerticalGroup(
+            fecharButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(fecharTxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        header.add(fecharButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 40));
+
+        background.add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(login)
-                            .addComponent(senha)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 204, Short.MAX_VALUE)
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)))
-                .addContainerGap())
+            .addComponent(background, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(7, 7, 7)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(login, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(senha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
-                .addContainerGap())
+            .addComponent(background, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        doClose(RET_OK);
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        doClose(RET_CANCEL);
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        CadastroUsuario c = new CadastroUsuario(this, true);
-        c.setVisible(true);
-    }//GEN-LAST:event_jButton3ActionPerformed
-
     private void formKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyReleased
         
     }//GEN-LAST:event_formKeyReleased
+
+    private void headerMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_headerMousePressed
+//        mouseX = evt.getX();
+//        mouseY = evt.getY();
+    }//GEN-LAST:event_headerMousePressed
+
+    private void headerMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_headerMouseDragged
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        setLocation(x - mouseX, y - mouseY);
+    }//GEN-LAST:event_headerMouseDragged
+
+    private void fecharTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fecharTxtMouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_fecharTxtMouseClicked
+
+    private void fecharTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fecharTxtMouseEntered
+        fecharButton.setBackground(empresa.getBackground());
+        fecharTxt.setForeground(background.getBackground());
+    }//GEN-LAST:event_fecharTxtMouseEntered
+
+    private void fecharTxtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fecharTxtMouseExited
+        fecharButton.setBackground(background.getBackground());
+        fecharTxt.setForeground(empresa.getBackground());
+    }//GEN-LAST:event_fecharTxtMouseExited
+
+    private void entrarTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_entrarTxtMouseEntered
+        entrarButton.setBackground(new Color(119, 34, 51));
+    }//GEN-LAST:event_entrarTxtMouseEntered
+
+    private void entrarTxtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_entrarTxtMouseExited
+        entrarButton.setBackground(empresa.getBackground());
+    }//GEN-LAST:event_entrarTxtMouseExited
+
+    private void cadastrarTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cadastrarTxtMouseEntered
+        cadastrarButton.setBackground(new Color(119, 34, 51));
+    }//GEN-LAST:event_cadastrarTxtMouseEntered
+
+    private void cadastrarTxtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cadastrarTxtMouseExited
+        cadastrarButton.setBackground(empresa.getBackground());
+    }//GEN-LAST:event_cadastrarTxtMouseExited
+
+    private void entrarTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_entrarTxtMouseClicked
+        doClose(RET_OK);
+    }//GEN-LAST:event_entrarTxtMouseClicked
+
+    private void usuarioCampoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_usuarioCampoFocusGained
+        if(usuarioCampo.getText().equals("123.456.789-01")) {
+            usuarioCampo.setText("");
+            usuarioCampo.setForeground(Color.black);
+        }
+        
+        if(String.valueOf(senhaCampo.getPassword()).isEmpty()) {
+            senhaCampo.setText("********");
+            senhaCampo.setForeground(Color.gray);
+        }
+    }//GEN-LAST:event_usuarioCampoFocusGained
+
+    private void senhaCampoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_senhaCampoFocusGained
+        if(String.valueOf(senhaCampo.getPassword()).equals("********")) {
+            senhaCampo.setText("");
+            senhaCampo.setForeground(Color.black);
+        }
+        
+        if(usuarioCampo.getText().isEmpty()) {
+            usuarioCampo.setText("123.456.789-01");
+            usuarioCampo.setForeground(Color.gray);
+        }
+    }//GEN-LAST:event_senhaCampoFocusGained
+
+    private void cadastrarTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cadastrarTxtMouseClicked
+        CadastroUsuario c = new CadastroUsuario(this, true);
+        c.setVisible(true);
+    }//GEN-LAST:event_cadastrarTxtMouseClicked
     
     private void doClose(int retStatus) {
         try {
             if (retStatus == RET_OK) {
-                if(ManterUsuario.login(login.getText(), senha.getText())) {
+                if(ManterUsuario.login(usuarioCampo.getText(), String.valueOf(senhaCampo.getPassword()))) {
                     
-                    MenuGerencia m = new MenuGerencia();
+                    MenuGerencia1 m = new MenuGerencia1();
                     m.setVisible(true);
                     m.setLocationRelativeTo(null);
                 }
@@ -206,6 +409,9 @@ public class Login extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -216,13 +422,24 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private java.awt.Label label1;
-    private java.awt.Label label2;
-    private javax.swing.JTextField login;
-    private javax.swing.JTextField senha;
+    private javax.swing.JPanel background;
+    private javax.swing.JPanel cadastrarButton;
+    private javax.swing.JLabel cadastrarTxt;
+    private javax.swing.JPanel empresa;
+    private javax.swing.JPanel entrarButton;
+    private javax.swing.JLabel entrarTxt;
+    private javax.swing.JPanel fecharButton;
+    private javax.swing.JLabel fecharTxt;
+    private javax.swing.JPanel header;
+    private javax.swing.JLabel iniciarSessao;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JLabel logo;
+    private javax.swing.JLabel nome;
+    private javax.swing.JLabel senha;
+    private javax.swing.JPasswordField senhaCampo;
+    private javax.swing.JLabel usuario;
+    private javax.swing.JTextField usuarioCampo;
     // End of variables declaration//GEN-END:variables
     private int returnStatus = RET_CANCEL;
 }
