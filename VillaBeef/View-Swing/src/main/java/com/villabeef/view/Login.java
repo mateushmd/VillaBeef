@@ -7,6 +7,7 @@ package com.villabeef.view;
 import com.villabeef.model.service.ManterUsuario;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import java.awt.event.KeyEvent;
 
 /**
  *
@@ -57,11 +58,17 @@ public class Login extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                formKeyReleased(evt);
+            }
+        });
 
         label1.setText("Usuário");
 
         label2.setText("Senha");
 
+        jButton1.setMnemonic('E');
         jButton1.setText("Entrar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -69,6 +76,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setMnemonic('C');
         jButton2.setText("Cancelar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -76,6 +84,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        jButton3.setMnemonic('a');
         jButton3.setText("Cadastrar");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -140,6 +149,10 @@ public class Login extends javax.swing.JFrame {
         CadastroUsuario c = new CadastroUsuario(this, true);
         c.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void formKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyReleased
+        
+    }//GEN-LAST:event_formKeyReleased
     
     private void doClose(int retStatus) {
         try {

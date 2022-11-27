@@ -90,6 +90,7 @@ public class CadastroFuncionario extends javax.swing.JDialog {
             }
         });
 
+        okButton.setMnemonic('C');
         okButton.setText("Cadastrar");
         okButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -97,6 +98,7 @@ public class CadastroFuncionario extends javax.swing.JDialog {
             }
         });
 
+        cancelButton.setMnemonic('a');
         cancelButton.setText("Cancelar");
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

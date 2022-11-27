@@ -63,6 +63,7 @@ public class Produtos extends javax.swing.JFrame {
             jTable1.getColumnModel().getColumn(4).setResizable(false);
         }
 
+        jMenu1.setMnemonic('A');
         jMenu1.setText("Arquivo");
         jMenu1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -70,6 +71,7 @@ public class Produtos extends javax.swing.JFrame {
             }
         });
 
+        jMenuItem1.setMnemonic('C');
         jMenuItem1.setText("Cadastrar Produto");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

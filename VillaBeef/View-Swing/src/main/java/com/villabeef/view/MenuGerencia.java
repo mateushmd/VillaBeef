@@ -44,6 +44,7 @@ public class MenuGerencia extends javax.swing.JFrame {
 
         jButton4.setText("jButton4");
 
+        jButton5.setMnemonic('E');
         jButton5.setText("Estoque");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -51,6 +52,7 @@ public class MenuGerencia extends javax.swing.JFrame {
             }
         });
 
+        jButton6.setMnemonic('F');
         jButton6.setText("Funcionários");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
