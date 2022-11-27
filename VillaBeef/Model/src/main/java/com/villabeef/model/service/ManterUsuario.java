@@ -6,7 +6,7 @@
 package com.villabeef.model.service;
 
 import com.villabeef.common.FuncionarioInexistenteException;
-import com.villabeef.model.dao.Equipe;
+import com.villabeef.model.dao.EquipeDAO;
 import com.villabeef.model.dao.UsuarioDAO;
 import com.villabeef.model.dto.Funcionario;
 import com.villabeef.model.dto.Usuario;
@@ -25,7 +25,7 @@ public class ManterUsuario {
     }
     
     public static void cadastrar(String login, String senha) throws ClassNotFoundException, SQLException, FuncionarioInexistenteException {
-        if(Equipe.obterPorId(login) == null)
+        if(EquipeDAO.obterPorId(login) == null)
             throw new FuncionarioInexistenteException("O funcionário deve ser registrado antes de possuir acesso ao sistema.");
         
         Usuario usuario = new Usuario(login, senha, null);
