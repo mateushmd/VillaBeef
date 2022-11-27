@@ -15,6 +15,11 @@
         <link rel="stylesheet" href="css/owl.carousel.min.css">
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/table.css">
+        <link rel="stylesheet" href="css/form.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
     </head>
     <body>
 
@@ -63,20 +68,38 @@
                     </tbody>
                     <tfoot>
                         <tr style="font-weight: 700">
-                            <th scope="row">Total</th>
+                            <th scope="row">Lucro</th>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>R$ 700,00</td>
+                        </tr>
+                    </tfoot>
+                    <tfoot>
+                        <tr style="font-weight: 700">
+                            <th scope="row">Total Líquido</th>
                             <td></td>
                             <td></td>
                             <td></td>
                             <td>R$ 900,00</td>
                         </tr>
                     </tfoot>
+                    <tfoot>
+                        <tr style="font-weight: 700">
+                            <th scope="row">Impostos</th>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>R$ 200,00</td>
+                        </tr>
+                    </tfoot>
+                    
                 </table>
             </div>
-        </div>
         <script src="js/jquery-3.3.1.min.js"></script>
         <script src="js/popper.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/main.js"></script>
     </body>
 </html>
-
+          

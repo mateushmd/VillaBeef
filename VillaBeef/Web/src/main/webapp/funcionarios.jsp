@@ -15,6 +15,11 @@
         <link rel="stylesheet" href="css/owl.carousel.min.css">
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/table.css">
+        <link rel="stylesheet" href="css/form.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
     </head>
     <body>
 
@@ -62,12 +67,98 @@
                         </c:forEach>
                     </tbody>
                 </table>
+                <div id="commands">
+                    <p class="commands-text" onclick="document.getElementById('cadastroFun').classList.toggle('visible')" id="commands-cadastrar">Cadastrar</p>
+                    <p class="commands-text" onclick="document.getElementById('editarFun').classList.toggle('visible')">Editar</p>
+                    <p class="commands-text" onclick="document.getElementById('removerFun').classList.toggle('visible')">Remover</p>
+                  </div>
+                </div>
+                <div class="modal modal-wrap" id="cadastroFun">
+                  <div class="wrap">
+                    <form>
+                        <div class="form-body">
+                            <fieldset>
+                                <legend><i class="fa fa-user"></i> Cadastrar Novo Funcionário</legend>
+                                <label for="fname">Nome Completo</label>
+                                <input type="text" id="fname" name="fname" required="">
+                                <label for="cpf">CPF</label>
+                                <input type="text" id="cpf" name="cpf" required="" max="11">
+                                <label for="address">Conta Bancária</label>
+                                <input type="text" id="conta" name="conta" required="">
+                                <label for="funcao">Função</label>
+                                <select id="funcao" name="funcao" required="">
+                                    <option value=""></option>
+                                    <option value="AL">Gerente</option>
+                                    <option value="AK">Caixa</option>
+                                    <option value="AZ">Funcionário</option>
+                                </select>
+                                <label for="zip">Salário</label>
+                                <input type="text" id="salario" name="salario" required="">
+                            </fieldset>
+                            <fieldset>
+                                <legend><i class="fa fa-lock"></i> Login</legend>
+                                <label for="cr_password">Senha</label>
+                                <input type="password" id="cr_password" name="cr_password" required="">
+                            </fieldset>
+                        </div>
+                        <div class="form-footer">
+                            <input type="submit" value="Cadastrar">
+                            <p class="btn-cancelar" onclick="document.getElementById('cadastroFun').classList.toggle('visible')">Cancelar</p>
+                        </div>
+                    </form>
+                  </div>
+                </div>
+                <div class="modal modal-wrap" id="editarFun">
+                    <div class="wrap">
+                      <form>
+                          <div class="form-body">
+                              <fieldset>
+                                  <legend><i class="fa fa-user"></i> Editar Funcionário</legend>
+                                  <label for="fname">Nome Completo</label>
+                                  <input type="text" id="fname" name="fname" required="">
+                                  <label for="cpf">CPF</label>
+                                  <input type="text" id="cpf" name="cpf" required="" max="11">
+                                  <label for="address">Conta Bancária</label>
+                                  <input type="text" id="conta" name="conta" required="">
+                                  <label for="funcao">Função</label>
+                                  <select id="funcao" name="funcao" required="">
+                                      <option value=""></option>
+                                      <option value="AL">Gerente</option>
+                                      <option value="AK">Caixa</option>
+                                      <option value="AZ">Funcionário</option>
+                                  </select>
+                                  <label for="zip">Salário</label>
+                                  <input type="text" id="salario" name="salario" required="">
+                              </fieldset>
+                          </div>
+                          <div class="form-footer">
+                              <input type="submit" value="Confirmar">
+                              <p class="btn-cancelar" onclick="document.getElementById('editarFun').classList.toggle('visible')">Cancelar</p>
+                          </div>
+                      </form>
+                    </div>
+                  </div>
+                <div class="modal modal-wrap" id="removerFun">
+                    <div class="wrap">
+                      <form>
+                            <div class="form-body">
+                                <legend><i class="fa fa-user"></i> Remover Funcionário</legend>
+                                <p>Deseja mesmo remover o funcionário <span id="span-remover-fun" style="font-weight: 600;">Gustavo</span>?</p>
+                            </div>
+                            <div class="form-footer">
+                              <input type="submit" value="Remover">
+                              <p class="btn-cancelar" onclick="document.getElementById('removerFun').classList.toggle('visible')">Cancelar</p>
+                            </div>
+                      </form>
+                    </div>
+                </div>
             </div>
-        </div>
         <script src="js/jquery-3.3.1.min.js"></script>
         <script src="js/popper.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/main.js"></script>
+        <script src="js/mask.js"></script>
     </body>
 </html>
+
 

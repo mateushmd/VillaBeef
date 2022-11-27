@@ -1,0 +1,152 @@
+.wrap {
+    margin: 15px;
+    max-width: 600px;
+    width: 100%;
+    z-index: 999;
+}
+
+form{
+    color: hsl(348deg 56% 19%);
+}
+
+.form-header {
+    background-color: #45CAE6;
+    border-radius: 4px 4px 0 0;
+    padding: 1em;
+}
+
+.form-header h2 {
+    color: wheat;
+    font-weight: 700;
+    font-size: 1.75em;
+    margin: 0;
+}
+
+.form-body {
+    background-color: wheat;
+    padding: 1em;
+    border-radius: 0.375rem 0.375rem 0 0;
+    border: 1px solid hsl(348deg 56% 19%);
+}
+
+.form-body label,
+.form-body input,
+.form-body select,
+.form-body textarea {
+    display: block;
+    width: 100%;
+}
+
+.form-body label {
+    font-size: .8em;
+    font-weight: 700;
+    line-height: 1;
+    margin: .75em 0 .25em;
+}
+
+.form-body input,
+.form-body select,
+.form-body textarea {
+    background-color: #f4f4f4;
+    border: none;
+    border-radius: 4px;
+    padding: .25em;
+}
+
+.form-body fieldset {
+    border: none;
+    margin: 0 0 1em;
+    padding: 0;
+}
+
+.form-body fieldset:last-of-type {
+    margin-bottom: 0;
+}
+
+.form-body fieldset legend {
+    font-size: 1.25em;
+    font-weight: 700;
+}
+
+.form-footer {
+    background-color: hsl(348deg 56% 19%);
+    border-radius: 0 0 4px 4px;
+    padding: 1em;
+    display: flex;
+    align-items: center;
+}
+
+.form-footer input[type="submit"] {
+    background-color: wheat;
+    border: none;
+    border-radius: 4px;
+    color: hsl(348deg 56% 19%);
+    padding: 1em 1.5em;
+}
+
+/******** Subscription option actions ********/
+.sub-opts input[name="subscription"] {
+    display: none;
+}
+
+.sub-opts input[name="subscription"]+.sub-opt {
+    background-color: #f4f4f4;
+    border-radius: 4px;
+    font-weight: 700;
+}
+
+.sub-opts input[name="subscription"]:checked+.sub-opt {
+    background-color: #09C775;
+    color: #fff;
+}
+
+.sub-opts input[name="subscription"]+.sub-opt .sub-label .fa {
+    display: none;
+}
+
+.sub-opts input[name="subscription"]:checked+.sub-opt .sub-label .fa {
+    display: inline-block;
+}
+
+.sub-opts .sub-opt .sub-label {
+    display: block;
+    cursor: pointer;
+    font-size: 1em;
+    padding: 1em;
+}
+
+.sub-opts .sub-opt .sub-label span.price {
+    display: inline-block;
+    float: right;
+}
+
+.btn-cancelar{
+    padding: 1em 1.5em;
+    margin: 0;
+    color: wheat;
+    cursor: pointer;
+}
+
+.modal-wrap{
+    display: flex!important;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 150ms;
+}
+
+.modal::before{
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: rgba(0,0,0,.3);
+    z-index: 5;
+}
+
+.visible{
+    opacity: 1;
+    visibility: visible;
+}
+
