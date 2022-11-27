@@ -34,10 +34,9 @@
                 </label>
               </th>
               <th scope="col">ID</th>
-              <th scope="col">Nome</th>
-              <th scope="col">Ocupação</th>
-              <th scope="col">Contato</th>
-              <th scope="col">Formação</th>
+              <th scope="col">Data</th>
+              <th scope="col">Produto</th>
+              <th scope="col">Valor</th>
             </tr>
           </thead>
           <tbody>
@@ -49,10 +48,9 @@
                 </label>
               </th>
               <td>001</td>
-              <td>Mateus Henrique</td>
-              <td>Gerente</td>
-              <td>+63 983 0962 971</td>
-              <td>NY University</td>
+              <td>26/11</td>
+              <td>Carne</td>
+              <td>R$ 29,00</td>
             </tr>
             <tr>
               <th scope="row">
@@ -62,10 +60,9 @@
                 </label>
               </th>
               <td>002</td>
-              <td>Gustavo Henrique</td>
-              <td>Graphic Designer</td>
-              <td>+02 020 3994 929</td>
-              <td>London College</td>
+              <td>23/11</td>
+              <td>Carne</td>
+              <td>R$ 47,90</td>
             </tr>
             <tr>
               <th scope="row">
@@ -75,10 +72,9 @@
                 </label>
               </th>
               <td>003</td>
-              <td>Sofia Luiz</td>
-              <td>Caixa</td>
-              <td>+01 352 1125 0192</td>
-              <td>Senior High</td>
+              <td>27/11</td>
+              <td>Carne</td>
+              <td>R$ 15,50</td>
             </tr>
             <tr>
               <th scope="row">
@@ -88,45 +84,74 @@
                 </label>
               </th>
               <td>004</td>
-              <td>Davi Assunção</td>
-              <td>Funcionário</td>
-              <td>+92 020 3994 929</td>
-              <td>College</td>
+              <td>24/11</td>
+              <td>Carne</td>
+              <td>R$ 7,60</td>
             </tr>
           </tbody>
         </table>
         <div id="commands">
-          <p class="commands-text" onclick="document.getElementById('cadastroFun').classList.toggle('visible')" id="commands-cadastrar">Cadastrar</p>
-          <p class="commands-text">Editar</p>
-          <p class="commands-text">Remover</p>
+          <p class="commands-text" onclick="document.getElementById('cadastroVen').classList.toggle('visible')" id="commands-cadastrar">Cadastrar</p>
+          <p class="commands-text" onclick="document.getElementById('editarVen').classList.toggle('visible')">Editar</p>
+          <p class="commands-text" onclick="document.getElementById('removerVen').classList.toggle('visible')">Remover</p>
         </div>
       </div>
-      <div class="modal modal-wrap" id="cadastroFun">
+      <div class="modal modal-wrap" id="cadastroVen">
         <div class="wrap">
           <form>
               <div class="form-body">
                   <fieldset>
                       <legend><i class="fa fa-user"></i> Cadastrar Venda</legend>
                       <label for="id">ID</label>
-                      <input type="text" id="id" name="id" required="">
+                      <input type="number" id="id" name="id" required="">
                       <label for="data">Data</label>
-                      <input type="text" id="cpf" name="cpf" required="" placeholder="123.456.789-01">
-                      <label for="address">Conta Bancária</label>
-                      <input type="text" id="conta" name="conta" required="">
-                      <label for="funcao">Função</label>
-                      <select id="funcao" name="funcao" required="">
-                          <option value=""></option>
-                          <option value="AL">Gerente</option>
-                          <option value="AK">Caixa</option>
-                          <option value="AZ">Funcionário</option>
-                      </select>
-                      <label for="zip">Salário</label>
-                      <input type="number" id="zip" name="zip" required="">
+                      <input type="date" id="data" name="data" required="">
+                      <label for="produto">Produto</label>
+                      <input type="text" id="produto" name="produto">
+                      <label for="valor">Valor</label>
+                      <input type="number" id="valor" name="valor" required="">
                   </fieldset>
               </div>
               <div class="form-footer">
                   <input type="submit" value="Cadastrar">
-                  <p class="btn-cancelar" onclick="document.getElementById('cadastroFun').classList.toggle('visible')">Cancelar</p>
+                  <p class="btn-cancelar" onclick="document.getElementById('cadastroVen').classList.toggle('visible')">Cancelar</p>
+              </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal modal-wrap" id="editarVen">
+        <div class="wrap">
+          <form>
+              <div class="form-body">
+                  <fieldset>
+                      <legend><i class="fa fa-user"></i> Editar Venda</legend>
+                      <label for="id">ID</label>
+                      <input type="number" id="id" name="id" required="">
+                      <label for="data">Data</label>
+                      <input type="date" id="data" name="data" required="">
+                      <label for="produto">ID do Produto</label>
+                      <input type="text" id="produto" name="produto" required="">
+                      <label for="valor">Valor</label>
+                      <input type="number" id="valor" name="valor" required="">
+                  </fieldset>
+              </div>
+              <div class="form-footer">
+                  <input type="submit" value="Confirmar">
+                  <p class="btn-cancelar" onclick="document.getElementById('editarVen').classList.toggle('visible')">Cancelar</p>
+              </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal modal-wrap" id="removerVen">
+        <div class="wrap">
+          <form>
+              <div class="form-body">
+                  <legend><i class="fa fa-user"></i> Remover Venda</legend>
+                  <p>Deseja mesmo remover a venda <span id="span-remover-ven" style="font-weight: 600;">001</span>?</p>
+              </div>
+              <div class="form-footer">
+                <input type="submit" value="Remover">
+                <p class="btn-cancelar" onclick="document.getElementById('removerVen').classList.toggle('visible')">Cancelar</p>
               </div>
           </form>
         </div>
@@ -136,5 +161,6 @@
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/mask.js"></script>
     </body>
 </html>
