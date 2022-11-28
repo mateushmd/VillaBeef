@@ -13,9 +13,10 @@ import java.sql.Date;
 public class Conta {
     private Date data;
     private char tipo; //e = entrada; s = saida;
+    private String descricao;
     private double valor;
 
-    public Conta(Date data, char tipo, double valor) {
+    public Conta(Date data, char tipo, String descricao, double valor) {
         this.data = data;
         this.tipo = tipo;
         this.valor = tipo == 'e' ? valor : (valor * -1);
@@ -28,6 +29,10 @@ public class Conta {
     public void setTipo(char tipo) {
         this.tipo = tipo;
     }
+    
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
 
     public void setValor(double valor) {
         this.valor = valor;
@@ -39,6 +44,10 @@ public class Conta {
 
     public char getTipo() {
         return tipo;
+    }
+    
+    public String getDescricao() {
+        return descricao;
     }
 
     public double getValor() {

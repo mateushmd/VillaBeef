@@ -35,6 +35,10 @@ public class EstoqueDAO {
             
             if(rs.next()) {
                 produto.setId(rs.getString("id"));
+                
+                sql = "UPDATE produtos SET quantidade+1 WHERE id = '" + produto.getId() + "'";
+                
+                resultado = comando.executeUpdate(sql);
             }
             else {
                 sql = "SELECT COUNT(*) FROM produtos";
@@ -77,8 +81,8 @@ public class EstoqueDAO {
         return resultado > 0;
     }
     
-    public static boolean excluir(ItemProduto produto) throws ClassNotFoundException, SQLException {
-        String sql = "DELETE FROM estoque WHERE id = '" + produto.getId() + "'";
+    public static boolean excluir(ItemProduto itemProduto) throws ClassNotFoundException, SQLException {
+        String sql = "DELETE FROM estoque WHERE id = '" + itemProduto.getId() + "'";
         
         Connection conexao = null;
         
@@ -92,6 +96,12 @@ public class EstoqueDAO {
             comando = conexao.createStatement();
 
             resultado = comando.executeUpdate(sql);
+            
+            if(resultado > 0) {
+                sql = "UPDATE produto SET quantidade-1 WHERE id = '" + itemProduto.getIdProduto() + "'";
+
+                resultado = comando.executeUpdate(sql);
+            }
         } finally {
             ConexaoBD.fecharConexao(conexao, comando);
         }
