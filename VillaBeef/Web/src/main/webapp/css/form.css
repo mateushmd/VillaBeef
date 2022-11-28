@@ -37,7 +37,8 @@ form{
     width: 100%;
 }
 
-.form-body label {
+.form-body label,
+wrap-input label {
     font-size: .8em;
     font-weight: 700;
     line-height: 1;
@@ -46,14 +47,18 @@ form{
 
 .form-body input,
 .form-body select,
-.form-body textarea {
+.form-body textarea,
+.wrap-input input,
+.wrap-input select,
+.wrap-input textarea {
     background-color: #f4f4f4;
     border: none;
     border-radius: 4px;
     padding: .25em;
 }
 
-.form-body fieldset {
+.form-body fieldset,
+wrap-input fieldset {
     border: none;
     margin: 0 0 1em;
     padding: 0;
@@ -149,4 +154,31 @@ form{
     opacity: 1;
     visibility: visible;
 }
+
+.wrap-input{
+    display: inline-block;
+    padding-top: 0;
+    border: none!important;
+    color: hsl(348deg 56% 19%);
+    width: 8rem;
+}
+
+.caixa-footer input{
+    background-color: hsl(348deg 56% 19%);
+    border: none;
+    border-radius: 4px;
+    color: wheat;
+    padding: 1em 1.5em;
+}
+
+.caixa-footer{
+    display: flex;
+    padding: 1em;
+    justify-content: flex-end;
+}
+
+.caixa-footer input:hover{
+    background-color: hsl(348deg 56% 30%);
+}
+
 
