@@ -137,3 +137,25 @@ main{
 .table tr:hover{
     background-color: hsl(348deg 56% 30%);
 }
+
+#commands{
+    display: flex;
+    justify-content: flex-end;
+    position: relative;
+}
+
+.commands-text{
+    padding: .375rem .5rem;
+    color: hsl(348deg 56% 19%);
+    cursor: pointer;
+
+}
+
+#commands-cadastrar{
+    position: absolute;
+    left: 0;
+}
+
+.commands-text:hover{
+    color: hsl(348deg 56% 30%);
+}

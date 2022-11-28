@@ -63,7 +63,7 @@ thead{
 
 .control__indicator:after {
   font-family: 'icomoon';
-  content: '\e5ca';
+  content: '+';
   position: absolute;
   display: none; }
 

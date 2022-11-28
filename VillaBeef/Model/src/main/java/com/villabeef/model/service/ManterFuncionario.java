@@ -4,7 +4,7 @@
  */
 package com.villabeef.model.service;
 
-import com.villabeef.model.dao.Equipe;
+import com.villabeef.model.dao.EquipeDAO;
 import com.villabeef.model.dto.Funcionario;
 import java.sql.SQLException;
 import java.util.HashSet;
@@ -17,29 +17,29 @@ public class ManterFuncionario {
     private ManterFuncionario() {}
     
     public static void adicionar(String nome, double salario, String conta, String funcao, String cpf) throws ClassNotFoundException, SQLException {
-        Equipe.inserir(new Funcionario(nome, salario, conta, funcao, cpf));
+        EquipeDAO.inserir(new Funcionario(nome, salario, conta, funcao, cpf));
     }
     
     public static void alterar(Funcionario funcionario, Funcionario novo) throws ClassNotFoundException, SQLException {
-        Equipe.alterar(funcionario, novo);
+        EquipeDAO.alterar(funcionario, novo);
     }   
     
     public static HashSet<Funcionario> listar() throws ClassNotFoundException, SQLException {
-        return Equipe.listar();
+        return EquipeDAO.listar();
     }
     
     public static Funcionario obterPorId(String id) throws ClassNotFoundException, SQLException {
-        return Equipe.obterPorId(id);
+        return EquipeDAO.obterPorId(id);
     }
     
     public static HashSet<Funcionario> pesquisar(String pesquisa, int modo) throws ClassNotFoundException, SQLException {
         if(pesquisa.isBlank())
-            return Equipe.listar();
+            return EquipeDAO.listar();
 
-        return Equipe.pesquisar(pesquisa, modo);
+        return EquipeDAO.pesquisar(pesquisa, modo);
     } 
     
     public static void excluir(Funcionario funcionario) throws ClassNotFoundException, SQLException {
-        Equipe.excluir(funcionario);
+        EquipeDAO.excluir(funcionario);
     }
 }

@@ -4,21 +4,26 @@
  */
 package com.villabeef.model.service;
 
-import com.villabeef.model.dao.Equipe;
+import com.villabeef.model.dao.EquipeDAO;
 import com.villabeef.model.dao.EstoqueDAO;
 import com.villabeef.model.dto.ItemProduto;
 import com.villabeef.model.dto.Produto;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.HashSet;
 
 public class ManterEstoque {
     
-     public static void inserir(String tipo, String marca, double valor, String validade, String id) throws ClassNotFoundException, SQLException {
+     public static void inserir(String tipo, String marca, double valorCompra, double valorVenda, String validade, String id) throws ClassNotFoundException, SQLException, ParseException {
          Produto produto = new Produto("", marca, tipo, 0, 0);
          
-         ItemProduto item = new ItemProduto(id, "", validade, valor);
+         ItemProduto item = new ItemProduto(id, "", validade, valorVenda);
          
          EstoqueDAO.inserir(produto, item);
+         
+         ManterConta.inserir(Date.valueOf(LocalDate.now()).toString(), 's', valorCompra);
      }
      
      public static void alterar(Produto novoProduto, ItemProduto item, ItemProduto novoItem) throws ClassNotFoundException, SQLException {

@@ -73,12 +73,12 @@
                     </tbody>
                 </table>
                 <div id="commands">
-                    <p class="commands-text" onclick="document.getElementById('cadastroFun').classList.toggle('visible')" id="commands-cadastrar">Cadastrar</p>
-                    <p class="commands-text">Editar</p>
-                    <p class="commands-text">Remover</p>
+                    <p class="commands-text" onclick="document.getElementById('cadastroProd').classList.toggle('visible')" id="commands-cadastrar">Cadastrar</p>
+                    <p class="commands-text" onclick="document.getElementById('editarProd').classList.toggle('visible')">Editar</p>
+                    <p class="commands-text" onclick="document.getElementById('removerProd').classList.toggle('visible')">Remover</p>
                   </div>
                 </div>
-                <div class="modal modal-wrap" id="cadastroFun">
+                <div class="modal modal-wrap" id="cadastroProd">
                   <div class="wrap">
                     <form>
                         <div class="form-body">
@@ -91,23 +91,63 @@
                                 <label for="id">ID</label>
                                 <input type="text" id="id" name="id" required="">
                                 <label for="validade">Validade</label>
-                                <input type="text" id="validade" name="validade" required="">
+                                <input type="date" id="validade" name="validade" required="">
                                 <label for="valor">Valor</label>
                                 <input type="number" id="valor" name="valor" required="">
                             </fieldset>
                         </div>
                         <div class="form-footer">
                             <input type="submit" value="Cadastrar">
-                            <p class="btn-cancelar" onclick="document.getElementById('cadastroFun').classList.toggle('visible')">Cancelar</p>
+                            <p class="btn-cancelar" onclick="document.getElementById('cadastroProd').classList.toggle('visible')">Cancelar</p>
                         </div>
                     </form>
                   </div>
+                </div>
+                <div class="modal modal-wrap" id="editarProd">
+                    <div class="wrap">
+                        <form>
+                            <div class="form-body">
+                              <fieldset>
+                                  <legend><i class="fa fa-user"></i>Editar Produto</legend>
+                                  <label for="tipo">Tipo</label>
+                                  <input type="text" id="tipo" name="tipo" required="">
+                                  <label for="marca">Marca</label>
+                                  <input type="text" id="marca" name="marca" required="">
+                                  <label for="id">ID</label>
+                                  <input type="text" id="id" name="id" required="">
+                                  <label for="validade">Validade</label>
+                                  <input type="date" id="validade" name="validade" required="">
+                                  <label for="valor">Valor</label>
+                                  <input type="number" id="valor" name="valor" required="">
+                              </fieldset>
+                            </div>
+                            <div class="form-footer">
+                              <input type="submit" value="Confirmar">
+                              <p class="btn-cancelar" onclick="document.getElementById('editarProd').classList.toggle('visible')">Cancelar</p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal modal-wrap" id="removerProd">
+                    <div class="wrap">
+                      <form>
+                          <div class="form-body">
+                              <legend><i class="fa fa-user"></i> Remover Produto</legend>
+                              <p>Deseja mesmo remover o produto <span id="span-remover-ven" style="font-weight: 600;">001</span>?</p>
+                          </div>
+                          <div class="form-footer">
+                            <input type="submit" value="Remover">
+                            <p class="btn-cancelar" onclick="document.getElementById('removerProd').classList.toggle('visible')">Cancelar</p>
+                          </div>
+                      </form>
+                    </div>
                 </div>
             </div>
         <script src="js/jquery-3.3.1.min.js"></script>
         <script src="js/popper.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/main.js"></script>
+        <script src="js/mask.js"></script>
     </body>
 </html>
 

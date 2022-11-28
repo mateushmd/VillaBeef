@@ -4,23 +4,25 @@
  */
 package com.villabeef.model.dto;
 
+import java.sql.Date;
+
 /**
  *
  * @author aluno
  */
 public class Conta {
-    private String data;
+    private Date data;
     private char tipo; //e = entrada; s = saida;
     private double valor;
 
-    public Conta(String data, char tipo, double valor) {
+    public Conta(Date data, char tipo, double valor) {
         this.data = data;
         this.tipo = tipo;
-        this.valor = valor;
+        this.valor = tipo == 'e' ? valor : (valor * -1);
     }
 
     public void setData(String data) {
-        this.data = data;
+        this.data = Date.valueOf(data);
     }
 
     public void setTipo(char tipo) {
@@ -31,7 +33,7 @@ public class Conta {
         this.valor = valor;
     }
 
-    public String getData() {
+    public Date getData() {
         return data;
     }
 

@@ -12,9 +12,9 @@ import java.sql.Statement;
 import java.util.HashSet;
 
 
-public class Equipe {
+public class EquipeDAO {
 
-    private Equipe() {}
+    private EquipeDAO() {}
     
     public static boolean inserir(Funcionario funcionario) throws ClassNotFoundException, SQLException {
         String sql = "INSERT INTO equipe VALUES('" + funcionario.getId() + "', '" + funcionario.getNome() + "', '"
@@ -207,7 +207,7 @@ public class Equipe {
     }
     
     public static HashSet<Funcionario> pesquisar(String pesquisa, int modo) throws ClassNotFoundException, SQLException {
-        HashSet<Funcionario> lista = Equipe.listar();
+        HashSet<Funcionario> lista = EquipeDAO.listar();
         
         HashSet<Funcionario> filtrado = new HashSet<>();
         
