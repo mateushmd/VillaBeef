@@ -7,12 +7,12 @@ public class Venda {
     
     private int id;
     private String data;
-    private Set<Produto> produtos;
+    private HashSet<ItemProduto> itens;
     
-    public Venda(int id, String data, HashSet<Produto>produtos) {
+    public Venda(int id, String data, HashSet<ItemProduto> itens) {
         this.id = id;
         this.data = data;
-        this.produtos = produtos;
+        this.itens = itens;
     }
 
     public int getId() {
@@ -23,8 +23,8 @@ public class Venda {
         return data;
     }
 
-    public Set<Produto> getProdutos() {
-        return produtos;
+    public HashSet<ItemProduto> getItens() {
+        return itens;
     }
 
     public void setId(int id) {
@@ -35,9 +35,7 @@ public class Venda {
         this.data = data;
     }
 
-    public void setProdutos(HashSet<Produto> produtos) {
-        this.produtos = produtos;
+    public void setItens(HashSet<ItemProduto> itens) {
+        this.itens = itens;
     }
-    
-    
 }

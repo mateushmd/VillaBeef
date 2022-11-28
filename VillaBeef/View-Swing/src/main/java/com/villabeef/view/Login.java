@@ -362,7 +362,7 @@ public class Login extends javax.swing.JFrame {
             if (retStatus == RET_OK) {
                 if(ManterUsuario.login(usuarioCampo.getText(), String.valueOf(senhaCampo.getPassword()))) {
                     
-                    MenuGerencia1 m = new MenuGerencia1();
+                    MenuGerencia m = new MenuGerencia();
                     m.setVisible(true);
                     m.setLocationRelativeTo(null);
                 }
