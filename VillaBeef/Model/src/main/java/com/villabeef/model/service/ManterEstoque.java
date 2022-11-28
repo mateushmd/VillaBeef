@@ -4,20 +4,26 @@
  */
 package com.villabeef.model.service;
 
+import com.villabeef.model.dao.EquipeDAO;
 import com.villabeef.model.dao.EstoqueDAO;
 import com.villabeef.model.dto.ItemProduto;
 import com.villabeef.model.dto.Produto;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.HashSet;
 
 public class ManterEstoque {
     
-     public static void inserir(String tipo, String marca, double valor, String validade, String id) throws ClassNotFoundException, SQLException {
-         Produto produto = new Produto("", marca, tipo, 0, 0);
+     public static void inserir(String tipo, String marca, double valorCompra, double valorVenda, String validade, String id) throws ClassNotFoundException, SQLException, ParseException {
+         Produto produto = new Produto("", marca, tipo);
          
-         ItemProduto item = new ItemProduto(id, "", validade, valor);
+         ItemProduto item = new ItemProduto(id, "", validade, valorVenda);
          
          EstoqueDAO.inserir(produto, item);
+         
+         ManterRentabilidade.inserir(Date.valueOf(LocalDate.now()).toString(), 's', "Re-estoque", valorCompra);
      }
      
      public static void alterar(Produto novoProduto, ItemProduto item, ItemProduto novoItem) throws ClassNotFoundException, SQLException {
@@ -42,5 +48,9 @@ public class ManterEstoque {
     
     public static Produto obterProduto(String idProduto) throws ClassNotFoundException, SQLException {
         return EstoqueDAO.obterProduto(idProduto);
+    }
+    
+    public static void excluir (ItemProduto item) throws ClassNotFoundException, SQLException {
+        EstoqueDAO.excluir(item);
     }
 }

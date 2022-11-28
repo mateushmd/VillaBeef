@@ -20,6 +20,10 @@ public class Produto {
         
     }
     
+    public Produto(String id, String marca, String tipo) {
+        this(id, marca, tipo, 0, 0);
+    }
+    
     public String getMarca() {
         return marca;
     }
