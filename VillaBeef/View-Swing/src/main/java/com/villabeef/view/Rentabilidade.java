@@ -7,7 +7,7 @@ package com.villabeef.view;
 import com.villabeef.model.dto.Conta;
 import com.villabeef.model.dto.ItemProduto;
 import com.villabeef.model.dto.Produto;
-import com.villabeef.model.service.ManterConta;
+import com.villabeef.model.service.ManterRentabilidade;
 import com.villabeef.model.service.ManterEstoque;
 import com.villabeef.model.service.ManterFuncionario;
 import com.villabeef.model.service.ManterProduto;
@@ -37,7 +37,7 @@ public class Rentabilidade extends javax.swing.JFrame {
 
         modelo = (DefaultTableModel) tabelaContas.getModel();
         try {
-            atualizarTabela(ManterConta.listar());
+            atualizarTabela(ManterRentabilidade.listar());
         } catch (ClassNotFoundException ex) {
             JOptionPane.showMessageDialog(rootPane, "Ocorreu um erro inesperado.", "Erro", JOptionPane.ERROR_MESSAGE);
         } catch (SQLException ex) {
@@ -57,6 +57,7 @@ public class Rentabilidade extends javax.swing.JFrame {
         for (Conta conta : lista) {
             modelo.insertRow(modelo.getRowCount(), new Object[] {formatoData.format(conta.getData()), 
                 conta.getTipo() == 'e' ? "Entrada" : "Saída",
+                conta.getDescricao(),
                 "R$ " + formato.format(conta.getValor())});
         }
     }
@@ -94,11 +95,11 @@ public class Rentabilidade extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Data", "Tipo", "Valor"
+                "Data", "Tipo", "Descrição", "Valor"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, true, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

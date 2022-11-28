@@ -14,12 +14,12 @@ import java.sql.Statement;
 import java.util.HashSet;
 
 
-public class ContaDAO {
-    private ContaDAO() {}
+public class RentabilidadeDAO {
+    private RentabilidadeDAO() {}
     
     public static boolean inserir(Conta conta) throws ClassNotFoundException, SQLException {
         String sql = "INSERT INTO conta VALUES('" + conta.getData() + "', '" + conta.getTipo() + "', '"
-                + conta.getValor() + "')";
+                + conta.getDescricao() + ", " + conta.getValor() + "')";
         
         Connection conexao = null;
         
@@ -61,6 +61,7 @@ public class ContaDAO {
             while(rs.next()) {
                 conta = new Conta(rs.getDate("data"),
                         rs.getString("tipo").charAt(0),
+                        rs.getString("descricao"),
                         rs.getDouble("valor"));
                 
                 lista.add(conta);
