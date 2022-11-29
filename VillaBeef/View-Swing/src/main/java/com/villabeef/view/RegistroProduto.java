@@ -1,17 +1,18 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.villabeef.view;
 
+//Janela modelo para desenvolvimento das interfaces
+
 import com.villabeef.model.service.ManterEstoque;
+import com.villabeef.model.service.ManterFuncionario;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
@@ -19,12 +20,9 @@ import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
-/**
- *
- * @author Aluno
- */
-public class RegistroProduto extends javax.swing.JDialog {
 
+public class RegistroProduto extends javax.swing.JDialog {
+    
     /**
      * A return status code - returned if Cancel button has been pressed
      */
@@ -33,9 +31,10 @@ public class RegistroProduto extends javax.swing.JDialog {
      * A return status code - returned if OK button has been pressed
      */
     public static final int RET_OK = 1;
-
+    
+    
     /**
-     * Creates new form ContatoCadastrar
+     * Creates new form Funcionarios1
      */
     public RegistroProduto(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -52,13 +51,8 @@ public class RegistroProduto extends javax.swing.JDialog {
             }
         });
     }
-
-    /**
-     * @return the return status of this dialog - one of RET_OK or RET_CANCEL
-     */
-    public int getReturnStatus() {
-        return returnStatus;
-    }
+    
+    private int mouseX, mouseY;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -69,202 +63,445 @@ public class RegistroProduto extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        okButton = new javax.swing.JButton();
-        cancelButton = new javax.swing.JButton();
-        labelMarca = new java.awt.Label();
-        labelValor = new java.awt.Label();
-        tipoField = new javax.swing.JTextField();
-        marcaField = new javax.swing.JTextField();
-        validadeField = new javax.swing.JTextField();
-        labelTipo = new java.awt.Label();
-        labelValor1 = new java.awt.Label();
-        valorCompraField = new javax.swing.JTextField();
-        label1 = new java.awt.Label();
-        idField = new javax.swing.JTextField();
-        valorVendaField = new javax.swing.JTextField();
-        labelValor2 = new java.awt.Label();
+        background = new javax.swing.JPanel();
+        header = new javax.swing.JPanel();
+        nomeIcone = new javax.swing.JLabel();
+        fecharButton = new javax.swing.JPanel();
+        fecharTxt = new javax.swing.JLabel();
+        marca = new javax.swing.JLabel();
+        marcaCampo = new javax.swing.JTextField();
+        jSeparator2 = new javax.swing.JSeparator();
+        tipo = new javax.swing.JLabel();
+        tipoCampo = new javax.swing.JTextField();
+        jSeparator1 = new javax.swing.JSeparator();
+        valorDeCompra = new javax.swing.JLabel();
+        valorDeCompraCampo = new javax.swing.JTextField();
+        jSeparator3 = new javax.swing.JSeparator();
+        valorDeVenda = new javax.swing.JLabel();
+        valorDeVendaCampo = new javax.swing.JTextField();
+        jSeparator6 = new javax.swing.JSeparator();
+        validade = new javax.swing.JLabel();
+        validadeCampo = new javax.swing.JTextField();
+        jSeparator4 = new javax.swing.JSeparator();
+        cadastrarButton = new javax.swing.JPanel();
+        cadastrarTxt = new javax.swing.JLabel();
+        id = new javax.swing.JLabel();
+        idCampo = new javax.swing.JTextField();
+        jSeparator5 = new javax.swing.JSeparator();
 
-        setTitle("Cadastrar Produto");
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                closeDialog(evt);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(536, 615));
+        setMinimumSize(new java.awt.Dimension(536, 615));
+        setUndecorated(true);
+        setResizable(false);
+
+        background.setBackground(new java.awt.Color(245, 222, 179));
+        background.setMaximumSize(new java.awt.Dimension(536, 615));
+        background.setMinimumSize(new java.awt.Dimension(536, 615));
+        background.setPreferredSize(new java.awt.Dimension(536, 615));
+        background.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        header.setBackground(new java.awt.Color(76, 21, 32));
+        header.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                headerMouseDragged(evt);
+            }
+        });
+        header.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                headerMousePressed(evt);
+            }
+        });
+        header.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        nomeIcone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/VILLAsmall.png"))); // NOI18N
+        nomeIcone.setText("jLabel2");
+        header.add(nomeIcone, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 5, 100, -1));
+
+        fecharButton.setBackground(header.getBackground());
+
+        fecharTxt.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
+        fecharTxt.setForeground(background.getBackground());
+        fecharTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        fecharTxt.setText("X");
+        fecharTxt.setMaximumSize(new java.awt.Dimension(40, 40));
+        fecharTxt.setMinimumSize(new java.awt.Dimension(40, 40));
+        fecharTxt.setPreferredSize(new java.awt.Dimension(40, 40));
+        fecharTxt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                fecharTxtMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                fecharTxtMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                fecharTxtMouseExited(evt);
             }
         });
 
-        okButton.setMnemonic('C');
-        okButton.setText("Cadastrar");
-        okButton.addActionListener(new java.awt.event.ActionListener() {
+        javax.swing.GroupLayout fecharButtonLayout = new javax.swing.GroupLayout(fecharButton);
+        fecharButton.setLayout(fecharButtonLayout);
+        fecharButtonLayout.setHorizontalGroup(
+            fecharButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(fecharButtonLayout.createSequentialGroup()
+                .addComponent(fecharTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        fecharButtonLayout.setVerticalGroup(
+            fecharButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(fecharButtonLayout.createSequentialGroup()
+                .addComponent(fecharTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        header.add(fecharButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 40));
+
+        background.add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 40));
+
+        marca.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        marca.setForeground(header.getBackground());
+        marca.setText("MARCA");
+        background.add(marca, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, -1, -1));
+
+        marcaCampo.setBackground(background.getBackground());
+        marcaCampo.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        marcaCampo.setForeground(java.awt.Color.gray);
+        marcaCampo.setText("Insira os dados");
+        marcaCampo.setToolTipText("");
+        marcaCampo.setBorder(null);
+        marcaCampo.setDisabledTextColor(java.awt.Color.gray);
+        marcaCampo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                marcaCampoFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                marcaCampoFocusLost(evt);
+            }
+        });
+        marcaCampo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                okButtonActionPerformed(evt);
+                marcaCampoActionPerformed(evt);
+            }
+        });
+        background.add(marcaCampo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 180, 320, 30));
+
+        jSeparator2.setBackground(new java.awt.Color(0, 0, 0));
+        jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
+        background.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 320, 10));
+
+        tipo.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        tipo.setForeground(header.getBackground());
+        tipo.setText("TIPO");
+        background.add(tipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, -1, -1));
+
+        tipoCampo.setBackground(background.getBackground());
+        tipoCampo.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        tipoCampo.setForeground(java.awt.Color.gray);
+        tipoCampo.setText("Insira os dados");
+        tipoCampo.setToolTipText("");
+        tipoCampo.setBorder(null);
+        tipoCampo.setDisabledTextColor(java.awt.Color.gray);
+        tipoCampo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                tipoCampoFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tipoCampoFocusLost(evt);
+            }
+        });
+        background.add(tipoCampo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, 320, 30));
+
+        jSeparator1.setBackground(new java.awt.Color(0, 0, 0));
+        jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
+        background.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 210, 320, 10));
+
+        valorDeCompra.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        valorDeCompra.setForeground(header.getBackground());
+        valorDeCompra.setText("VALOR DE COMPRA");
+        background.add(valorDeCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 230, -1, -1));
+
+        valorDeCompraCampo.setBackground(background.getBackground());
+        valorDeCompraCampo.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        valorDeCompraCampo.setForeground(java.awt.Color.gray);
+        valorDeCompraCampo.setText("Insira os dados");
+        valorDeCompraCampo.setToolTipText("");
+        valorDeCompraCampo.setBorder(null);
+        valorDeCompraCampo.setDisabledTextColor(java.awt.Color.gray);
+        valorDeCompraCampo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                valorDeCompraCampoFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                valorDeCompraCampoFocusLost(evt);
+            }
+        });
+        background.add(valorDeCompraCampo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 260, 320, 30));
+
+        jSeparator3.setBackground(new java.awt.Color(0, 0, 0));
+        jSeparator3.setForeground(new java.awt.Color(0, 0, 0));
+        background.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 290, 320, 10));
+
+        valorDeVenda.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        valorDeVenda.setForeground(header.getBackground());
+        valorDeVenda.setText("VALOR DE VENDA");
+        background.add(valorDeVenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 310, -1, -1));
+
+        valorDeVendaCampo.setBackground(background.getBackground());
+        valorDeVendaCampo.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        valorDeVendaCampo.setForeground(java.awt.Color.gray);
+        valorDeVendaCampo.setText("Insira os dados");
+        valorDeVendaCampo.setToolTipText("");
+        valorDeVendaCampo.setBorder(null);
+        valorDeVendaCampo.setDisabledTextColor(java.awt.Color.gray);
+        valorDeVendaCampo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                valorDeVendaCampoFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                valorDeVendaCampoFocusLost(evt);
+            }
+        });
+        background.add(valorDeVendaCampo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 340, 320, 30));
+
+        jSeparator6.setBackground(new java.awt.Color(0, 0, 0));
+        jSeparator6.setForeground(new java.awt.Color(0, 0, 0));
+        background.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 370, 320, 10));
+
+        validade.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        validade.setForeground(header.getBackground());
+        validade.setText("VALIDADE");
+        background.add(validade, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 390, -1, -1));
+
+        validadeCampo.setBackground(background.getBackground());
+        validadeCampo.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        validadeCampo.setForeground(java.awt.Color.gray);
+        validadeCampo.setText("Insira os dados");
+        validadeCampo.setToolTipText("");
+        validadeCampo.setBorder(null);
+        validadeCampo.setDisabledTextColor(java.awt.Color.gray);
+        validadeCampo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                validadeCampoFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                validadeCampoFocusLost(evt);
+            }
+        });
+        background.add(validadeCampo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 420, 320, 30));
+
+        jSeparator4.setBackground(new java.awt.Color(0, 0, 0));
+        jSeparator4.setForeground(new java.awt.Color(0, 0, 0));
+        background.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 450, 320, 10));
+
+        cadastrarButton.setBackground(header.getBackground());
+
+        cadastrarTxt.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        cadastrarTxt.setForeground(new java.awt.Color(255, 255, 255));
+        cadastrarTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        cadastrarTxt.setText("CADASTRAR");
+        cadastrarTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cadastrarTxt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cadastrarTxtMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                cadastrarTxtMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                cadastrarTxtMouseExited(evt);
             }
         });
 
-        cancelButton.setMnemonic('a');
-        cancelButton.setText("Cancelar");
-        cancelButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelButtonActionPerformed(evt);
+        javax.swing.GroupLayout cadastrarButtonLayout = new javax.swing.GroupLayout(cadastrarButton);
+        cadastrarButton.setLayout(cadastrarButtonLayout);
+        cadastrarButtonLayout.setHorizontalGroup(
+            cadastrarButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(cadastrarTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+        );
+        cadastrarButtonLayout.setVerticalGroup(
+            cadastrarButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(cadastrarTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+
+        background.add(cadastrarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 560, 140, 40));
+
+        id.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        id.setForeground(header.getBackground());
+        id.setText("ID");
+        background.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 470, -1, -1));
+
+        idCampo.setBackground(background.getBackground());
+        idCampo.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        idCampo.setForeground(java.awt.Color.gray);
+        idCampo.setText("Insira os dados");
+        idCampo.setToolTipText("");
+        idCampo.setBorder(null);
+        idCampo.setDisabledTextColor(java.awt.Color.gray);
+        idCampo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                idCampoFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                idCampoFocusLost(evt);
             }
         });
+        background.add(idCampo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 500, 320, 30));
 
-        labelMarca.setText("Marca:");
-
-        labelValor.setText("Validade:");
-
-        tipoField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tipoFieldActionPerformed(evt);
-            }
-        });
-
-        marcaField.setToolTipText("Formato: 0000.00");
-
-        validadeField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                validadeFieldActionPerformed(evt);
-            }
-        });
-
-        labelTipo.setText("Tipo:");
-
-        labelValor1.setText("Valor de compra:");
-
-        label1.setText("ID:");
-
-        idField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                idFieldActionPerformed(evt);
-            }
-        });
-
-        labelValor2.setText("Valor de venda:");
+        jSeparator5.setBackground(new java.awt.Color(0, 0, 0));
+        jSeparator5.setForeground(new java.awt.Color(0, 0, 0));
+        background.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 530, 320, 10));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(223, 223, 223)
-                        .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(6, 6, 6)
-                        .addComponent(cancelButton))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(labelTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(labelMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(labelValor1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(labelValor2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(labelValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(34, 34, 34)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(valorCompraField, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(marcaField, javax.swing.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
-                                .addComponent(tipoField))
-                            .addComponent(valorVendaField, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(validadeField, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(idField, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(background, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(labelTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(11, 11, 11))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(tipoField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(labelMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(marcaField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(labelValor1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(valorCompraField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(valorVendaField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelValor2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(validadeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(idField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(okButton)
-                    .addComponent(cancelButton))
-                .addContainerGap())
+            .addComponent(background, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-
-        getRootPane().setDefaultButton(okButton);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
+    private void fecharTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fecharTxtMouseClicked
+        doClose(RET_CANCEL);
+    }//GEN-LAST:event_fecharTxtMouseClicked
+
+    private void fecharTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fecharTxtMouseEntered
+        fecharButton.setBackground(background.getBackground());
+        fecharTxt.setForeground(header.getBackground());
+    }//GEN-LAST:event_fecharTxtMouseEntered
+
+    private void fecharTxtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fecharTxtMouseExited
+        fecharButton.setBackground(header.getBackground());
+        fecharTxt.setForeground(background.getBackground());
+    }//GEN-LAST:event_fecharTxtMouseExited
+
+    private void headerMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_headerMouseDragged
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        setLocation(x - mouseX, y - mouseY);
+    }//GEN-LAST:event_headerMouseDragged
+
+    private void headerMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_headerMousePressed
+        mouseX = evt.getX();
+        mouseY = evt.getY();
+    }//GEN-LAST:event_headerMousePressed
+
+    private void marcaCampoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_marcaCampoFocusGained
+        if(marcaCampo.getText().equals("Insira os dados")) {
+            marcaCampo.setText("");
+            marcaCampo.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_marcaCampoFocusGained
+
+    private void marcaCampoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_marcaCampoFocusLost
+        if(marcaCampo.getText().isBlank()) {
+            marcaCampo.setText("Insira os dados");
+            marcaCampo.setForeground(Color.gray);
+        }
+    }//GEN-LAST:event_marcaCampoFocusLost
+
+    private void tipoCampoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tipoCampoFocusGained
+        if(tipoCampo.getText().equals("Insira os dados")) {
+            tipoCampo.setText("");
+            tipoCampo.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_tipoCampoFocusGained
+
+    private void tipoCampoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tipoCampoFocusLost
+        if(tipoCampo.getText().isBlank()) {
+            tipoCampo.setText("Insira os dados");
+            tipoCampo.setForeground(Color.gray);
+        }
+    }//GEN-LAST:event_tipoCampoFocusLost
+
+    private void valorDeCompraCampoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_valorDeCompraCampoFocusGained
+        if(valorDeCompraCampo.getText().equals("Insira os dados")) {
+            valorDeCompraCampo.setText("");
+            valorDeCompraCampo.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_valorDeCompraCampoFocusGained
+
+    private void valorDeCompraCampoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_valorDeCompraCampoFocusLost
+        if(valorDeCompraCampo.getText().isBlank()) {
+            valorDeCompraCampo.setText("Insira os dados");
+            valorDeCompraCampo.setForeground(Color.gray);
+        }
+    }//GEN-LAST:event_valorDeCompraCampoFocusLost
+
+    private void valorDeVendaCampoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_valorDeVendaCampoFocusGained
+        if(valorDeVendaCampo.getText().equals("Insira os dados")) {
+            valorDeVendaCampo.setText("");
+            valorDeVendaCampo.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_valorDeVendaCampoFocusGained
+
+    private void valorDeVendaCampoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_valorDeVendaCampoFocusLost
+        if(valorDeVendaCampo.getText().isBlank()) {
+            valorDeVendaCampo.setText("Insira os dados");
+            valorDeVendaCampo.setForeground(Color.gray);
+        }
+    }//GEN-LAST:event_valorDeVendaCampoFocusLost
+
+    private void validadeCampoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_validadeCampoFocusGained
+        if(validadeCampo.getText().equals("Insira os dados")) {
+            validadeCampo.setText("");
+            validadeCampo.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_validadeCampoFocusGained
+
+    private void validadeCampoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_validadeCampoFocusLost
+        if(validadeCampo.getText().isBlank()) {
+            validadeCampo.setText("Insira os dados");
+            validadeCampo.setForeground(Color.gray);
+        }
+    }//GEN-LAST:event_validadeCampoFocusLost
+
+    private void cadastrarTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cadastrarTxtMouseClicked
         doClose(RET_OK);
-    }//GEN-LAST:event_okButtonActionPerformed
+    }//GEN-LAST:event_cadastrarTxtMouseClicked
 
-    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
-        doClose(RET_CANCEL);
-    }//GEN-LAST:event_cancelButtonActionPerformed
-
-    /**
-     * Closes the dialog
-     */
-    private void closeDialog(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_closeDialog
-        doClose(RET_CANCEL);
-    }//GEN-LAST:event_closeDialog
-
-    private void tipoFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoFieldActionPerformed
+    private void marcaCampoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_marcaCampoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_tipoFieldActionPerformed
+    }//GEN-LAST:event_marcaCampoActionPerformed
 
-    private void idFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_idFieldActionPerformed
+    private void cadastrarTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cadastrarTxtMouseEntered
+        cadastrarButton.setBackground(new Color(119, 34, 51));
+    }//GEN-LAST:event_cadastrarTxtMouseEntered
 
-    private void validadeFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validadeFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_validadeFieldActionPerformed
+    private void cadastrarTxtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cadastrarTxtMouseExited
+        cadastrarButton.setBackground(header.getBackground());
+    }//GEN-LAST:event_cadastrarTxtMouseExited
 
+    private void idCampoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_idCampoFocusGained
+        if(idCampo.getText().equals("Insira os dados")) {
+            idCampo.setText("");
+            idCampo.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_idCampoFocusGained
+
+    private void idCampoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_idCampoFocusLost
+        if(idCampo.getText().isBlank()) {
+            idCampo.setText("Insira os dados");
+            idCampo.setForeground(Color.gray);
+        }
+    }//GEN-LAST:event_idCampoFocusLost
+    
+    
     private void doClose(int retStatus) {
-
         try {
             if (retStatus == RET_OK) {
-                String tipo = tipoField.getText();
-                String marca = marcaField.getText();
-                double valorCompra = Double.parseDouble(valorVendaField.getText().replace(',', '.'));
-                double valorVenda = Double.parseDouble(valorVendaField.getText().replace(',', '.'));
-                String validade = validadeField.getText();
-                String id = idField.getText();
-
+                String tipo = tipoCampo.getText();
+                String marca = marcaCampo.getText();
+                double valorCompra = Double.valueOf(valorDeCompraCampo.getText().replace(',', '.'));
+                double valorVenda = Double.valueOf(valorDeVendaCampo.getText().replace(',', '.'));
+                String validade = validadeCampo.getText();
+                String id = idCampo.getText();
+                
                 ManterEstoque.inserir(tipo, marca, valorCompra, valorVenda, validade, id);
-
             }
             returnStatus = retStatus;
             setVisible(false);
@@ -272,27 +509,38 @@ public class RegistroProduto extends javax.swing.JDialog {
         } catch (ClassNotFoundException ex) {
             JOptionPane.showMessageDialog(rootPane, "Ocorreu um erro inesperado.", "Erro", JOptionPane.ERROR_MESSAGE);
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Falha na conexão com o banco de dados", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(rootPane, ex.getLocalizedMessage(), "Falha na conexão com o banco de dados.", JOptionPane.ERROR_MESSAGE);
         } catch (ParseException ex) {
-            JOptionPane.showMessageDialog(rootPane, "O formato da data não condiz com o formato dia/mês/ano", "Falha no formato da data", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(rootPane, "Ocorreu um erro inesperado.", "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton cancelButton;
-    private javax.swing.JTextField idField;
-    private java.awt.Label label1;
-    private java.awt.Label labelMarca;
-    private java.awt.Label labelTipo;
-    private java.awt.Label labelValor;
-    private java.awt.Label labelValor1;
-    private java.awt.Label labelValor2;
-    private javax.swing.JTextField marcaField;
-    private javax.swing.JButton okButton;
-    private javax.swing.JTextField tipoField;
-    private javax.swing.JTextField validadeField;
-    private javax.swing.JTextField valorCompraField;
-    private javax.swing.JTextField valorVendaField;
+    private javax.swing.JPanel background;
+    private javax.swing.JPanel cadastrarButton;
+    private javax.swing.JLabel cadastrarTxt;
+    private javax.swing.JPanel fecharButton;
+    private javax.swing.JLabel fecharTxt;
+    private javax.swing.JPanel header;
+    private javax.swing.JLabel id;
+    private javax.swing.JTextField idCampo;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JSeparator jSeparator5;
+    private javax.swing.JSeparator jSeparator6;
+    private javax.swing.JLabel marca;
+    private javax.swing.JTextField marcaCampo;
+    private javax.swing.JLabel nomeIcone;
+    private javax.swing.JLabel tipo;
+    private javax.swing.JTextField tipoCampo;
+    private javax.swing.JLabel validade;
+    private javax.swing.JTextField validadeCampo;
+    private javax.swing.JLabel valorDeCompra;
+    private javax.swing.JTextField valorDeCompraCampo;
+    private javax.swing.JLabel valorDeVenda;
+    private javax.swing.JTextField valorDeVendaCampo;
     // End of variables declaration//GEN-END:variables
 
     private int returnStatus = RET_CANCEL;

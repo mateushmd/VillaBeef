@@ -206,7 +206,7 @@ public class EquipeDAO {
         return funcionario;
     }
     
-    public static HashSet<Funcionario> pesquisar(String pesquisa, int modo) throws ClassNotFoundException, SQLException {
+    public static HashSet<Funcionario> pesquisar(String pesquisa) throws ClassNotFoundException, SQLException {
         HashSet<Funcionario> lista = EquipeDAO.listar();
         
         HashSet<Funcionario> filtrado = new HashSet<>();
@@ -215,15 +215,11 @@ public class EquipeDAO {
         
         for(Funcionario f : lista) {
             boolean possuiLetrasIguais = true;
-            
-            if(modo == 0) {
-                if(!Character.isDigit(pesquisa.charAt(0)))
-                    comparar = f.getNome();
-                else
-                    comparar = f.getId();
-            }
+
+            if(!Character.isDigit(pesquisa.charAt(0)))
+                comparar = f.getNome();
             else
-                comparar = f.getFuncao();
+                comparar = f.getId();
             
             if(comparar.length() < pesquisa.length())
                 continue;

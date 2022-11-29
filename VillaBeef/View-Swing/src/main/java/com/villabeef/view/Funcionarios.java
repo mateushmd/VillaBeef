@@ -388,6 +388,11 @@ public class Funcionarios extends javax.swing.JFrame {
 
         buscaIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/busca.png"))); // NOI18N
         buscaIcon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        buscaIcon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buscaIconMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout buscaButtonLayout = new javax.swing.GroupLayout(buscaButton);
         buscaButton.setLayout(buscaButtonLayout);
@@ -977,6 +982,16 @@ public class Funcionarios extends javax.swing.JFrame {
         if (usuarioButton.isEnabled())
             usuarioButton.setBackground(header.getBackground());
     }//GEN-LAST:event_usuarioTxtMouseExited
+
+    private void buscaIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buscaIconMouseClicked
+        try {
+            atualizarTabela(ManterFuncionario.pesquisar(buscaTxt.getText()));
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Ocorreu um erro inesperado.", "Erro", JOptionPane.ERROR_MESSAGE);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Falha na conexão com o banco de dados.", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_buscaIconMouseClicked
 
     /**
      * @param args the command line arguments

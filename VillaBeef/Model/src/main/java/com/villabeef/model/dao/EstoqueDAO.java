@@ -36,7 +36,7 @@ public class EstoqueDAO {
             if(rs.next()) {
                 produto.setId(rs.getString("id"));
                 
-                sql = "UPDATE produtos SET quantidade+1 WHERE id = '" + produto.getId() + "'";
+                sql = "UPDATE produtos SET quantidade = quantidade+1 WHERE id = '" + produto.getId() + "'";
                 
                 resultado = comando.executeUpdate(sql);
             }
@@ -52,7 +52,7 @@ public class EstoqueDAO {
                 produto.setId(id);
                 
                 sql = "INSERT INTO produtos VALUES('" + produto.getId() + "', '" + produto.getMarca() + "', '" + produto.getTipo() + 
-                        "', '" + produto.getQuantidade() + "', '" + produto.getQuantidadeMinima() + "')";
+                        "', '" + 1 + "', '" + produto.getQuantidadeMinima() + "')";
                 
                 resultado = comando.executeUpdate(sql);
             }
@@ -98,7 +98,7 @@ public class EstoqueDAO {
             resultado = comando.executeUpdate(sql);
             
             if(resultado > 0) {
-                sql = "UPDATE produto SET quantidade-1 WHERE id = '" + itemProduto.getIdProduto() + "'";
+                sql = "UPDATE produtos SET quantidade = quantidade-1 WHERE id = '" + itemProduto.getIdProduto() + "'";
 
                 resultado = comando.executeUpdate(sql);
             }
@@ -247,4 +247,43 @@ public class EstoqueDAO {
         
         return produto;
     }
+    
+    public static HashSet<ItemProduto> pesquisar(String pesquisa, int modo) throws ClassNotFoundException, SQLException {
+        HashSet<ItemProduto> lista = listar();
+        
+        HashSet<ItemProduto> filtrado = new HashSet<>();
+        
+        String comparar = null;
+        
+        for(ItemProduto item : lista) {
+            boolean possuiLetrasIguais = true;
+
+            if(Character.isDigit(pesquisa.charAt(0)))
+                comparar = item.getId();
+            else {
+                if(modo == 0) {
+                    comparar = obterProduto(item.getIdProduto()).getMarca();
+                } else if(modo == 1) {
+                    comparar = obterProduto(item.getIdProduto()).getTipo();
+                }
+            }
+                
+            
+            if(comparar.length() < pesquisa.length())
+                continue;
+            
+            for(int i = 0; i < pesquisa.length(); i++)
+            {
+                if(Character.toLowerCase(comparar.charAt(i)) - Character.toLowerCase(pesquisa.charAt(i)) == 0)
+                    continue;
+                
+                possuiLetrasIguais = false;
+            }
+            
+            if(possuiLetrasIguais)
+                filtrado.add(item);
+        }
+        
+        return filtrado;
+    }  
 }
