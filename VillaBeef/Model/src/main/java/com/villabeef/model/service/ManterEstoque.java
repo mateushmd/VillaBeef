@@ -17,13 +17,13 @@ import java.util.HashSet;
 public class ManterEstoque {
     
      public static void inserir(String tipo, String marca, double valorCompra, double valorVenda, String validade, String id) throws ClassNotFoundException, SQLException, ParseException {
-         Produto produto = new Produto("", marca, tipo, 0, 0);
+         Produto produto = new Produto("", marca, tipo);
          
          ItemProduto item = new ItemProduto(id, "", validade, valorVenda);
          
          EstoqueDAO.inserir(produto, item);
          
-         ManterConta.inserir(Date.valueOf(LocalDate.now()).toString(), 's', valorCompra);
+         ManterRentabilidade.inserir(Date.valueOf(LocalDate.now()), 's', "Re-estoque", valorCompra);
      }
      
      public static void alterar(Produto novoProduto, ItemProduto item, ItemProduto novoItem) throws ClassNotFoundException, SQLException {
@@ -52,5 +52,12 @@ public class ManterEstoque {
     
     public static void excluir (ItemProduto item) throws ClassNotFoundException, SQLException {
         EstoqueDAO.excluir(item);
+    }
+    
+    public static HashSet<ItemProduto> pesquisar(String pesquisa, int modo) throws ClassNotFoundException, SQLException {
+        if(pesquisa.isBlank())
+            return EstoqueDAO.listar();
+        
+        return EstoqueDAO.pesquisar(pesquisa, modo);
     }
 }

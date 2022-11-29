@@ -35,6 +35,10 @@ public class EstoqueDAO {
             
             if(rs.next()) {
                 produto.setId(rs.getString("id"));
+                
+                sql = "UPDATE produtos SET quantidade = quantidade+1 WHERE id = '" + produto.getId() + "'";
+                
+                resultado = comando.executeUpdate(sql);
             }
             else {
                 sql = "SELECT COUNT(*) FROM produtos";
@@ -48,7 +52,7 @@ public class EstoqueDAO {
                 produto.setId(id);
                 
                 sql = "INSERT INTO produtos VALUES('" + produto.getId() + "', '" + produto.getMarca() + "', '" + produto.getTipo() + 
-                        "', '" + produto.getQuantidade() + "', '" + produto.getQuantidadeMinima() + "')";
+                        "', '" + 1 + "', '" + produto.getQuantidadeMinima() + "')";
                 
                 resultado = comando.executeUpdate(sql);
             }
@@ -77,8 +81,8 @@ public class EstoqueDAO {
         return resultado > 0;
     }
     
-    public static boolean excluir(ItemProduto produto) throws ClassNotFoundException, SQLException {
-        String sql = "DELETE FROM estoque WHERE id = '" + produto.getId() + "'";
+    public static boolean excluir(ItemProduto itemProduto) throws ClassNotFoundException, SQLException {
+        String sql = "DELETE FROM estoque WHERE id = '" + itemProduto.getId() + "'";
         
         Connection conexao = null;
         
@@ -92,6 +96,12 @@ public class EstoqueDAO {
             comando = conexao.createStatement();
 
             resultado = comando.executeUpdate(sql);
+            
+            if(resultado > 0) {
+                sql = "UPDATE produtos SET quantidade = quantidade-1 WHERE id = '" + itemProduto.getIdProduto() + "'";
+
+                resultado = comando.executeUpdate(sql);
+            }
         } finally {
             ConexaoBD.fecharConexao(conexao, comando);
         }
@@ -237,4 +247,43 @@ public class EstoqueDAO {
         
         return produto;
     }
+    
+    public static HashSet<ItemProduto> pesquisar(String pesquisa, int modo) throws ClassNotFoundException, SQLException {
+        HashSet<ItemProduto> lista = listar();
+        
+        HashSet<ItemProduto> filtrado = new HashSet<>();
+        
+        String comparar = null;
+        
+        for(ItemProduto item : lista) {
+            boolean possuiLetrasIguais = true;
+
+            if(Character.isDigit(pesquisa.charAt(0)))
+                comparar = item.getId();
+            else {
+                if(modo == 0) {
+                    comparar = obterProduto(item.getIdProduto()).getMarca();
+                } else if(modo == 1) {
+                    comparar = obterProduto(item.getIdProduto()).getTipo();
+                }
+            }
+                
+            
+            if(comparar.length() < pesquisa.length())
+                continue;
+            
+            for(int i = 0; i < pesquisa.length(); i++)
+            {
+                if(Character.toLowerCase(comparar.charAt(i)) - Character.toLowerCase(pesquisa.charAt(i)) == 0)
+                    continue;
+                
+                possuiLetrasIguais = false;
+            }
+            
+            if(possuiLetrasIguais)
+                filtrado.add(item);
+        }
+        
+        return filtrado;
+    }  
 }

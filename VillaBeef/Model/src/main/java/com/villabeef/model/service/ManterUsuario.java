@@ -32,4 +32,12 @@ public class ManterUsuario {
         
         UsuarioDAO.cadastrar(usuario);
     }
+    
+    public static boolean existeUsuario(String login) throws ClassNotFoundException, SQLException {
+        return UsuarioDAO.existeUsuario(login);
+    }
+    
+    public static void excluir(String login) throws ClassNotFoundException, SQLException {
+        UsuarioDAO.excluir(login);
+    }
 }
