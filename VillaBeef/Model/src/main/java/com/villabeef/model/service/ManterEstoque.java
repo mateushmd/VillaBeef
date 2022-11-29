@@ -23,7 +23,7 @@ public class ManterEstoque {
          
          EstoqueDAO.inserir(produto, item);
          
-         ManterRentabilidade.inserir(Date.valueOf(LocalDate.now()).toString(), 's', "Re-estoque", valorCompra);
+         ManterRentabilidade.inserir(Date.valueOf(LocalDate.now()), 's', "Re-estoque", valorCompra);
      }
      
      public static void alterar(Produto novoProduto, ItemProduto item, ItemProduto novoItem) throws ClassNotFoundException, SQLException {
@@ -52,5 +52,12 @@ public class ManterEstoque {
     
     public static void excluir (ItemProduto item) throws ClassNotFoundException, SQLException {
         EstoqueDAO.excluir(item);
+    }
+    
+    public static HashSet<ItemProduto> pesquisar(String pesquisa, int modo) throws ClassNotFoundException, SQLException {
+        if(pesquisa.isBlank())
+            return EstoqueDAO.listar();
+        
+        return EstoqueDAO.pesquisar(pesquisa, modo);
     }
 }

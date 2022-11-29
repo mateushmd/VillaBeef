@@ -67,8 +67,6 @@ public class Login extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         entrarButton = new javax.swing.JPanel();
         entrarTxt = new javax.swing.JLabel();
-        cadastrarButton = new javax.swing.JPanel();
-        cadastrarTxt = new javax.swing.JLabel();
         header = new javax.swing.JPanel();
         fecharButton = new javax.swing.JPanel();
         fecharTxt = new javax.swing.JLabel();
@@ -184,40 +182,6 @@ public class Login extends javax.swing.JFrame {
 
         background.add(entrarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 390, 140, 50));
 
-        cadastrarButton.setBackground(empresa.getBackground());
-        cadastrarButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        cadastrarTxt.setBackground(new java.awt.Color(187, 187, 187));
-        cadastrarTxt.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        cadastrarTxt.setForeground(new java.awt.Color(255, 255, 255));
-        cadastrarTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        cadastrarTxt.setText("CADASTRAR");
-        cadastrarTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        cadastrarTxt.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cadastrarTxtMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                cadastrarTxtMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                cadastrarTxtMouseExited(evt);
-            }
-        });
-
-        javax.swing.GroupLayout cadastrarButtonLayout = new javax.swing.GroupLayout(cadastrarButton);
-        cadastrarButton.setLayout(cadastrarButtonLayout);
-        cadastrarButtonLayout.setHorizontalGroup(
-            cadastrarButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(cadastrarTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-        );
-        cadastrarButtonLayout.setVerticalGroup(
-            cadastrarButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(cadastrarTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
-        );
-
-        background.add(cadastrarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 390, 140, 50));
-
         header.setBackground(background.getBackground());
         header.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
@@ -316,14 +280,6 @@ public class Login extends javax.swing.JFrame {
         entrarButton.setBackground(empresa.getBackground());
     }//GEN-LAST:event_entrarTxtMouseExited
 
-    private void cadastrarTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cadastrarTxtMouseEntered
-        cadastrarButton.setBackground(new Color(119, 34, 51));
-    }//GEN-LAST:event_cadastrarTxtMouseEntered
-
-    private void cadastrarTxtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cadastrarTxtMouseExited
-        cadastrarButton.setBackground(empresa.getBackground());
-    }//GEN-LAST:event_cadastrarTxtMouseExited
-
     private void entrarTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_entrarTxtMouseClicked
         doClose(RET_OK);
     }//GEN-LAST:event_entrarTxtMouseClicked
@@ -351,11 +307,6 @@ public class Login extends javax.swing.JFrame {
             usuarioCampo.setForeground(Color.gray);
         }
     }//GEN-LAST:event_senhaCampoFocusGained
-
-    private void cadastrarTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cadastrarTxtMouseClicked
-        CadastroUsuario c = new CadastroUsuario(this, true);
-        c.setVisible(true);
-    }//GEN-LAST:event_cadastrarTxtMouseClicked
     
     private void doClose(int retStatus) {
         try {
@@ -423,8 +374,6 @@ public class Login extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel background;
-    private javax.swing.JPanel cadastrarButton;
-    private javax.swing.JLabel cadastrarTxt;
     private javax.swing.JPanel empresa;
     private javax.swing.JPanel entrarButton;
     private javax.swing.JLabel entrarTxt;
