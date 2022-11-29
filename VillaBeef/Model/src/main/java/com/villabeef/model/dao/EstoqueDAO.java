@@ -4,12 +4,15 @@
  */
 package com.villabeef.model.dao;
 
+import static com.villabeef.model.dao.EquipeDAO.listar;
 import com.villabeef.model.dto.ItemProduto;
 import com.villabeef.model.dto.Produto;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.HashSet;
 
 public class EstoqueDAO {
@@ -36,7 +39,7 @@ public class EstoqueDAO {
             if(rs.next()) {
                 produto.setId(rs.getString("id"));
                 
-                sql = "UPDATE produtos SET quantidade+1 WHERE id = '" + produto.getId() + "'";
+                sql = "UPDATE produtos SET quantidade = quantidade+1 WHERE id = '" + produto.getId() + "'";
                 
                 resultado = comando.executeUpdate(sql);
             }
@@ -52,7 +55,7 @@ public class EstoqueDAO {
                 produto.setId(id);
                 
                 sql = "INSERT INTO produtos VALUES('" + produto.getId() + "', '" + produto.getMarca() + "', '" + produto.getTipo() + 
-                        "', '" + produto.getQuantidade() + "', '" + produto.getQuantidadeMinima() + "')";
+                        "', '" + 1 + "', '" + produto.getQuantidadeMinima() + "')";
                 
                 resultado = comando.executeUpdate(sql);
             }
@@ -98,7 +101,7 @@ public class EstoqueDAO {
             resultado = comando.executeUpdate(sql);
             
             if(resultado > 0) {
-                sql = "UPDATE produto SET quantidade-1 WHERE id = '" + itemProduto.getIdProduto() + "'";
+                sql = "UPDATE produtos SET quantidade = quantidade-1 WHERE id = '" + itemProduto.getIdProduto() + "'";
 
                 resultado = comando.executeUpdate(sql);
             }
@@ -132,7 +135,7 @@ public class EstoqueDAO {
             while(rs.next()) {
                 item = new ItemProduto(rs.getString("id"),
                         rs.getString("id_produto"),
-                        rs.getString("validade"),
+                        rs.getDate("validade"),
                         rs.getDouble("valor"));
                 
                 lista.add(item);
@@ -180,6 +183,41 @@ public class EstoqueDAO {
         return lista;
     }
     
+    public static HashSet<ItemProduto> listarPorProduto(String idProduto) throws ClassNotFoundException, SQLException {
+        HashSet<ItemProduto> lista = new HashSet<>();
+
+        ItemProduto item;
+
+        String sql = "SELECT * FROM estoque WHERE id_produto = '" + idProduto + "'";
+        
+        Connection conexao = null;
+        
+        Statement comando = null;
+        
+        ResultSet rs = null;
+
+        try {
+
+            conexao = ConexaoBD.getConexao();
+            comando = conexao.createStatement();
+            
+            rs = comando.executeQuery(sql);
+            
+            while(rs.next()) {
+                item = new ItemProduto(rs.getString("id"),
+                        rs.getString("id_produto"),
+                        rs.getDate("validade"),
+                        rs.getDouble("valor"));
+                
+                lista.add(item);
+            }
+        } finally {
+            ConexaoBD.fecharConexao(conexao, comando, rs);
+        }
+        
+        return lista;
+    }
+    
     public static ItemProduto obterPorId(String id) throws ClassNotFoundException, SQLException {
         ItemProduto item = null;
 
@@ -201,7 +239,7 @@ public class EstoqueDAO {
             while(rs.next()) {
                 item = new ItemProduto(rs.getString("id"),
                         rs.getString("id_produto"),
-                        rs.getString("validade"),
+                        rs.getDate("validade"),
                         rs.getDouble("valor"));
             }
         } finally {
@@ -246,5 +284,63 @@ public class EstoqueDAO {
         }
         
         return produto;
+    }
+    
+    public static HashSet<ItemProduto> pesquisar(String pesquisa, int modo) throws ClassNotFoundException, SQLException {
+        HashSet<ItemProduto> lista = listar();
+        
+        HashSet<ItemProduto> filtrado = new HashSet<>();
+        
+        String comparar = null;
+        
+        for(ItemProduto item : lista) {
+            boolean possuiLetrasIguais = true;
+
+            if(Character.isDigit(pesquisa.charAt(0)))
+                comparar = item.getId();
+            else {
+                if(modo == 0) {
+                    comparar = obterProduto(item.getIdProduto()).getMarca();
+                } else if(modo == 1) {
+                    comparar = obterProduto(item.getIdProduto()).getTipo();
+                }
+            }
+                
+            
+            if(comparar.length() < pesquisa.length())
+                continue;
+            
+            for(int i = 0; i < pesquisa.length(); i++)
+            {
+                if(Character.toLowerCase(comparar.charAt(i)) - Character.toLowerCase(pesquisa.charAt(i)) == 0)
+                    continue;
+                
+                possuiLetrasIguais = false;
+            }
+            
+            if(possuiLetrasIguais)
+                filtrado.add(item);
+        }
+        
+        return filtrado;
+    }
+    
+    public static HashSet<ItemProduto> vender(String idProduto, int quantidade) throws ClassNotFoundException, SQLException {
+        HashSet<ItemProduto> set = listarPorProduto(idProduto);
+        
+        ItemProduto[] lista = new ItemProduto[set.size()]; 
+        lista = set.toArray(lista);
+        
+        HashSet<ItemProduto> filtrado = new HashSet<>();
+        
+        Date hoje = Date.valueOf(LocalDate.now());
+        
+        for(int i = 0; i < quantidade; i++) {
+            ItemProduto item = lista[i];
+            if(item.getValidadeAsDate().after(hoje))
+                filtrado.add(item);
+        }
+        
+        return filtrado;
     }
 }

@@ -72,6 +72,55 @@ public class UsuarioDAO {
         return resultado > 0;
     }
     
+    public static boolean existeUsuario(String login) throws ClassNotFoundException, SQLException {
+        String sql = "SELECT * FROM usuarios WHERE (login = '" + login + "')";
+        
+        Connection conexao = null;
+        
+        Statement comando = null;
+        
+        ResultSet rs = null;
+
+        try {
+
+            conexao = ConexaoBD.getConexao();
+            comando = conexao.createStatement();
+            
+            rs = comando.executeQuery(sql);
+            
+            if(rs.next())
+                return true;
+            
+        } finally {
+            ConexaoBD.fecharConexao(conexao, comando);
+        }
+        
+        return false;
+    }
+    
+    public static boolean excluir(String login) throws ClassNotFoundException, SQLException {
+        String sql = "DELETE FROM usuarios WHERE login = '" + login + "'";
+        
+        Connection conexao = null;
+        
+        Statement comando = null;
+        
+        int resultado = 0;
+        
+        try {
+            conexao = ConexaoBD.getConexao();
+            
+            comando = conexao.createStatement();
+
+            resultado = comando.executeUpdate(sql);
+        } finally {
+            ConexaoBD.fecharConexao(conexao, comando);
+        }
+
+        return resultado > 0;
+    }
+    
+    
     private static String criptografar(String input) {  
         String hex = null;
         

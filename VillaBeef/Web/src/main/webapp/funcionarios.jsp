@@ -20,6 +20,8 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
     </head>
     <body>
 
@@ -63,6 +65,7 @@
                                 <td><c:out value = "${row.nome}"/></td>
                                 <td><c:out value = "${row.funcao}"/></td>
                                 <td><c:out value = "R$ ${String.valueOf(row.salario).replace('.', ',')}"/></td>
+                                <td><button type="button" class="btn btn-outline-primary" name="editar" data-bs-toggle="modal" data-bs-target="#editarFun" data-backdrop="false" data-id="<c:out value = "${row.id}"/>" role="button" onclick="document.getElementById('editarFun').classList.toggle('visible')">Editar</button></td>
                             </tr>
                         </c:forEach>
                     </tbody>
@@ -73,9 +76,66 @@
                     <p class="commands-text" onclick="document.getElementById('removerFun').classList.toggle('visible')">Remover</p>
                   </div>
                 </div>
+                <div class="modal fade" id="modalEditar" tabindex="-1" role="dialog" aria-labelledby="modalEditarTitle" data-backdrop="false" aria-hidden="true">
+                    <form action="FuncionarioServlet?op=u" method="POST">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Editar Funcionario</h5>
+                                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="col-md-4">
+                                        <label for="id" class="form-label">ID</label>
+                                        <input type="text" class="form-control" name="id" id="id" placeholder="" value="" required>      
+                                    </div>
+                                    <div class="col-10">
+                                        <label for="nome" class="form-label">Nome</label>
+                                        <input type="text" class="form-control" name="nome" id="nome" placeholder="" value="" required>                                                       
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <label for="cpf" class="form-label">CPF</label>
+                                        <input type="text" class="form-control" name="cpf" id="cpf" placeholder="CPF" required>
+                                        <label for="nascimento" class="form-label">Data Nascimento</label>
+                                        <input type="date" class="form-control" name="nascimento" placeholder="yyyy-mm-dd" id="nascimento" required>
+                                      </div>
+
+                                    <div class="col-12">
+                                        <label for="email" class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com" required>                                                        
+                                        <label for="endereco" class="form-label">Endereço</label>
+                                        <input type="text" class="form-control" name="endereco" id="endereco" placeholder="Rua... Nº Bairro..." required>
+                                    </div>
+
+                                    <div class="col-sm-8">
+                                        <label for="telefone" class="form-label">Telefone</label>
+                                        <input type="text" class="form-control" name="telefone" id="telefone" placeholder="(DDD)9XXXX-XXXX" required>
+                                    </div>
+
+                                    <hr class="my-4">
+                                    <h4 class="mb-">Pagamento</h4>
+                                    <div class="col-10">
+                                        <div class="col-md-6">
+                                          <label for="jornada" class="form-label">Jornada</label>
+                                          <input type="text" class="form-control" name="jornada" id="jornada" placeholder="" required>
+                                          <label for="phora" class="form-label">Pagamento p/hora</label>
+                                          <input type="text" class="form-control" name="phora" id="phora" placeholder="" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                  <button class="btn btn-primary" type="submit">Confirmar</button>
+                                </div>
+                          </div>
+                        </div>
+                    </form>
+                </div>
                 <div class="modal modal-wrap" id="cadastroFun">
                   <div class="wrap">
-                    <form>
+                    <form method="post" action="FuncionarioServlet?op=a">
                         <div class="form-body">
                             <fieldset>
                                 <legend><i class="fa fa-user"></i> Cadastrar Novo Funcionário</legend>
@@ -86,12 +146,7 @@
                                 <label for="address">Conta Bancária</label>
                                 <input type="text" id="conta" name="conta" required="">
                                 <label for="funcao">Função</label>
-                                <select id="funcao" name="funcao" required="">
-                                    <option value=""></option>
-                                    <option value="AL">Gerente</option>
-                                    <option value="AK">Caixa</option>
-                                    <option value="AZ">Funcionário</option>
-                                </select>
+                                <input type="text" id="funcao" name="funcao" required="">
                                 <label for="zip">Salário</label>
                                 <input type="text" id="salario" name="salario" required="">
                             </fieldset>
@@ -103,21 +158,21 @@
                         </div>
                         <div class="form-footer">
                             <input type="submit" value="Cadastrar">
-                            <p class="btn-cancelar" onclick="document.getElementById('cadastroFun').classList.toggle('visible')">Cancelar</p>
+                            <p class="btn-cancelar" onclick="fechaModal();">Cancelar</p>
                         </div>
                     </form>
                   </div>
                 </div>
-                <div class="modal modal-wrap" id="editarFun">
+                <div class="modal-wrap modal" id="editarFun" data-backdrop="false">
                     <div class="wrap">
-                      <form>
+                        <form method="post" action="FuncionarioSerlvet?op=e">
                           <div class="form-body">
                               <fieldset>
                                   <legend><i class="fa fa-user"></i> Editar Funcionário</legend>
                                   <label for="fname">Nome Completo</label>
                                   <input type="text" id="fname" name="fname" required="">
-                                  <label for="cpf">CPF</label>
-                                  <input type="text" id="cpf" name="cpf" required="" max="11">
+                                  <label for="identificacao">ID</label>
+                                  <input type="text" id="identificacao" name="identificacao" required="" max="11">
                                   <label for="address">Conta Bancária</label>
                                   <input type="text" id="conta" name="conta" required="">
                                   <label for="funcao">Função</label>
@@ -155,9 +210,19 @@
             </div>
         <script src="js/jquery-3.3.1.min.js"></script>
         <script src="js/popper.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
         <script src="js/main.js"></script>
         <script src="js/mask.js"></script>
+        
+        <script> 
+            $('#editarFun').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget)
+                var recipient = button.data('id')
+                var modal = $(this)
+                modal.find('#identificacao').val(recipient)
+            })
+            
+        </script>
     </body>
 </html>
 

@@ -11,19 +11,25 @@ import com.villabeef.model.dto.Produto;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.HashSet;
 
 public class ManterEstoque {
     
      public static void inserir(String tipo, String marca, double valorCompra, double valorVenda, String validade, String id) throws ClassNotFoundException, SQLException, ParseException {
+         SimpleDateFormat formato1 = new SimpleDateFormat("dd/MM/yyyy");
+         SimpleDateFormat formato2 = new SimpleDateFormat("yyyy-MM-dd");
+         
+         Date data = Date.valueOf(formato2.format(formato1.parse(validade)));
+         
          Produto produto = new Produto("", marca, tipo);
          
-         ItemProduto item = new ItemProduto(id, "", validade, valorVenda);
+         ItemProduto item = new ItemProduto(id, "", data, valorVenda);
          
          EstoqueDAO.inserir(produto, item);
          
-         ManterRentabilidade.inserir(Date.valueOf(LocalDate.now()).toString(), 's', "Re-estoque", valorCompra);
+         ManterRentabilidade.inserir(Date.valueOf(LocalDate.now()), 's', "Re-estoque", valorCompra);
      }
      
      public static void alterar(Produto novoProduto, ItemProduto item, ItemProduto novoItem) throws ClassNotFoundException, SQLException {
@@ -52,5 +58,12 @@ public class ManterEstoque {
     
     public static void excluir (ItemProduto item) throws ClassNotFoundException, SQLException {
         EstoqueDAO.excluir(item);
+    }
+    
+    public static HashSet<ItemProduto> pesquisar(String pesquisa, int modo) throws ClassNotFoundException, SQLException {
+        if(pesquisa.isBlank())
+            return EstoqueDAO.listar();
+        
+        return EstoqueDAO.pesquisar(pesquisa, modo);
     }
 }

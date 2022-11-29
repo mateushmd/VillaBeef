@@ -1,11 +1,15 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/OkCancelDialog.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.villabeef.view;
 
+//Janela modelo para desenvolvimento das interfaces
+
 import com.villabeef.common.FuncionarioInexistenteException;
 import com.villabeef.model.service.ManterUsuario;
+import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
@@ -15,13 +19,12 @@ import javax.swing.InputMap;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
-/**
- *
- * @author chsdi
- */
+
 public class CadastroUsuario extends javax.swing.JDialog {
-
+    
     /**
      * A return status code - returned if Cancel button has been pressed
      */
@@ -30,13 +33,20 @@ public class CadastroUsuario extends javax.swing.JDialog {
      * A return status code - returned if OK button has been pressed
      */
     public static final int RET_OK = 1;
-
+    
+    private String id;
+    
     /**
-     * Creates new form CadastroUsuario
+     * Creates new form Funcionarios1
      */
-    public CadastroUsuario(java.awt.Frame parent, boolean modal) {
+    public CadastroUsuario(java.awt.Frame parent, boolean modal, String id) {
         super(parent, modal);
+        
         initComponents();
+        
+        this.id = id;
+        
+        usuarioCampo.setText(id);
 
         // Close the dialog when Esc is pressed
         String cancelName = "cancel";
@@ -49,13 +59,8 @@ public class CadastroUsuario extends javax.swing.JDialog {
             }
         });
     }
-
-    /**
-     * @return the return status of this dialog - one of RET_OK or RET_CANCEL
-     */
-    public int getReturnStatus() {
-        return returnStatus;
-    }
+    
+    private int mouseX, mouseY;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -66,107 +71,399 @@ public class CadastroUsuario extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        okButton = new javax.swing.JButton();
-        cancelButton = new javax.swing.JButton();
-        label1 = new java.awt.Label();
-        label2 = new java.awt.Label();
-        usuario = new javax.swing.JTextField();
-        senha = new javax.swing.JTextField();
+        background = new javax.swing.JPanel();
+        header = new javax.swing.JPanel();
+        nomeIcone = new javax.swing.JLabel();
+        fecharButton = new javax.swing.JPanel();
+        fecharTxt = new javax.swing.JLabel();
+        nome = new javax.swing.JLabel();
+        usuarioCampo = new javax.swing.JTextField();
+        jSeparator2 = new javax.swing.JSeparator();
+        identificacao = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        cadastrarButton = new javax.swing.JPanel();
+        cadastrarTxt = new javax.swing.JLabel();
+        senhaCampo = new javax.swing.JPasswordField();
+        identificacao1 = new javax.swing.JLabel();
+        confirmacaoSenha = new javax.swing.JPasswordField();
+        jSeparator3 = new javax.swing.JSeparator();
+        aviso = new javax.swing.JLabel();
 
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                closeDialog(evt);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(536, 400));
+        setMinimumSize(new java.awt.Dimension(536, 400));
+        setModal(true);
+        setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(536, 400));
+        setResizable(false);
+
+        background.setBackground(new java.awt.Color(245, 222, 179));
+        background.setMaximumSize(new java.awt.Dimension(536, 400));
+        background.setMinimumSize(new java.awt.Dimension(536, 400));
+        background.setPreferredSize(new java.awt.Dimension(536, 400));
+        background.setRequestFocusEnabled(false);
+        background.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        header.setBackground(new java.awt.Color(76, 21, 32));
+        header.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                headerMouseDragged(evt);
+            }
+        });
+        header.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                headerMousePressed(evt);
+            }
+        });
+        header.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        nomeIcone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/VILLAsmall.png"))); // NOI18N
+        nomeIcone.setText("jLabel2");
+        header.add(nomeIcone, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 5, 100, -1));
+
+        fecharButton.setBackground(header.getBackground());
+
+        fecharTxt.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
+        fecharTxt.setForeground(background.getBackground());
+        fecharTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        fecharTxt.setText("X");
+        fecharTxt.setMaximumSize(new java.awt.Dimension(40, 40));
+        fecharTxt.setMinimumSize(new java.awt.Dimension(40, 40));
+        fecharTxt.setPreferredSize(new java.awt.Dimension(40, 40));
+        fecharTxt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                fecharTxtMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                fecharTxtMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                fecharTxtMouseExited(evt);
             }
         });
 
-        okButton.setMnemonic('O');
-        okButton.setText("OK");
-        okButton.setToolTipText("");
-        okButton.addActionListener(new java.awt.event.ActionListener() {
+        javax.swing.GroupLayout fecharButtonLayout = new javax.swing.GroupLayout(fecharButton);
+        fecharButton.setLayout(fecharButtonLayout);
+        fecharButtonLayout.setHorizontalGroup(
+            fecharButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(fecharButtonLayout.createSequentialGroup()
+                .addComponent(fecharTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        fecharButtonLayout.setVerticalGroup(
+            fecharButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(fecharButtonLayout.createSequentialGroup()
+                .addComponent(fecharTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        header.add(fecharButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 40));
+
+        background.add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 540, 40));
+
+        nome.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        nome.setForeground(header.getBackground());
+        nome.setText("USUÁRIO");
+        background.add(nome, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, -1, -1));
+
+        usuarioCampo.setBackground(background.getBackground());
+        usuarioCampo.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        usuarioCampo.setForeground(new java.awt.Color(0, 0, 0));
+        usuarioCampo.setText("123.456.789-01");
+        usuarioCampo.setToolTipText("");
+        usuarioCampo.setBorder(null);
+        usuarioCampo.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        usuarioCampo.setEnabled(false);
+        usuarioCampo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                usuarioCampoFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                usuarioCampoFocusLost(evt);
+            }
+        });
+        usuarioCampo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                okButtonActionPerformed(evt);
+                usuarioCampoActionPerformed(evt);
+            }
+        });
+        background.add(usuarioCampo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, 320, 30));
+
+        jSeparator2.setBackground(new java.awt.Color(0, 0, 0));
+        jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
+        background.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 320, 10));
+
+        identificacao.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        identificacao.setForeground(header.getBackground());
+        identificacao.setText("SENHA");
+        background.add(identificacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, -1, -1));
+
+        jSeparator1.setBackground(new java.awt.Color(0, 0, 0));
+        jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
+        background.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 220, 320, 10));
+
+        cadastrarButton.setBackground(header.getBackground());
+
+        cadastrarTxt.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        cadastrarTxt.setForeground(new java.awt.Color(255, 255, 255));
+        cadastrarTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        cadastrarTxt.setText("CADASTRAR");
+        cadastrarTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cadastrarTxt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cadastrarTxtMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                cadastrarTxtMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                cadastrarTxtMouseExited(evt);
             }
         });
 
-        cancelButton.setMnemonic('C');
-        cancelButton.setText("Cancelar");
-        cancelButton.setToolTipText("");
-        cancelButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelButtonActionPerformed(evt);
+        javax.swing.GroupLayout cadastrarButtonLayout = new javax.swing.GroupLayout(cadastrarButton);
+        cadastrarButton.setLayout(cadastrarButtonLayout);
+        cadastrarButtonLayout.setHorizontalGroup(
+            cadastrarButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(cadastrarTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+        );
+        cadastrarButtonLayout.setVerticalGroup(
+            cadastrarButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(cadastrarTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+
+        background.add(cadastrarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 340, 140, 40));
+
+        senhaCampo.setBackground(background.getBackground());
+        senhaCampo.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        senhaCampo.setForeground(java.awt.Color.gray);
+        senhaCampo.setText("********");
+        senhaCampo.setBorder(null);
+        senhaCampo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                senhaCampoFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                senhaCampoFocusLost(evt);
             }
         });
+        senhaCampo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                senhaCampoKeyTyped(evt);
+            }
+        });
+        senhaCampo.getDocument().addDocumentListener(new DocumentListener () {
+            public void changedUpdate(DocumentEvent e) {
+                aviso();
+            }
+            public void removeUpdate(DocumentEvent e) {
+                aviso();
+            }
+            public void insertUpdate(DocumentEvent e) {
+                aviso();
+            }
 
-        label1.setText("Usuário:");
+            public void aviso() {
+                String senha = String.valueOf(senhaCampo.getPassword());
+                String confirmacao = String.valueOf(confirmacaoSenha.getPassword());
+                System.out.println(senha);
+                System.out.println(confirmacao);
+                if(senha.equals(confirmacao)) {
+                    cadastrarButton.setEnabled(true);
+                    cadastrarButton.setBackground(header.getBackground());
+                    cadastrarTxt.setEnabled(true);
+                    cadastrarTxt.setForeground(Color.white);
+                    cadastrarTxt.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-        label2.setText("Senha:");
+                    aviso.setText("");
+
+                    return;
+                }
+
+                cadastrarButton.setEnabled(false);
+                cadastrarButton.setBackground(new Color(59, 21, 32));
+                cadastrarTxt.setEnabled(false);
+                cadastrarTxt.setForeground(new Color(102, 102, 102));
+                cadastrarTxt.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+
+                aviso.setText("As senhas não correspondem");
+            }
+        });
+        background.add(senhaCampo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 182, 320, 30));
+
+        identificacao1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        identificacao1.setForeground(header.getBackground());
+        identificacao1.setText("CONFIRMAR SENHA");
+        background.add(identificacao1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 230, -1, -1));
+
+        confirmacaoSenha.setBackground(background.getBackground());
+        confirmacaoSenha.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        confirmacaoSenha.setForeground(java.awt.Color.gray);
+        confirmacaoSenha.setText("********");
+        confirmacaoSenha.setBorder(null);
+        confirmacaoSenha.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                confirmacaoSenhaFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                confirmacaoSenhaFocusLost(evt);
+            }
+        });
+        confirmacaoSenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                confirmacaoSenhaKeyTyped(evt);
+            }
+        });
+        confirmacaoSenha.getDocument().addDocumentListener(new DocumentListener () {
+            public void changedUpdate(DocumentEvent e) {
+                aviso();
+            }
+            public void removeUpdate(DocumentEvent e) {
+                aviso();
+            }
+            public void insertUpdate(DocumentEvent e) {
+                aviso();
+            }
+
+            public void aviso() {
+                String senha = String.valueOf(senhaCampo.getPassword());
+                String confirmacao = String.valueOf(confirmacaoSenha.getPassword());
+                System.out.println(senha);
+                System.out.println(confirmacao);
+                if(senha.equals(confirmacao)) {
+                    cadastrarButton.setEnabled(true);
+                    cadastrarButton.setBackground(header.getBackground());
+                    cadastrarTxt.setEnabled(true);
+                    cadastrarTxt.setForeground(Color.white);
+                    cadastrarTxt.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+                    aviso.setText("");
+
+                    return;
+                }
+
+                cadastrarButton.setEnabled(false);
+                cadastrarButton.setBackground(new Color(59, 21, 32));
+                cadastrarTxt.setEnabled(false);
+                cadastrarTxt.setForeground(new Color(102, 102, 102));
+                cadastrarTxt.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+
+                aviso.setText("As senhas não correspondem");
+            }
+        });
+        background.add(confirmacaoSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 260, 320, 30));
+
+        jSeparator3.setBackground(new java.awt.Color(0, 0, 0));
+        jSeparator3.setForeground(new java.awt.Color(0, 0, 0));
+        background.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 290, 320, 10));
+
+        aviso.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        aviso.setForeground(new java.awt.Color(255, 0, 0));
+        background.add(aviso, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 300, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 224, Short.MAX_VALUE)
-                        .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(22, 22, 22)
-                        .addComponent(cancelButton))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(senha, javax.swing.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)
-                            .addComponent(usuario))))
-                .addContainerGap(15, Short.MAX_VALUE))
+            .addComponent(background, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(usuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(senha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cancelButton)
-                    .addComponent(okButton))
-                .addContainerGap())
+            .addComponent(background, javax.swing.GroupLayout.DEFAULT_SIZE, 468, Short.MAX_VALUE)
         );
-
-        getRootPane().setDefaultButton(okButton);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
+    private void fecharTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fecharTxtMouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_fecharTxtMouseClicked
+
+    private void fecharTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fecharTxtMouseEntered
+        fecharButton.setBackground(background.getBackground());
+        fecharTxt.setForeground(header.getBackground());
+    }//GEN-LAST:event_fecharTxtMouseEntered
+
+    private void fecharTxtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fecharTxtMouseExited
+        fecharButton.setBackground(header.getBackground());
+        fecharTxt.setForeground(background.getBackground());
+    }//GEN-LAST:event_fecharTxtMouseExited
+
+    private void headerMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_headerMouseDragged
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        setLocation(x - mouseX, y - mouseY);
+    }//GEN-LAST:event_headerMouseDragged
+
+    private void headerMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_headerMousePressed
+        mouseX = evt.getX();
+        mouseY = evt.getY();
+    }//GEN-LAST:event_headerMousePressed
+
+    private void usuarioCampoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_usuarioCampoFocusGained
+
+    }//GEN-LAST:event_usuarioCampoFocusGained
+
+    private void usuarioCampoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_usuarioCampoFocusLost
+
+    }//GEN-LAST:event_usuarioCampoFocusLost
+
+    private void cadastrarTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cadastrarTxtMouseClicked
         doClose(RET_OK);
-    }//GEN-LAST:event_okButtonActionPerformed
+    }//GEN-LAST:event_cadastrarTxtMouseClicked
 
-    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
-        doClose(RET_CANCEL);
-    }//GEN-LAST:event_cancelButtonActionPerformed
+    private void cadastrarTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cadastrarTxtMouseEntered
+        cadastrarButton.setBackground(new Color(119, 34, 51));
+    }//GEN-LAST:event_cadastrarTxtMouseEntered
 
-    /**
-     * Closes the dialog
-     */
-    private void closeDialog(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_closeDialog
-        doClose(RET_CANCEL);
-    }//GEN-LAST:event_closeDialog
+    private void cadastrarTxtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cadastrarTxtMouseExited
+        cadastrarButton.setBackground(header.getBackground());
+    }//GEN-LAST:event_cadastrarTxtMouseExited
+
+    private void usuarioCampoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuarioCampoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_usuarioCampoActionPerformed
+
+    private void senhaCampoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_senhaCampoFocusGained
+        if(String.valueOf(senhaCampo.getPassword()).equals("********")) {
+            senhaCampo.setText("");
+            senhaCampo.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_senhaCampoFocusGained
+
+    private void senhaCampoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_senhaCampoFocusLost
+        if(String.valueOf(senhaCampo.getPassword()).isBlank()) {
+            senhaCampo.setText("********");
+            senhaCampo.setForeground(Color.gray);
+        }
+    }//GEN-LAST:event_senhaCampoFocusLost
+
+    private void confirmacaoSenhaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_confirmacaoSenhaFocusGained
+        if(String.valueOf(confirmacaoSenha.getPassword()).equals("********")) {
+            confirmacaoSenha.setText("");
+            confirmacaoSenha.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_confirmacaoSenhaFocusGained
+
+    private void confirmacaoSenhaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_confirmacaoSenhaFocusLost
+        if(String.valueOf(confirmacaoSenha.getPassword()).isBlank()) {
+            confirmacaoSenha.setText("********");
+            confirmacaoSenha.setForeground(Color.gray);
+        }
+    }//GEN-LAST:event_confirmacaoSenhaFocusLost
+
+    private void senhaCampoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_senhaCampoKeyTyped
+        
+    }//GEN-LAST:event_senhaCampoKeyTyped
+
+    private void confirmacaoSenhaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_confirmacaoSenhaKeyTyped
+        
+    }//GEN-LAST:event_confirmacaoSenhaKeyTyped
     
     private void doClose(int retStatus) {
-        
         try {
             if(retStatus == RET_OK) {
-                ManterUsuario.cadastrar(usuario.getText(), senha.getText());
+                ManterUsuario.cadastrar(usuarioCampo.getText(), String.valueOf(senhaCampo.getPassword()));
             }
 
             returnStatus = retStatus;
@@ -181,55 +478,24 @@ public class CadastroUsuario extends javax.swing.JDialog {
         }
     }
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CadastroUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CadastroUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CadastroUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CadastroUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                CadastroUsuario dialog = new CadastroUsuario(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton cancelButton;
-    private java.awt.Label label1;
-    private java.awt.Label label2;
-    private javax.swing.JButton okButton;
-    private javax.swing.JTextField senha;
-    private javax.swing.JTextField usuario;
+    private javax.swing.JLabel aviso;
+    private javax.swing.JPanel background;
+    private javax.swing.JPanel cadastrarButton;
+    private javax.swing.JLabel cadastrarTxt;
+    private javax.swing.JPasswordField confirmacaoSenha;
+    private javax.swing.JPanel fecharButton;
+    private javax.swing.JLabel fecharTxt;
+    private javax.swing.JPanel header;
+    private javax.swing.JLabel identificacao;
+    private javax.swing.JLabel identificacao1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JLabel nome;
+    private javax.swing.JLabel nomeIcone;
+    private javax.swing.JPasswordField senhaCampo;
+    private javax.swing.JTextField usuarioCampo;
     // End of variables declaration//GEN-END:variables
 
     private int returnStatus = RET_CANCEL;

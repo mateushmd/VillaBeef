@@ -22,6 +22,6 @@ public class ManterVenda {
         for(ItemProduto item : venda.getItens())
             valor += item.getValor();
         
-        ManterRentabilidade.inserir(Date.valueOf(LocalDate.now()).toString(), 'e', "Venda", valor);
+        ManterRentabilidade.inserir(Date.valueOf(LocalDate.now()), 'e', "Venda", valor);
     }
 }
