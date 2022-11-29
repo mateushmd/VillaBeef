@@ -166,7 +166,6 @@ public class Funcionarios extends javax.swing.JFrame {
         usuarioTxt = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(900, 580));
         setMinimumSize(new java.awt.Dimension(900, 580));
         setUndecorated(true);
         setResizable(false);
