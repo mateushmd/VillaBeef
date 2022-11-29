@@ -32,11 +32,11 @@ public class ManterFuncionario {
         return EquipeDAO.obterPorId(id);
     }
     
-    public static HashSet<Funcionario> pesquisar(String pesquisa, int modo) throws ClassNotFoundException, SQLException {
+    public static HashSet<Funcionario> pesquisar(String pesquisa) throws ClassNotFoundException, SQLException {
         if(pesquisa.isBlank())
             return EquipeDAO.listar();
 
-        return EquipeDAO.pesquisar(pesquisa, modo);
+        return EquipeDAO.pesquisar(pesquisa);
     } 
     
     public static void excluir(Funcionario funcionario) throws ClassNotFoundException, SQLException {

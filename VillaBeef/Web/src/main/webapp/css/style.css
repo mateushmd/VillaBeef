@@ -159,3 +159,14 @@ main{
 .commands-text:hover{
     color: hsl(348deg 56% 30%);
 }
+
+.btn-add-prod{
+    width: 50px;
+    fill: hsl(348deg 56% 19%);
+    padding: 0.5rem;
+    cursor: pointer;
+}
+
+.btn-add-prod:hover{
+    fill: hsl(348deg 56% 30%);
+}

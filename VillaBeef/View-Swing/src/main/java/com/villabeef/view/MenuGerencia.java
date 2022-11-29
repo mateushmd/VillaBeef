@@ -290,7 +290,7 @@ public class MenuGerencia extends javax.swing.JFrame {
     }//GEN-LAST:event_estoqueButtonMouseClicked
 
     private void funcionariosButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_funcionariosButtonMouseClicked
-        Funcionarios1 f = new Funcionarios1();
+        Funcionarios f = new Funcionarios();
         f.setVisible(true);
         f.setLocationRelativeTo(null);
         f.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
