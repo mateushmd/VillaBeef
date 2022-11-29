@@ -177,6 +177,10 @@ wrap-input fieldset {
     justify-content: flex-end;
 }
 
+.modal-backdrop{
+    display: none!important;
+}
+
 .caixa-footer input:hover{
     background-color: hsl(348deg 56% 30%);
 }
