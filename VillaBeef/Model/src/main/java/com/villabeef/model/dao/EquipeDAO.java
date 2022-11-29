@@ -237,5 +237,6 @@ public class EquipeDAO {
         }
         
         return filtrado;
-    }  
+    }
+    
 }

@@ -11,15 +11,21 @@ import com.villabeef.model.dto.Produto;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.HashSet;
 
 public class ManterEstoque {
     
      public static void inserir(String tipo, String marca, double valorCompra, double valorVenda, String validade, String id) throws ClassNotFoundException, SQLException, ParseException {
+         SimpleDateFormat formato1 = new SimpleDateFormat("dd/MM/yyyy");
+         SimpleDateFormat formato2 = new SimpleDateFormat("yyyy-MM-dd");
+         
+         Date data = Date.valueOf(formato2.format(formato1.parse(validade)));
+         
          Produto produto = new Produto("", marca, tipo);
          
-         ItemProduto item = new ItemProduto(id, "", validade, valorVenda);
+         ItemProduto item = new ItemProduto(id, "", data, valorVenda);
          
          EstoqueDAO.inserir(produto, item);
          
