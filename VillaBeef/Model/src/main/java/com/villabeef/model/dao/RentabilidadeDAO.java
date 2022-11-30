@@ -23,6 +23,8 @@ public class RentabilidadeDAO {
         Statement comando = null;
         
         ResultSet rs = null;
+        
+        String sql = null;
 
         int resultado = 0;
 
@@ -31,26 +33,34 @@ public class RentabilidadeDAO {
 
             comando = conexao.createStatement();
             
-            String sql = "SELECT COUNT(*) FROM produtos";
-
+            sql = "SELECT COUNT(*) FROM conta";
+                
             rs = comando.executeQuery(sql);
 
             rs.next();
-            
-            int id = rs.getInt(1);
 
-            sql = "INSERT INTO conta VALUES('" + conta.getData().toString() + "', '" + conta.getTipo() + "', '"
-                    + conta.getDescricao() + "', '" + conta.getValor() + "', '" + id + "')";
+            String id = String.valueOf(rs.getInt(1) + 1);
+
+            double valor = Math.abs(conta.getValor());
+
+            sql = "UPDATE dados SET saldo = saldo " + (conta.getValor() > 0 ? ("+ " + valor) : ("- " + valor)) + " WHERE id = '1'";
 
             resultado = comando.executeUpdate(sql);
             
+            sql = "SELECT * FROM dados";
+            
+            rs = comando.executeQuery(sql);
+            
+            rs.next();
+            
             if(resultado > 0) {
-                double valor = Math.abs(conta.getValor());
-
-                sql = "UPDATE dados SET saldo = saldo " + (conta.getValor() > 0 ? ("+ " + valor) : ("- " + valor)) + " WHERE id = '1'";
+                sql = "INSERT INTO conta VALUES('" + conta.getData().toString() + "', '" + conta.getTipo() + "', '"
+                    + conta.getDescricao() + "', '" + conta.getValor() + "', '" + id + "', '" + rs.getDouble("saldo") + "')";
 
                 resultado = comando.executeUpdate(sql);
             }
+            
+            
         } finally {
             ConexaoBD.fecharConexao(conexao, comando);
         }

@@ -4,6 +4,7 @@
  */
 package com.villabeef.view;
 
+import com.villabeef.model.service.ManterFuncionario;
 import com.villabeef.model.service.ManterUsuario;
 import java.awt.Color;
 import java.sql.SQLException;
@@ -312,10 +313,15 @@ public class Login extends javax.swing.JFrame {
         try {
             if (retStatus == RET_OK) {
                 if(ManterUsuario.login(usuarioCampo.getText(), String.valueOf(senhaCampo.getPassword()))) {
-                    
-                    MenuGerencia m = new MenuGerencia();
-                    m.setVisible(true);
-                    m.setLocationRelativeTo(null);
+                    if(ManterFuncionario.obterPorId(usuarioCampo.getText()).getFuncao().equals("Gerente")) {
+                        MenuGerencia m = new MenuGerencia();
+                        m.setVisible(true);
+                        m.setLocationRelativeTo(null);
+                    } else {
+                        MenuCaixa c = new MenuCaixa();
+                        c.setVisible(true);
+                        c.setLocationRelativeTo(null);
+                    }
                 }
                 else {
                     JOptionPane.showMessageDialog(rootPane, "Login ou senha incorretos.", "Erro", JOptionPane.WARNING_MESSAGE);
