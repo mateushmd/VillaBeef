@@ -1,12 +1,17 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="imgs/icon.png" type="image/png">
     <title>Login - VillaBeef</title>
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/sign-in/">
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link rel="icon" href="imgs/icon.png" type="image/png">
     <style>
       .bd-placeholder-img {
         font-size: 1.125rem;
@@ -82,8 +87,16 @@
       <input type="password" class="form-control" name="senha" id="floatingPassword" placeholder="Senha">
     </div>
     <button class="w-100 btn btn-lg btn-primary" type="submit">Entrar</button>
+    <p class="text-center" style="padding-top: 1em">
+        <c:if test="${not empty errorMessage}">
+            <c:out value="${errorMessage}"/>
+            <br>
+            <c:out value="${errorMessage1}"/>
+        </c:if>
+    </p>
     <p class="mt-5 mb-3 text-muted text-center">&copy; 2022 VillaBeef</p>
   </form>
+    
 </main>
   </body>
 </html>
