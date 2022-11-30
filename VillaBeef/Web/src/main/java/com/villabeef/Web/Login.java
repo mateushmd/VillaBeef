@@ -2,15 +2,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package com.villabeef.web;
+package com.villabeef.Web;
 
 import com.villabeef.model.service.ManterUsuario;
+import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,11 +39,18 @@ public class Login extends HttpServlet {
         String senha = request.getParameter("senha");
         try {
             boolean status = ManterUsuario.login(usuario, senha);
+            HttpSession Session = request.getSession();
+            Session.setAttribute("usuario", usuario);
             
-            if(status)
-                response.sendRedirect("menuGerencia.html");
-            else
-                response.sendRedirect("index.html");
+            if(status){
+                RequestDispatcher rd = request.getRequestDispatcher("menuGerencia.jsp");
+                rd.forward(request, response);
+            }
+            else{
+                request.setAttribute("errorMessage", "Usuário ou senha inválidos.");
+                RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+                rd.forward(request, response);
+            }
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
