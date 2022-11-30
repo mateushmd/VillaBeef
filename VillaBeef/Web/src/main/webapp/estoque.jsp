@@ -9,6 +9,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="icon" href="imgs/icon.png" type="image/png">
         <title>Villa Beef</title>
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="fonts/icomoon/style.css">
@@ -23,6 +24,14 @@
     </head>
     <body>
 
+        <% if(session.getAttribute("usuario") == null){
+                request.setAttribute("errorMessage", "Você não tem acesso à essa página.");
+                request.setAttribute("errorMessage1", "Por favor faça Login.");
+                RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+                rd.forward(request, response);
+             } 
+         %>
+        
         <sql:setDataSource var= "conexao" driver= "com.mysql.jdbc.Driver" url= "jdbc:mysql://us-cdbr-east-06.cleardb.net:3306/heroku_b695d40b1c0e531?useSSL=false" user= "b4ef7c73d61cc7"  password= "c101e0f6" />
         <sql:query dataSource="${conexao}" var="itens" >
             select * from estoque
@@ -32,7 +41,7 @@
         </sql:query>
 
         <header>
-            <a href="menuGerencia.html">
+            <a href="menuGerencia.jsp">
             <?xml version="1.0" ?><?xml version="1.0" ?><svg class="icon" id="header-back" style="enable-background:new 0 0 16 16;" version="1.1" viewBox="0 0 16 16" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M8,0C3.582,0,0,3.582,0,8s3.582,8,8,8s8-3.582,8-8S12.418,0,8,0z M10.354,12.646l-0.707,0.707L4.293,8l5.354-5.354  l0.707,0.707L5.707,8L10.354,12.646z"/></svg>
             <h1 id="header-title">VILLA</h1></a>
         </header>
@@ -80,7 +89,7 @@
                 </div>
                 <div class="modal modal-wrap" id="cadastroProd">
                   <div class="wrap">
-                    <form>
+                    <form method="post" action="ProdutosServlet?op=a">
                         <div class="form-body">
                             <fieldset>
                                 <legend><i class="fa fa-user"></i>Cadastrar Produto</legend>
@@ -92,8 +101,10 @@
                                 <input type="text" id="id" name="id" required="">
                                 <label for="validade">Validade</label>
                                 <input type="date" id="validade" name="validade" required="">
-                                <label for="valor">Valor</label>
-                                <input type="number" id="valor" name="valor" required="">
+                                <label for="valor">Valor de Compra</label>
+                                <input type="text" id="valor" name="valor" required="">
+                                <label for="valor-venda">Valor de Venda</label>
+                                <input type="text" id="valor-venda" name="valor-venda" required="">
                             </fieldset>
                         </div>
                         <div class="form-footer">
