@@ -11,6 +11,7 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.LinkedHashSet;
 
 public class RentabilidadeDAO {
@@ -19,6 +20,9 @@ public class RentabilidadeDAO {
     }
 
     public static boolean inserir(Conta conta) throws ClassNotFoundException, SQLException {
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+
+        
         Connection conexao = null;
         
         Statement comando = null;
@@ -56,7 +60,7 @@ public class RentabilidadeDAO {
             
             if(resultado > 0) {
                 sql = "INSERT INTO conta VALUES('" + conta.getData().toString() + "', '" + conta.getTipo() + "', '"
-                    + conta.getDescricao() + "', '" + conta.getValor() + "', '" + id + "', '" + rs.getDouble("saldo") + "')";
+                    + conta.getDescricao() + "', '" + conta.getValor() + "', '" + id + "', '" + rs.getDouble("saldo") + ", " + formato.format(conta.getData()) + "')";
 
                 resultado = comando.executeUpdate(sql);
             }
