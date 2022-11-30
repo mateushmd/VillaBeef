@@ -1,13 +1,11 @@
-package com.villabeef.servlets;
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
+package com.villabeef.web;
 
-import com.villabeef.model.service.ManterFuncionario;
+import com.villabeef.model.service.ManterUsuario;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -19,10 +17,10 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Samsung
+ * @author chsdi
  */
-@WebServlet(urlPatterns = {"/FuncionarioServlet"})
-public class FuncionarioServlet extends HttpServlet {
+@WebServlet(name = "Login", urlPatterns = {"/Login"})
+public class Login extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,26 +33,19 @@ public class FuncionarioServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String nome = request.getParameter("fname");
-        String cpf = request.getParameter("cpf");
-        cpf = cpf.replace(".", "");
-        cpf = cpf.replace("-", "");
-        String conta = request.getParameter("conta");
-        String funcao = request.getParameter("funcao");
-        double salario = Double.parseDouble(request.getParameter("salario").replace(",", "."));
-
-        String op = request.getParameter("op");
-
+        String usuario = request.getParameter("usuario");
+        String senha = request.getParameter("senha");
         try {
-            if (op.equals("a")) {
-                ManterFuncionario.adicionar(nome, salario, conta, funcao, cpf);
-            }
+            boolean status = ManterUsuario.login(usuario, senha);
             
-            response.sendRedirect("funcionarios.jsp");
+            if(status)
+                response.sendRedirect("menuGerencia.html");
+            else
+                response.sendRedirect("index.html");
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(FuncionarioServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(FuncionarioServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

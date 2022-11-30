@@ -12,8 +12,8 @@ import java.util.HashSet;
 public class ManterRentabilidade  {
     private ManterRentabilidade() {}
     
-    public static void inserir(Date data, char tipo, String descricao, double valor) throws ClassNotFoundException, SQLException, ParseException {
-        RentabilidadeDAO.inserir(new Conta(data, tipo, descricao, valor));
+    public static boolean inserir(Date data, char tipo, String descricao, double valor) throws ClassNotFoundException, SQLException, ParseException {
+        return RentabilidadeDAO.inserir(new Conta(data, tipo, descricao, valor));
     }
     
     public static HashSet<Conta> listar() throws ClassNotFoundException, SQLException {

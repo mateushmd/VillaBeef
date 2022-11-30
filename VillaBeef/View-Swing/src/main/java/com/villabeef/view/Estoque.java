@@ -14,8 +14,11 @@ import com.villabeef.model.service.ManterUsuario;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.HashSet;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -53,7 +56,7 @@ public class Estoque extends javax.swing.JFrame {
         } catch (ClassNotFoundException ex) {
             JOptionPane.showMessageDialog(rootPane, "Ocorreu um erro inesperado.", "Erro", JOptionPane.ERROR_MESSAGE);
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Falha na conexão com o banco de dados.", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage() + "  aaaaaaaaa", "Falha na conexão com o banco de dados.", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -885,19 +888,24 @@ public class Estoque extends javax.swing.JFrame {
         double valor = Double.valueOf(valorCampo.getText().replace(',', '.'));
         String validade = validadeCampo.getText();
         String id  = idCampo.getText();
-
-        int resultado;
         
-        Produto novoProduto = produto;
-        
-        if(!produto.getTipo().equals(tipo) | !produto.getMarca().equals(marca))
-        {
-            novoProduto = new Produto("", marcaCampo.getText(), tipoCampo.getText(), 0, 0);
-        }
-
-        ItemProduto novoItem = new ItemProduto(id, validade, valor);
-
         try {
+            SimpleDateFormat formato1 = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat formato2 = new SimpleDateFormat("yyyy-MM-dd");
+
+            Date data = Date.valueOf(formato2.format(formato1.parse(validade)));
+
+            int resultado;
+
+            Produto novoProduto = produto;
+
+            if(!produto.getTipo().equals(tipo) | !produto.getMarca().equals(marca))
+            {
+                novoProduto = new Produto("", marcaCampo.getText(), tipoCampo.getText(), 0, 0);
+            }
+
+            ItemProduto novoItem = new ItemProduto(id, data, valor);
+        
             ManterEstoque.alterar(novoProduto, item, novoItem);
             atualizarTabela(ManterEstoque.listar());
             
@@ -910,6 +918,8 @@ public class Estoque extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Ocorreu um erro inesperado.", "Erro", JOptionPane.ERROR_MESSAGE);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Falha na conexão com o banco de dados.", JOptionPane.ERROR_MESSAGE);
+        } catch (ParseException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Ocorreu um erro inesperado.", "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_aplicarTxtMouseClicked
 
