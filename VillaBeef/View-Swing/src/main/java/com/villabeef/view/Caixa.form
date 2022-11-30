@@ -2,7 +2,7 @@
 
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
-    <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="defaultCloseOperation" type="int" value="2"/>
     <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
       <Dimension value="[870, 550]"/>
     </Property>
@@ -281,7 +281,7 @@
               <Font name="Arial" size="14" style="0"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="0" type="rgb"/>
+              <Color blue="80" green="80" id="gray" palette="1" red="80" type="palette"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Especifique a identifica&#xe7;&#xe3;o"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
@@ -291,13 +291,15 @@
             <Property name="disabledTextColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="80" green="80" id="gray" palette="1" red="80" type="palette"/>
             </Property>
-            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="identificacaoCampoFocusGained"/>
             <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="identificacaoCampoFocusLost"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="identificacaoCampoActionPerformed"/>
           </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="identificacaoCampo.getDocument().addDocumentListener(new DocumentListener () {&#xa;    public void changedUpdate(DocumentEvent e) {&#xa;        aviso();&#xa;    }&#xa;    public void removeUpdate(DocumentEvent e) {&#xa;        aviso();&#xa;    }&#xa;    public void insertUpdate(DocumentEvent e) {&#xa;        aviso();&#xa;    }&#xa;&#xa;    public void aviso() {&#xa;        String id = identificacaoCampo.getText();&#xa;        String quantidade = quantidadeCampo.getText();&#xa;&#xa;        if(!id.equals(&quot;Especifique a identificacao&quot;) &amp;&amp; !id.isBlank() &amp;&amp; !quantidade.isBlank() &amp;&amp; Integer.valueOf(quantidade) &gt; 0) {&#xa;            adicionarButton.setEnabled(true);&#xa;            adicionarButton.setBackground(header.getBackground());&#xa;            adicionarTxt.setEnabled(true);&#xa;            adicionarTxt.setForeground(Color.white);&#xa;            adicionarTxt.setCursor(new Cursor(Cursor.HAND_CURSOR));&#xa;&#xa;            return;&#xa;        }&#xa;        &#xa;        adicionarButton.setEnabled(false);&#xa;        adicionarButton.setBackground(new Color(59, 21, 32));&#xa;        adicionarTxt.setEnabled(false);&#xa;        adicionarTxt.setForeground(new Color(102, 102, 102));&#xa;        adicionarTxt.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));&#xa;    }&#xa;});"/>
+          </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
               <AbsoluteConstraints x="520" y="220" width="320" height="30"/>
@@ -337,14 +339,14 @@
         </Component>
         <Container class="javax.swing.JPanel" name="adicionarButton">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="20" green="15" red="3b" type="rgb"/>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection component="header" name="background" type="property"/>
             </Property>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="520" y="360" width="320" height="40"/>
+              <AbsoluteConstraints x="680" y="290" width="160" height="40"/>
             </Constraint>
           </Constraints>
 
@@ -367,7 +369,7 @@
                   <Font name="Arial" size="14" style="1"/>
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="66" green="66" red="66" type="rgb"/>
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="text" type="java.lang.String" value="ADICIONAR"/>
@@ -409,7 +411,7 @@
               <Font name="Arial" size="14" style="0"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="0" type="rgb"/>
+              <Color blue="80" green="80" id="gray" palette="1" red="80" type="palette"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="text" type="java.lang.String" value="0"/>
@@ -420,13 +422,15 @@
             <Property name="disabledTextColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="80" green="80" id="gray" palette="1" red="80" type="palette"/>
             </Property>
-            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="quantidadeCampoFocusGained"/>
             <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="quantidadeCampoFocusLost"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="quantidadeCampoActionPerformed"/>
           </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="quantidadeCampo.getDocument().addDocumentListener(new DocumentListener () {&#xa;    public void changedUpdate(DocumentEvent e) {&#xa;        aviso();&#xa;    }&#xa;    public void removeUpdate(DocumentEvent e) {&#xa;        aviso();&#xa;    }&#xa;    public void insertUpdate(DocumentEvent e) {&#xa;        aviso();&#xa;    }&#xa;&#xa;    public void aviso() {&#xa;        String id = identificacaoCampo.getText();&#xa;        String quantidade = quantidadeCampo.getText();&#xa;&#xa;        if(!id.equals(&quot;Especifique a identificacao&quot;) &amp;&amp; !id.isBlank() &amp;&amp; !quantidade.isBlank() &amp;&amp; Integer.valueOf(quantidade) &gt; 0) {&#xa;            adicionarButton.setEnabled(true);&#xa;            adicionarButton.setBackground(header.getBackground());&#xa;            adicionarTxt.setEnabled(true);&#xa;            adicionarTxt.setForeground(Color.white);&#xa;            adicionarTxt.setCursor(new Cursor(Cursor.HAND_CURSOR));&#xa;&#xa;            return;&#xa;        }&#xa;        &#xa;        adicionarButton.setEnabled(false);&#xa;        adicionarButton.setBackground(new Color(59, 21, 32));&#xa;        adicionarTxt.setEnabled(false);&#xa;        adicionarTxt.setForeground(new Color(102, 102, 102));&#xa;        adicionarTxt.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));&#xa;    }&#xa;});"/>
+          </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
               <AbsoluteConstraints x="520" y="300" width="100" height="30"/>
@@ -464,19 +468,19 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="jLabel2" pref="314" max="32767" attributes="0"/>
+                      <Component id="subtotalTxt" pref="314" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jLabel2" alignment="0" pref="100" max="32767" attributes="0"/>
+                  <Component id="subtotalTxt" alignment="0" pref="100" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="jLabel2">
+            <Component class="javax.swing.JLabel" name="subtotalTxt">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Arial" size="48" style="1"/>
@@ -507,6 +511,53 @@
             </Constraint>
           </Constraints>
         </Component>
+        <Container class="javax.swing.JPanel" name="finalizarButton">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection component="header" name="background" type="property"/>
+            </Property>
+          </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="520" y="370" width="320" height="40"/>
+            </Constraint>
+          </Constraints>
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="finalizarTxt" alignment="0" max="32767" attributes="0"/>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="finalizarTxt" alignment="0" max="32767" attributes="0"/>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JLabel" name="finalizarTxt">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Arial" size="14" style="1"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+                <Property name="horizontalAlignment" type="int" value="0"/>
+                <Property name="text" type="java.lang.String" value="FINALIZAR"/>
+                <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                  <Color id="Hand Cursor"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="finalizarTxtMouseClicked"/>
+                <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="finalizarTxtMouseEntered"/>
+                <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="finalizarTxtMouseExited"/>
+              </Events>
+            </Component>
+          </SubComponents>
+        </Container>
       </SubComponents>
     </Container>
   </SubComponents>

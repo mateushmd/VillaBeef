@@ -4,14 +4,17 @@
  */
 package com.villabeef.model.dao;
 
+import com.villabeef.common.CampoInvalidoException;
 import static com.villabeef.model.dao.EquipeDAO.listar;
 import com.villabeef.model.dto.ItemProduto;
 import com.villabeef.model.dto.Produto;
+import com.villabeef.model.service.ManterRentabilidade;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.HashSet;
 
@@ -63,7 +66,7 @@ public class EstoqueDAO {
             item.setIdProduto(produto.getId());
             
             if(resultado > 0) {
-                sql = "INSERT INTO estoque VALUES('" + item.getId() + "', '" + item.getIdProduto() + "', '" + item.getValidade() + 
+                sql = "INSERT INTO estoque VALUES('" + item.getId() + "', '" + item.getIdProduto() + "', '" + item.getValidadeSQL() + 
                         "', '" + item.getValor() + "')";
                 
                 resultado = comando.executeUpdate(sql);
@@ -286,6 +289,38 @@ public class EstoqueDAO {
         return produto;
     }
     
+    public static Produto obterProduto(String tipo, String marca) throws ClassNotFoundException, SQLException {
+        String sql = "SELECT * FROM produtos WHERE tipo = '" + tipo + "' AND marca = '" + marca + "'";
+        
+        Connection conexao = null;
+        
+        Statement comando = null;
+        
+        ResultSet rs = null;
+        
+        Produto produto = null;
+
+        try {
+
+            conexao = ConexaoBD.getConexao();
+            comando = conexao.createStatement();
+            
+            rs = comando.executeQuery(sql);
+            
+            if(rs.next()) {
+                produto = new Produto(rs.getString("id"),
+                        rs.getString("marca"),
+                        rs.getString("tipo"),
+                        rs.getInt("quantidade"),
+                        rs.getInt("quantidade_minima"));
+            }
+        } finally {
+            ConexaoBD.fecharConexao(conexao, comando, rs);
+        }
+        
+        return produto;
+    }
+    
     public static HashSet<ItemProduto> pesquisar(String pesquisa, int modo) throws ClassNotFoundException, SQLException {
         HashSet<ItemProduto> lista = listar();
         
@@ -325,8 +360,11 @@ public class EstoqueDAO {
         return filtrado;
     }
     
-    public static HashSet<ItemProduto> vender(String idProduto, int quantidade) throws ClassNotFoundException, SQLException {
+    public static HashSet<ItemProduto> adicionarCompra(String idProduto, int quantidade) throws ClassNotFoundException, SQLException, CampoInvalidoException {
         HashSet<ItemProduto> set = listarPorProduto(idProduto);
+        
+        if(quantidade > set.size())
+            throw new CampoInvalidoException("Há menos itens disponíveis do que a quantidade especificada");
         
         ItemProduto[] lista = new ItemProduto[set.size()]; 
         lista = set.toArray(lista);
@@ -342,5 +380,17 @@ public class EstoqueDAO {
         }
         
         return filtrado;
+    }
+    
+    public static boolean finalizarCompra(HashSet<ItemProduto> itens, double subtotal) throws ClassNotFoundException, SQLException, ParseException {
+        boolean resultado = false;
+        
+        for(ItemProduto i : itens) {
+            resultado = excluir(i);
+        }
+        
+        resultado = ManterRentabilidade.inserir(Date.valueOf(LocalDate.now()), 'e', "Venda", subtotal);
+        
+        return resultado;
     }
 }

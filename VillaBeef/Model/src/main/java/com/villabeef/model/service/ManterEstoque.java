@@ -4,6 +4,7 @@
  */
 package com.villabeef.model.service;
 
+import com.villabeef.common.CampoInvalidoException;
 import com.villabeef.model.dao.EquipeDAO;
 import com.villabeef.model.dao.EstoqueDAO;
 import com.villabeef.model.dto.ItemProduto;
@@ -56,6 +57,10 @@ public class ManterEstoque {
         return EstoqueDAO.obterProduto(idProduto);
     }
     
+    public static Produto obterProduto(String tipo, String marca) throws ClassNotFoundException, SQLException {
+        return EstoqueDAO.obterProduto(tipo, marca);
+    }
+    
     public static void excluir (ItemProduto item) throws ClassNotFoundException, SQLException {
         EstoqueDAO.excluir(item);
     }
@@ -65,5 +70,13 @@ public class ManterEstoque {
             return EstoqueDAO.listar();
         
         return EstoqueDAO.pesquisar(pesquisa, modo);
+    }
+    
+    public static HashSet<ItemProduto> adicionarCompra(String idProduto, int quantidade) throws ClassNotFoundException, SQLException, CampoInvalidoException {
+        return EstoqueDAO.adicionarCompra(idProduto, quantidade);
+    }
+    
+    public static boolean finalizarCompra(HashSet<ItemProduto> itens, double subtotal) throws ClassNotFoundException, SQLException, ParseException {
+        return EstoqueDAO.finalizarCompra(itens, subtotal);
     }
 }
