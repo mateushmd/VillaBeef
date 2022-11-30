@@ -63,6 +63,10 @@ public class ItemProduto {
     public Date getValidadeAsDate() {
         return validade;
     }
+    
+    public String getValidadeSQL() {
+        return validade.toString();
+    }
 
     public boolean estaVendido() {
         return vendido;

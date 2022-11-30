@@ -6,19 +6,81 @@ package com.villabeef.view;
 
 //Janela modelo para desenvolvimento das interfaces
 
+import com.villabeef.common.CampoInvalidoException;
+import com.villabeef.model.dto.ItemProduto;
+import com.villabeef.model.dto.Produto;
+import com.villabeef.model.service.ManterEstoque;
 import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Font;
+import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.util.HashSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableModel;
 
 
 public class Caixa extends javax.swing.JFrame {
-
+    
+    private HashSet<ItemProduto> itens = new HashSet<>();
+    
+    DefaultTableModel modelo = null;
+    
     /**
      * Creates new form Funcionarios1
      */
     public Caixa() {
+        
         initComponents();
+        scrollPane.getViewport().setBackground(new Color(245, 222, 179));
+        scrollPane.getViewport().setBorder(null);
+
+        tabela.getTableHeader().setFont(new Font("Arial", Font.BOLD, 18));
+        tabela.getTableHeader().setOpaque(false);
+        tabela.getTableHeader().setBackground(new Color(76, 21, 32));
+        tabela.getTableHeader().setForeground(new Color(245, 222, 179));
+        tabela.setRowHeight(25);
+        
+        modelo = (DefaultTableModel) tabela.getModel();
+        
+        
     }
     
     private int mouseX, mouseY;
+    
+    
+    
+    private void atualizarTabela(HashSet<ItemProduto> lista) {
+        DecimalFormat formato = new DecimalFormat("0.00");
+        
+        double total = 0.0;
+        
+        if (modelo != null) {
+            modelo.getDataVector().removeAllElements();
+            modelo.fireTableDataChanged();
+        }
+        
+        try {
+            for (ItemProduto item : lista) {
+                Produto produto = ManterEstoque.obterProduto(item.getIdProduto());
+
+                modelo.insertRow(modelo.getRowCount(), new Object[] {(produto.getTipo() + " " + produto.getMarca()), ("R$ " + formato.format(item.getValor()))});
+                
+                total += item.getValor();
+                
+                subtotalTxt.setText("R$ " + formato.format(total));
+            }
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Ocorreu um erro inesperado.", "Erro", JOptionPane.ERROR_MESSAGE);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Falha na conexão com o banco de dados.", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -47,10 +109,12 @@ public class Caixa extends javax.swing.JFrame {
         quantidadeCampo = new javax.swing.JTextField();
         jSeparator3 = new javax.swing.JSeparator();
         jPanel2 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        subtotalTxt = new javax.swing.JLabel();
         quantidade1 = new javax.swing.JLabel();
+        finalizarButton = new javax.swing.JPanel();
+        finalizarTxt = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(870, 550));
         setMinimumSize(new java.awt.Dimension(870, 550));
         setUndecorated(true);
@@ -177,12 +241,11 @@ public class Caixa extends javax.swing.JFrame {
 
         identificacaoCampo.setBackground(background.getBackground());
         identificacaoCampo.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        identificacaoCampo.setForeground(new java.awt.Color(0, 0, 0));
+        identificacaoCampo.setForeground(java.awt.Color.gray);
         identificacaoCampo.setText("Especifique a identificação");
         identificacaoCampo.setToolTipText("");
         identificacaoCampo.setBorder(null);
         identificacaoCampo.setDisabledTextColor(java.awt.Color.gray);
-        identificacaoCampo.setEnabled(false);
         identificacaoCampo.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 identificacaoCampoFocusGained(evt);
@@ -196,6 +259,38 @@ public class Caixa extends javax.swing.JFrame {
                 identificacaoCampoActionPerformed(evt);
             }
         });
+        identificacaoCampo.getDocument().addDocumentListener(new DocumentListener () {
+            public void changedUpdate(DocumentEvent e) {
+                aviso();
+            }
+            public void removeUpdate(DocumentEvent e) {
+                aviso();
+            }
+            public void insertUpdate(DocumentEvent e) {
+                aviso();
+            }
+
+            public void aviso() {
+                String id = identificacaoCampo.getText();
+                String quantidade = quantidadeCampo.getText();
+
+                if(!id.equals("Especifique a identificacao") && !id.isBlank() && !quantidade.isBlank() && Integer.valueOf(quantidade) > 0) {
+                    adicionarButton.setEnabled(true);
+                    adicionarButton.setBackground(header.getBackground());
+                    adicionarTxt.setEnabled(true);
+                    adicionarTxt.setForeground(Color.white);
+                    adicionarTxt.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+                    return;
+                }
+
+                adicionarButton.setEnabled(false);
+                adicionarButton.setBackground(new Color(59, 21, 32));
+                adicionarTxt.setEnabled(false);
+                adicionarTxt.setForeground(new Color(102, 102, 102));
+                adicionarTxt.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            }
+        });
         background.add(identificacaoCampo, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 220, 320, 30));
 
         jSeparator2.setBackground(new java.awt.Color(0, 0, 0));
@@ -207,11 +302,11 @@ public class Caixa extends javax.swing.JFrame {
         subtotal.setText("SUBTOTAL");
         background.add(subtotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 420, -1, -1));
 
-        adicionarButton.setBackground(new java.awt.Color(59, 21, 32));
+        adicionarButton.setBackground(header.getBackground());
         adicionarButton.setEnabled(false);
 
         adicionarTxt.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        adicionarTxt.setForeground(new java.awt.Color(102, 102, 102));
+        adicionarTxt.setForeground(new java.awt.Color(255, 255, 255));
         adicionarTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         adicionarTxt.setText("ADICIONAR");
         adicionarTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -239,7 +334,7 @@ public class Caixa extends javax.swing.JFrame {
             .addComponent(adicionarTxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        background.add(adicionarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 360, 320, 40));
+        background.add(adicionarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 290, 160, 40));
 
         identificacao.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         identificacao.setForeground(header.getBackground());
@@ -248,13 +343,12 @@ public class Caixa extends javax.swing.JFrame {
 
         quantidadeCampo.setBackground(background.getBackground());
         quantidadeCampo.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        quantidadeCampo.setForeground(new java.awt.Color(0, 0, 0));
+        quantidadeCampo.setForeground(java.awt.Color.gray);
         quantidadeCampo.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         quantidadeCampo.setText("0");
         quantidadeCampo.setToolTipText("");
         quantidadeCampo.setBorder(null);
         quantidadeCampo.setDisabledTextColor(java.awt.Color.gray);
-        quantidadeCampo.setEnabled(false);
         quantidadeCampo.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 quantidadeCampoFocusGained(evt);
@@ -268,6 +362,38 @@ public class Caixa extends javax.swing.JFrame {
                 quantidadeCampoActionPerformed(evt);
             }
         });
+        quantidadeCampo.getDocument().addDocumentListener(new DocumentListener () {
+            public void changedUpdate(DocumentEvent e) {
+                aviso();
+            }
+            public void removeUpdate(DocumentEvent e) {
+                aviso();
+            }
+            public void insertUpdate(DocumentEvent e) {
+                aviso();
+            }
+
+            public void aviso() {
+                String id = identificacaoCampo.getText();
+                String quantidade = quantidadeCampo.getText();
+
+                if(!id.equals("Especifique a identificacao") && !id.isBlank() && !quantidade.isBlank() && Integer.valueOf(quantidade) > 0) {
+                    adicionarButton.setEnabled(true);
+                    adicionarButton.setBackground(header.getBackground());
+                    adicionarTxt.setEnabled(true);
+                    adicionarTxt.setForeground(Color.white);
+                    adicionarTxt.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+                    return;
+                }
+
+                adicionarButton.setEnabled(false);
+                adicionarButton.setBackground(new Color(59, 21, 32));
+                adicionarTxt.setEnabled(false);
+                adicionarTxt.setForeground(new Color(102, 102, 102));
+                adicionarTxt.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            }
+        });
         background.add(quantidadeCampo, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 300, 100, 30));
 
         jSeparator3.setBackground(new java.awt.Color(0, 0, 0));
@@ -276,23 +402,23 @@ public class Caixa extends javax.swing.JFrame {
 
         jPanel2.setBackground(header.getBackground());
 
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
-        jLabel2.setForeground(background.getBackground());
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel2.setText("R$ 0,00");
-        jLabel2.setToolTipText("");
+        subtotalTxt.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        subtotalTxt.setForeground(background.getBackground());
+        subtotalTxt.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        subtotalTxt.setText("R$ 0,00");
+        subtotalTxt.setToolTipText("");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
+                .addComponent(subtotalTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+            .addComponent(subtotalTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
         );
 
         background.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 450, 320, -1));
@@ -301,6 +427,38 @@ public class Caixa extends javax.swing.JFrame {
         quantidade1.setForeground(header.getBackground());
         quantidade1.setText("QUANTIDADE");
         background.add(quantidade1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 270, -1, -1));
+
+        finalizarButton.setBackground(header.getBackground());
+
+        finalizarTxt.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        finalizarTxt.setForeground(new java.awt.Color(255, 255, 255));
+        finalizarTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        finalizarTxt.setText("FINALIZAR");
+        finalizarTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        finalizarTxt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                finalizarTxtMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                finalizarTxtMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                finalizarTxtMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout finalizarButtonLayout = new javax.swing.GroupLayout(finalizarButton);
+        finalizarButton.setLayout(finalizarButtonLayout);
+        finalizarButtonLayout.setHorizontalGroup(
+            finalizarButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(finalizarTxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        finalizarButtonLayout.setVerticalGroup(
+            finalizarButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(finalizarTxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        background.add(finalizarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 370, 320, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -317,7 +475,8 @@ public class Caixa extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void fecharTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fecharTxtMouseClicked
-        System.exit(0);
+        setVisible(false);
+        dispose();
     }//GEN-LAST:event_fecharTxtMouseClicked
 
     private void fecharTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fecharTxtMouseEntered
@@ -346,7 +505,7 @@ public class Caixa extends javax.swing.JFrame {
     }//GEN-LAST:event_tabelaMouseClicked
 
     private void identificacaoCampoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_identificacaoCampoFocusGained
-        if (identificacaoCampo.getText().equals("Selecione um funcionário para inspecioná-lo")) {
+        if (identificacaoCampo.getText().equals("Especifique a identificação")) {
             identificacaoCampo.setText("");
             identificacaoCampo.setForeground(Color.black);
         }
@@ -354,7 +513,7 @@ public class Caixa extends javax.swing.JFrame {
 
     private void identificacaoCampoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_identificacaoCampoFocusLost
         if (identificacaoCampo.getText().isBlank()) {
-            identificacaoCampo.setText("Selecione um funcionário para inspecioná-lo");
+            identificacaoCampo.setText("Especifique a identificação");
             identificacaoCampo.setForeground(Color.gray);
         }
     }//GEN-LAST:event_identificacaoCampoFocusLost
@@ -364,7 +523,28 @@ public class Caixa extends javax.swing.JFrame {
     }//GEN-LAST:event_identificacaoCampoActionPerformed
 
     private void adicionarTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adicionarTxtMouseClicked
-        
+        try {
+            if(itens.size() > 0) {
+                Produto produto = ManterEstoque.obterProduto(identificacaoCampo.getText());
+                
+                for(ItemProduto i : itens) {
+                    if(ManterEstoque.obterProduto(i.getIdProduto()).getId().equals(produto.getId())) {
+                        JOptionPane.showMessageDialog(rootPane, "Já existem itens deste produto adicionados. Por questões de conflitos, não será possível adicionar outro item deste produto", "Impedimento", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+
+                }
+            }
+            
+            itens.addAll(ManterEstoque.adicionarCompra(identificacaoCampo.getText(), Integer.valueOf(quantidadeCampo.getText())));
+            atualizarTabela(itens);
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Ocorreu um erro inesperado", "Erro", JOptionPane.ERROR_MESSAGE);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Falha na conexão com o banco de dados", JOptionPane.ERROR_MESSAGE);
+        } catch (CampoInvalidoException ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Campo inválido", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_adicionarTxtMouseClicked
 
     private void adicionarTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adicionarTxtMouseEntered
@@ -378,54 +558,50 @@ public class Caixa extends javax.swing.JFrame {
     }//GEN-LAST:event_adicionarTxtMouseExited
 
     private void quantidadeCampoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_quantidadeCampoFocusGained
-        // TODO add your handling code here:
+        if (quantidadeCampo.getText().equals("0")) {
+            quantidadeCampo.setText("");
+            quantidadeCampo.setForeground(Color.black);
+        }
     }//GEN-LAST:event_quantidadeCampoFocusGained
 
     private void quantidadeCampoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_quantidadeCampoFocusLost
-        // TODO add your handling code here:
+        if (quantidadeCampo.getText().isBlank() || identificacaoCampo.getText().equals("0")) {
+            quantidadeCampo.setText("0");
+            quantidadeCampo.setForeground(Color.gray);
+        }
     }//GEN-LAST:event_quantidadeCampoFocusLost
 
     private void quantidadeCampoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quantidadeCampoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_quantidadeCampoActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+    private void finalizarTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_finalizarTxtMouseClicked
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
+            boolean resultado = ManterEstoque.finalizarCompra(itens, Double.parseDouble(subtotalTxt.getText().replace("R$ ", "").replace(',', '.')));
+            
+            if(resultado) {
+                itens = new HashSet<>();
+                atualizarTabela(itens);
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Ocorreu um erro inesperado", "Erro", JOptionPane.ERROR_MESSAGE);
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Caixa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Caixa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Caixa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Caixa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(rootPane, "Ocorreu um erro inesperado", "Erro", JOptionPane.ERROR_MESSAGE);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Falha na conexão com o banco de dados", JOptionPane.ERROR_MESSAGE);
+        } catch (ParseException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Ocorreu um erro inesperado", "Erro", JOptionPane.ERROR_MESSAGE);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
+    }//GEN-LAST:event_finalizarTxtMouseClicked
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Caixa().setVisible(true);
-            }
-        });
-    }
+    private void finalizarTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_finalizarTxtMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_finalizarTxtMouseEntered
+
+    private void finalizarTxtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_finalizarTxtMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_finalizarTxtMouseExited
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel adicionarButton;
@@ -433,11 +609,12 @@ public class Caixa extends javax.swing.JFrame {
     private javax.swing.JPanel background;
     private javax.swing.JPanel fecharButton;
     private javax.swing.JLabel fecharTxt;
+    private javax.swing.JPanel finalizarButton;
+    private javax.swing.JLabel finalizarTxt;
     private javax.swing.JPanel header;
     private javax.swing.JLabel identificacao;
     private javax.swing.JTextField identificacaoCampo;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator2;
@@ -447,6 +624,7 @@ public class Caixa extends javax.swing.JFrame {
     private javax.swing.JTextField quantidadeCampo;
     private javax.swing.JScrollPane scrollPane;
     private javax.swing.JLabel subtotal;
+    private javax.swing.JLabel subtotalTxt;
     private javax.swing.JTable tabela;
     // End of variables declaration//GEN-END:variables
 }
