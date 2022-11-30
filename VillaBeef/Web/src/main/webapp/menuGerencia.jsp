@@ -30,12 +30,6 @@
     </header>
     <div id="wrap-container">
         <article>
-            <a href="vendas.jsp">
-                <div class="container">
-                    <?xml version="1.0" ?><svg id="Layer_1" class="icon" style="enable-background:new 1 -1 100 100; left: -10px;" version="1.1" viewBox="1 -1 100 100" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><title/><g><path d="M74,70.7c-5.7,0-10.4,4.6-10.4,10.4c0,5.7,4.6,10.4,10.4,10.4c5.7,0,10.4-4.6,10.4-10.4c0,0,0,0,0,0   C84.3,75.4,79.7,70.7,74,70.7z"/><path d="M92.3,21.1c-0.2,0-0.5-0.1-0.8-0.1H28.5l-1-6.7c-0.6-4.4-4.4-7.7-8.9-7.7h-8.1c-2.2,0-4,1.8-4,4s1.8,4,4,4h8.1   c0.5,0,0.9,0.4,1,0.9l6.2,42.2C26.6,63,31.2,67,36.6,67h41.6c5.2,0,9.7-3.7,10.8-8.8l6.5-32.5C95.9,23.6,94.5,21.5,92.3,21.1z"/><path d="M38.2,70.7C32.4,71,28,75.8,28.2,81.5c0.2,5.5,4.7,9.9,10.2,9.9h0.2c5.7-0.3,10.2-5.1,9.9-10.8   C48.3,75.1,43.7,70.7,38.2,70.7z"/></g></svg>
-                    <p>Vendas</p>
-                </div>
-            </a>
             <a href="funcionarios.jsp">
                 <div class="container">
                     <?xml version="1.0" ?><svg class="icon" style="enable-background:new 0 0 24 24;" version="1.1" viewBox="0 0 24 24" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="info"/><g id="icons"><g id="user"><ellipse cx="12" cy="8" rx="5" ry="6"/><path d="M21.8,19.1c-0.9-1.8-2.6-3.3-4.8-4.2c-0.6-0.2-1.3-0.2-1.8,0.1c-1,0.6-2,0.9-3.2,0.9s-2.2-0.3-3.2-0.9    C8.3,14.8,7.6,14.7,7,15c-2.2,0.9-3.9,2.4-4.8,4.2C1.5,20.5,2.6,22,4.1,22h15.8C21.4,22,22.5,20.5,21.8,19.1z"/></g></g></svg>

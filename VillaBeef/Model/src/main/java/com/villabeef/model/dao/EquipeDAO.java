@@ -69,6 +69,28 @@ public class EquipeDAO {
 
         return resultado > 0;
     }
+    
+    public static boolean excluir(String id) throws ClassNotFoundException, SQLException {
+        String sql = "DELETE FROM equipe WHERE id = '" + id + "'";
+        
+        Connection conexao = null;
+        
+        Statement comando = null;
+        
+        int resultado = 0;
+        
+        try {
+            conexao = ConexaoBD.getConexao();
+            
+            comando = conexao.createStatement();
+
+            resultado = comando.executeUpdate(sql);
+        } finally {
+            ConexaoBD.fecharConexao(conexao, comando);
+        }
+
+        return resultado > 0;
+    }
 
     public static HashSet<Funcionario> listar() throws ClassNotFoundException, SQLException {
         HashSet<Funcionario> lista = new HashSet<>();

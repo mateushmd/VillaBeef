@@ -42,4 +42,8 @@ public class ManterFuncionario {
     public static void excluir(Funcionario funcionario) throws ClassNotFoundException, SQLException {
         EquipeDAO.excluir(funcionario);
     }
+    
+    public static void excluirServlet(String id) throws ClassNotFoundException, SQLException {
+        EquipeDAO.excluir(id);
+    }
 }
