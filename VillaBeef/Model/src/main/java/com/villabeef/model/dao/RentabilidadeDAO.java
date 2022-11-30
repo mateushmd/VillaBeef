@@ -7,10 +7,11 @@ package com.villabeef.model.dao;
 import com.villabeef.model.dto.Conta;
 import com.villabeef.model.dto.Funcionario;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 
 public class RentabilidadeDAO {
 
@@ -68,8 +69,8 @@ public class RentabilidadeDAO {
         return resultado > 0;
     }
 
-    public static HashSet<Conta> listar(String sql) throws ClassNotFoundException, SQLException {
-        HashSet<Conta> lista = new HashSet<>();
+    public static LinkedHashSet<Conta> listar(String sql) throws ClassNotFoundException, SQLException {
+        LinkedHashSet<Conta> lista = new LinkedHashSet<>();
 
         Conta conta;
 
@@ -87,7 +88,7 @@ public class RentabilidadeDAO {
             rs = comando.executeQuery(sql);
 
             while (rs.next()) {
-                conta = new Conta(rs.getDate("data"),
+                conta = new Conta(rs.getDate("dataC"),
                         rs.getString("tipo").charAt(0),
                         rs.getString("descricao"),
                         rs.getDouble("valor"));
@@ -101,7 +102,72 @@ public class RentabilidadeDAO {
         return lista;
     }
 
+    public static double obterSaldo(Date data) throws ClassNotFoundException, SQLException {
+        String sql = "SELECT * FROM conta WHERE data = '" + data + "'";
+        
+        Connection conexao = null;
+
+        Statement comando = null;
+
+        ResultSet rs = null;
+        
+        double saldo;
+        
+        try {
+
+            conexao = ConexaoBD.getConexao();
+            comando = conexao.createStatement();
+
+            rs = comando.executeQuery(sql);
+
+            rs.next();
+            
+            saldo = rs.getDouble("historico");
+        } finally {
+            ConexaoBD.fecharConexao(conexao, comando, rs);
+        }
+        
+        return saldo;
+    }
+    
     public static double obterSaldo() throws ClassNotFoundException, SQLException {
-        return 0;
+        String sql;
+        
+        Connection conexao = null;
+
+        Statement comando = null;
+
+        ResultSet rs = null;
+        
+        double saldo;
+        
+        try {
+            conexao = ConexaoBD.getConexao();
+            comando = conexao.createStatement();
+            
+            sql = "SELECT COUNT(*) FROM conta";
+                
+            rs = comando.executeQuery(sql);
+
+            rs.next();
+
+            String id = String.valueOf(rs.getInt(1));
+            
+            
+            sql = "SELECT * FROM conta WHERE id = '" + id + "'";
+
+            conexao = ConexaoBD.getConexao();
+            comando = conexao.createStatement();
+
+            rs = comando.executeQuery(sql);
+
+            rs.next();
+            
+            saldo = rs.getDouble("historico");
+        } finally {
+            ConexaoBD.fecharConexao(conexao, comando, rs);
+        }
+        
+        return saldo;
     }
 }
