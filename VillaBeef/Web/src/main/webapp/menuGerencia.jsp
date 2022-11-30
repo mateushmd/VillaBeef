@@ -1,26 +1,35 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" href="imgs/icon.png" type="image/png">
     <title>Villa Beef</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    
+    <% if(session.getAttribute("usuario") == null){
+                request.setAttribute("errorMessage", "Você não tem acesso à essa página.");
+                request.setAttribute("errorMessage1", "Por favor faça Login.");
+                RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+                rd.forward(request, response);
+             } 
+         %>
+    
     <header>
-        <a href="menuGerencia.html">
+        <a href="menuGerencia.jsp">
         <?xml version="1.0" ?><svg viewBox="0 0 64 64" class="icon" id="header-logo" xmlns="http://www.w3.org/2000/svg"><title/><g data-name="Layer 10" id="Layer_10"><path d="M20,21a5,5,0,0,0-5,5v1.59L21.59,21Z"/><path d="M16.28,32.31,32.22,16.37a7.48,7.48,0,0,0-3,1.84,9.5,9.5,0,0,1-4.53,2.52l-9.51,9.51A5.13,5.13,0,0,0,16.28,32.31Z"/><path d="M22,40v1a1,1,0,0,0,1,1h1a3,3,0,0,1,3,3v2a1,1,0,0,0,2,0V45a3,3,0,0,1,6,0v6a1,1,0,0,0,2,0V49a3,3,0,0,1,3-3h3a1,1,0,0,0,1-1V39.54A10,10,0,0,1,41,40Z"/><path d="M32.59,34,48,18.63A6,6,0,0,0,46.37,17l-17,17Z"/><path d="M26.59,34,44.41,16.17A5.92,5.92,0,0,0,43,16H41.41l-18,18Z"/><path d="M20,34h.59l18-18H35.41L17.89,33.52A5,5,0,0,0,20,34Z"/><path d="M49,26.44,41.44,34A8,8,0,0,0,49,26.44Z"/><path d="M41,36H20a7,7,0,0,1-4.9-2A5,5,0,0,0,20,38H41a8,8,0,0,0,7.6-5.52A10,10,0,0,1,41,36Z"/><path d="M32,7A25,25,0,1,0,57,32,25,25,0,0,0,32,7ZM51,27v3a10,10,0,0,1-5,8.65V45a3,3,0,0,1-3,3H40a1,1,0,0,0-1,1v2a3,3,0,0,1-6,0V45a1,1,0,0,0-2,0v2a3,3,0,0,1-6,0V45a1,1,0,0,0-1-1H23a3,3,0,0,1-3-3V40a7,7,0,0,1-7-7V26a7,7,0,0,1,7-7h2.46a7.45,7.45,0,0,0,5.33-2.21A9.48,9.48,0,0,1,34.54,14H43a8,8,0,0,1,8,8v4c0,.34,0,.67,0,1Z"/><path d="M32,3A29,29,0,1,0,61,32,29,29,0,0,0,32,3Zm0,56A27,27,0,1,1,59,32,27,27,0,0,1,32,59Z"/><path d="M35.41,34h3.18L49,23.59V22a5.92,5.92,0,0,0-.17-1.41Z"/></g></svg>
         <h1 id="header-title">VILLA</h1></a>
     </header>
     <div id="wrap-container">
         <article>
-            <a href="vendas.jsp">
-                <div class="container">
-                    <?xml version="1.0" ?><svg id="Layer_1" class="icon" style="enable-background:new 1 -1 100 100; left: -10px;" version="1.1" viewBox="1 -1 100 100" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><title/><g><path d="M74,70.7c-5.7,0-10.4,4.6-10.4,10.4c0,5.7,4.6,10.4,10.4,10.4c5.7,0,10.4-4.6,10.4-10.4c0,0,0,0,0,0   C84.3,75.4,79.7,70.7,74,70.7z"/><path d="M92.3,21.1c-0.2,0-0.5-0.1-0.8-0.1H28.5l-1-6.7c-0.6-4.4-4.4-7.7-8.9-7.7h-8.1c-2.2,0-4,1.8-4,4s1.8,4,4,4h8.1   c0.5,0,0.9,0.4,1,0.9l6.2,42.2C26.6,63,31.2,67,36.6,67h41.6c5.2,0,9.7-3.7,10.8-8.8l6.5-32.5C95.9,23.6,94.5,21.5,92.3,21.1z"/><path d="M38.2,70.7C32.4,71,28,75.8,28.2,81.5c0.2,5.5,4.7,9.9,10.2,9.9h0.2c5.7-0.3,10.2-5.1,9.9-10.8   C48.3,75.1,43.7,70.7,38.2,70.7z"/></g></svg>
-                    <p>Vendas</p>
-                </div>
-            </a>
             <a href="funcionarios.jsp">
                 <div class="container">
                     <?xml version="1.0" ?><svg class="icon" style="enable-background:new 0 0 24 24;" version="1.1" viewBox="0 0 24 24" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="info"/><g id="icons"><g id="user"><ellipse cx="12" cy="8" rx="5" ry="6"/><path d="M21.8,19.1c-0.9-1.8-2.6-3.3-4.8-4.2c-0.6-0.2-1.3-0.2-1.8,0.1c-1,0.6-2,0.9-3.2,0.9s-2.2-0.3-3.2-0.9    C8.3,14.8,7.6,14.7,7,15c-2.2,0.9-3.9,2.4-4.8,4.2C1.5,20.5,2.6,22,4.1,22h15.8C21.4,22,22.5,20.5,21.8,19.1z"/></g></g></svg>

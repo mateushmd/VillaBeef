@@ -5,6 +5,7 @@ package com.villabeef.servlets;
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
+import com.villabeef.model.dto.Funcionario;
 import com.villabeef.model.service.ManterFuncionario;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -35,19 +36,46 @@ public class FuncionarioServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String nome = request.getParameter("fname");
-        String cpf = request.getParameter("cpf");
-        cpf = cpf.replace(".", "");
-        cpf = cpf.replace("-", "");
-        String conta = request.getParameter("conta");
-        String funcao = request.getParameter("funcao");
-        double salario = Double.parseDouble(request.getParameter("salario").replace(",", "."));
+        String nome;
+        String cpf;
+        String conta;
+        String funcao;
+        double salario;
+        
+        Funcionario funcionario;
 
         String op = request.getParameter("op");
 
         try {
-            if (op.equals("a")) {
-                ManterFuncionario.adicionar(nome, salario, conta, funcao, cpf);
+            switch(op) {
+                case "a":
+                    nome = request.getParameter("fname");
+                    cpf = request.getParameter("cpf");
+                    cpf = cpf.replace(".", "");
+                    cpf = cpf.replace("-", "");
+                    conta = request.getParameter("conta");
+                    funcao = request.getParameter("funcao");
+                    salario = Double.parseDouble(request.getParameter("salario").replace(",", "."));
+                    
+                    ManterFuncionario.adicionar(nome, salario, conta, funcao, cpf);
+                    break;
+                case "e":
+                    nome = request.getParameter("fname");
+                    cpf = request.getParameter("identificacao");
+                    cpf = cpf.replace(".", "");
+                    cpf = cpf.replace("-", "");
+                    conta = request.getParameter("conta");
+                    funcao = request.getParameter("funcao");
+                    salario = Double.parseDouble(request.getParameter("salario").replace(",", "."));
+                    
+                    funcionario = new Funcionario(nome, salario, conta, funcao, cpf);
+                    
+                    ManterFuncionario.alterar(ManterFuncionario.obterPorId(cpf), funcionario);
+                    break;
+                case "ex":
+                    cpf = request.getParameter("identificacao");
+                    ManterFuncionario.excluirServlet(cpf);
+                    break;
             }
             
             response.sendRedirect("funcionarios.jsp");

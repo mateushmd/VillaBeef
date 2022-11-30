@@ -9,6 +9,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="icon" href="imgs/icon.png" type="image/png">
         <title>Villa Beef</title>
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="fonts/icomoon/style.css">
@@ -23,6 +24,14 @@
     </head>
     <body>
 
+        <% if(session.getAttribute("usuario") == null){
+                request.setAttribute("errorMessage", "Você não tem acesso à essa página.");
+                request.setAttribute("errorMessage1", "Por favor faça Login.");
+                RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+                rd.forward(request, response);
+             } 
+        %>
+
         <sql:setDataSource var= "conexao" driver= "com.mysql.jdbc.Driver" url= "jdbc:mysql://us-cdbr-east-06.cleardb.net:3306/heroku_b695d40b1c0e531?useSSL=false" user= "b4ef7c73d61cc7"  password= "c101e0f6" />
         <sql:query dataSource="${conexao}" var="itens" >
             select * from estoque
@@ -32,9 +41,9 @@
         </sql:query>
 
         <header>
-            <a href="menuGerencia.html">
-            <?xml version="1.0" ?><?xml version="1.0" ?><svg class="icon" id="header-back" style="enable-background:new 0 0 16 16;" version="1.1" viewBox="0 0 16 16" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M8,0C3.582,0,0,3.582,0,8s3.582,8,8,8s8-3.582,8-8S12.418,0,8,0z M10.354,12.646l-0.707,0.707L4.293,8l5.354-5.354  l0.707,0.707L5.707,8L10.354,12.646z"/></svg>
-            <h1 id="header-title">VILLA</h1></a>
+            <a href="menuGerencia.jsp">
+                <?xml version="1.0" ?><?xml version="1.0" ?><svg class="icon" id="header-back" style="enable-background:new 0 0 16 16;" version="1.1" viewBox="0 0 16 16" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M8,0C3.582,0,0,3.582,0,8s3.582,8,8,8s8-3.582,8-8S12.418,0,8,0z M10.354,12.646l-0.707,0.707L4.293,8l5.354-5.354  l0.707,0.707L5.707,8L10.354,12.646z"/></svg>
+                <h1 id="header-title">VILLA</h1></a>
         </header>
         <div class="content">
             <div class="table-responsive">
@@ -68,6 +77,10 @@
                                 <td><c:out value = "${row.id}"/></td>
                                 <td><c:out value = "${row.validade}"/></td>
                                 <td><c:out value = "R$ ${String.valueOf(row.valor).replace('.', ',')}"/></td>
+                                <td>
+                                    <button type="button" class="btn btn-outline-primary" name="editar" data-bs-toggle="modal" data-bs-target="#editarFun" data-backdrop="false" data-id="<c:out value = "${row.id}"/>" role="button" onclick="document.getElementById('editarFun').classList.toggle('visible')">Editar</button>
+                                    <button type="button" class="btn btn-outline-primary" name="excluir" data-bs-toggle="modal" data-bs-target="#removerFun" data-backdrop="false" data-id="<c:out value = "${row.id}"/>" data-nome="<c:out value = "${row.nome}"/>" role="button" onclick="document.getElementById('removerFun').classList.toggle('visible')">Excluir</button>
+                                </td>
                             </tr>
                         </c:forEach> 
                     </tbody>
@@ -76,14 +89,41 @@
                     <p class="commands-text" onclick="document.getElementById('cadastroProd').classList.toggle('visible')" id="commands-cadastrar">Cadastrar</p>
                     <p class="commands-text" onclick="document.getElementById('editarProd').classList.toggle('visible')">Editar</p>
                     <p class="commands-text" onclick="document.getElementById('removerProd').classList.toggle('visible')">Remover</p>
-                  </div>
                 </div>
-                <div class="modal modal-wrap" id="cadastroProd">
-                  <div class="wrap">
-                    <form>
+            </div>
+            <div class="modal modal-wrap" id="cadastroProd">
+                <div class="wrap">
+                    <form method="post" action="ProdutosServlet?op=a">
                         <div class="form-body">
                             <fieldset>
                                 <legend><i class="fa fa-user"></i>Cadastrar Produto</legend>
+                                <label for="tipo">Tipo</label>
+                                <input type="text" id="tipo" name="tipo" required="">
+                                <label for="marca">Marca</label>
+                                <input type="text" id="marca" name="marca" required="">
+                                <label for="id">ID</label>
+                                <input type="text" id="id" name="id" required="">
+                                <label for="validade">Validade</label>
+                                <input type="date" id="validade" name="validade" required="">
+                                <label for="valor">Valor de Compra</label>
+                                <input type="text" id="valor" name="valor" required="">
+                                <label for="valor-venda">Valor de Venda</label>
+                                <input type="text" id="valor-venda" name="valor-venda" required="">
+                            </fieldset>
+                        </div>
+                        <div class="form-footer">
+                            <input type="submit" value="Cadastrar">
+                            <p class="btn-cancelar" onclick="document.getElementById('cadastroProd').classList.toggle('visible')">Cancelar</p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal modal-wrap" id="editarProd">
+                <div class="wrap">
+                    <form>
+                        <div class="form-body">
+                            <fieldset>
+                                <legend><i class="fa fa-user"></i>Editar Produto</legend>
                                 <label for="tipo">Tipo</label>
                                 <input type="text" id="tipo" name="tipo" required="">
                                 <label for="marca">Marca</label>
@@ -97,57 +137,68 @@
                             </fieldset>
                         </div>
                         <div class="form-footer">
-                            <input type="submit" value="Cadastrar">
-                            <p class="btn-cancelar" onclick="document.getElementById('cadastroProd').classList.toggle('visible')">Cancelar</p>
+                            <input type="submit" value="Confirmar">
+                            <p class="btn-cancelar" onclick="document.getElementById('editarProd').classList.toggle('visible')">Cancelar</p>
                         </div>
                     </form>
-                  </div>
-                </div>
-                <div class="modal modal-wrap" id="editarProd">
-                    <div class="wrap">
-                        <form>
-                            <div class="form-body">
-                              <fieldset>
-                                  <legend><i class="fa fa-user"></i>Editar Produto</legend>
-                                  <label for="tipo">Tipo</label>
-                                  <input type="text" id="tipo" name="tipo" required="">
-                                  <label for="marca">Marca</label>
-                                  <input type="text" id="marca" name="marca" required="">
-                                  <label for="id">ID</label>
-                                  <input type="text" id="id" name="id" required="">
-                                  <label for="validade">Validade</label>
-                                  <input type="date" id="validade" name="validade" required="">
-                                  <label for="valor">Valor</label>
-                                  <input type="number" id="valor" name="valor" required="">
-                              </fieldset>
-                            </div>
-                            <div class="form-footer">
-                              <input type="submit" value="Confirmar">
-                              <p class="btn-cancelar" onclick="document.getElementById('editarProd').classList.toggle('visible')">Cancelar</p>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="modal modal-wrap" id="removerProd">
-                    <div class="wrap">
-                      <form>
-                          <div class="form-body">
-                              <legend><i class="fa fa-user"></i> Remover Produto</legend>
-                              <p>Deseja mesmo remover o produto <span id="span-remover-ven" style="font-weight: 600;">001</span>?</p>
-                          </div>
-                          <div class="form-footer">
-                            <input type="submit" value="Remover">
-                            <p class="btn-cancelar" onclick="document.getElementById('removerProd').classList.toggle('visible')">Cancelar</p>
-                          </div>
-                      </form>
-                    </div>
                 </div>
             </div>
+            <div class="modal modal-wrap" id="removerProd">
+                <div class="wrap">
+                    <form>
+                        <div class="form-body">
+                            <legend><i class="fa fa-user"></i> Remover Produto</legend>
+                            <p>Deseja mesmo remover o produtos?</p>
+                            <fieldset> 
+                                <label for="identificacao">ID</label>
+                                <input type="text" id="identificacao" name="identificacao" required="" max="11" disabled>
+                            </fieldset>
+                        </div>
+                        <div class="form-footer">
+                            <input type="submit" value="Remover">
+                            <p class="btn-cancelar" onclick="document.getElementById('removerProd').classList.toggle('visible')">Cancelar</p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
         <script src="js/jquery-3.3.1.min.js"></script>
         <script src="js/popper.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/main.js"></script>
         <script src="js/mask.js"></script>
+
+        <script>
+                                const editarModal = document.getElementById('editarProd')
+                                editarModal.addEventListener('show.bs.modal', event => {
+                                    // Button that triggered the modal
+                                    const button = event.relatedTarget
+                                    // Extract info from data-bs-* attributes
+                                    const recipient = button.getAttribute('data-id')
+                                    // If necessary, you could initiate an AJAX request here
+                                    // and then do the updating in a callback.
+                                    //
+                                    // Update the modal's content.
+                                    const modalBodyInput = editarModal.querySelector('#id')
+
+                                    modalBodyInput.value = recipient
+                                })
+
+                                const excluirModal = document.getElementById('removerProd')
+                                excluirModal.addEventListener('show.bs.modal', event => {
+                                    // Button that triggered the modal
+                                    const button = event.relatedTarget
+                                    // Extract info from data-bs-* attributes
+                                    const recipient = button.getAttribute('data-id')
+                                    // If necessary, you could initiate an AJAX request here
+                                    // and then do the updating in a callback.
+                                    //
+                                    // Update the modal's content.
+                                    const modalBodyInput = excluirModal.querySelector('#identificacao')
+
+                                    modalBodyInput.value = recipient
+                                })
+        </script>
     </body>
 </html>
 

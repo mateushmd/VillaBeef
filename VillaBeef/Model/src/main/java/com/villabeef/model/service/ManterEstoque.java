@@ -33,6 +33,18 @@ public class ManterEstoque {
          ManterRentabilidade.inserir(Date.valueOf(LocalDate.now()), 's', "Re-estoque", valorCompra);
      }
      
+     public static void inserirServlet(String tipo, String marca, double valorCompra, double valorVenda, String validade, String id) throws ClassNotFoundException, SQLException, ParseException {
+         Date data = Date.valueOf(validade);
+         
+         Produto produto = new Produto("", marca, tipo);
+         
+         ItemProduto item = new ItemProduto(id, "", data, valorVenda);
+         
+         EstoqueDAO.inserir(produto, item);
+         
+         ManterRentabilidade.inserir(Date.valueOf(LocalDate.now()), 's', "Re-estoque", valorCompra);
+     }
+     
      public static void alterar(Produto novoProduto, ItemProduto item, ItemProduto novoItem) throws ClassNotFoundException, SQLException {
          EstoqueDAO.alterar(novoProduto, item, novoItem);
      }
