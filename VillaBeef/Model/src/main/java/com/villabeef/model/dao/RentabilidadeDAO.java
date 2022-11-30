@@ -103,7 +103,7 @@ public class RentabilidadeDAO {
     }
 
     public static double obterSaldo(Date data) throws ClassNotFoundException, SQLException {
-        String sql = "SELECT * FROM conta WHERE data = '" + data + "'";
+        String sql = "SELECT * FROM conta WHERE dataC = '" + data + "' ORDER BY dataC";
         
         Connection conexao = null;
 
@@ -154,7 +154,7 @@ public class RentabilidadeDAO {
             String id = String.valueOf(rs.getInt(1));
             
             
-            sql = "SELECT * FROM conta WHERE id = '" + id + "'";
+            sql = "SELECT * FROM conta WHERE id = '" + id + "' ORDER BY dataC";
 
             conexao = ConexaoBD.getConexao();
             comando = conexao.createStatement();
