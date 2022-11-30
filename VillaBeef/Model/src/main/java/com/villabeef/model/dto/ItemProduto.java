@@ -1,13 +1,16 @@
 package com.villabeef.model.dto;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+
 public class ItemProduto {
     private String id;
     private String idProduto = "";
-    private String validade;
+    private Date validade;
     private boolean vendido;
     private double valor;
 
-    public ItemProduto(String id, String validade, double valor) {
+    public ItemProduto(String id, Date validade, double valor) {
         this.id = id;
         this.validade = validade;
         this.vendido = false;
@@ -15,7 +18,7 @@ public class ItemProduto {
     }
 
 
-    public ItemProduto(String id, String idProduto, String validade, double valor) {
+    public ItemProduto(String id, String idProduto, Date validade, double valor) {
         this(id, validade, valor);
         
         this.idProduto = idProduto;
@@ -30,7 +33,7 @@ public class ItemProduto {
         this.valor = valor;
     }
 
-    public void setValidade(String validade) {
+    public void setValidade(Date validade) {
         this.validade = validade;
     }
 
@@ -53,6 +56,11 @@ public class ItemProduto {
     }
 
     public String getValidade() {
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        return formato.format(validade);
+    }
+    
+    public Date getValidadeAsDate() {
         return validade;
     }
 
