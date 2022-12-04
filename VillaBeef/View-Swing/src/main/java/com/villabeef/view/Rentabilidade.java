@@ -18,6 +18,7 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -60,7 +61,7 @@ public class Rentabilidade extends javax.swing.JFrame {
         }
     }
 
-    private void atualizarTabela(HashSet<Conta> lista) {
+    private void atualizarTabela(LinkedHashSet<Conta> lista) {
         DecimalFormat formato = new DecimalFormat("0.00");
         SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -121,6 +122,8 @@ public class Rentabilidade extends javax.swing.JFrame {
         filtrarTxt = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
+        compraButton = new javax.swing.JPanel();
+        compraTxt = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(670, 671));
@@ -240,14 +243,14 @@ public class Rentabilidade extends javax.swing.JFrame {
 
         background.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 590, 480, 70));
 
-        jLabel6.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel6.setForeground(header.getBackground());
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("a");
-        background.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 90, -1, 30));
+        background.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 80, 20, 20));
 
         fimCampo.setBackground(background.getBackground());
-        fimCampo.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        fimCampo.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         fimCampo.setForeground(java.awt.Color.gray);
         fimCampo.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         fimCampo.setText("dd/mm/aaaa");
@@ -292,10 +295,10 @@ public class Rentabilidade extends javax.swing.JFrame {
                 filtrarTxt.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             }
         });
-        background.add(fimCampo, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 90, 150, -1));
+        background.add(fimCampo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 100, 110, 20));
 
         inicioCampo.setBackground(background.getBackground());
-        inicioCampo.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        inicioCampo.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         inicioCampo.setForeground(java.awt.Color.gray);
         inicioCampo.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         inicioCampo.setText("dd/mm/aaaa");
@@ -340,7 +343,7 @@ public class Rentabilidade extends javax.swing.JFrame {
                 filtrarTxt.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             }
         });
-        background.add(inicioCampo, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 90, 150, 30));
+        background.add(inicioCampo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 50, 110, 20));
 
         filtrarButton.setBackground(new java.awt.Color(59, 21, 32));
         filtrarButton.setEnabled(false);
@@ -374,9 +377,41 @@ public class Rentabilidade extends javax.swing.JFrame {
             .addComponent(filtrarTxt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
-        background.add(filtrarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 80, 100, 40));
-        background.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 120, 140, 10));
-        background.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 120, 140, 10));
+        background.add(filtrarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 80, 100, 40));
+        background.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 120, 110, 10));
+        background.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 70, 110, 10));
+
+        compraButton.setBackground(header.getBackground());
+
+        compraTxt.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        compraTxt.setForeground(new java.awt.Color(255, 255, 255));
+        compraTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        compraTxt.setText("REGISTRAR COMPRA");
+        compraTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        compraTxt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                compraTxtMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                compraTxtMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                compraTxtMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout compraButtonLayout = new javax.swing.GroupLayout(compraButton);
+        compraButton.setLayout(compraButtonLayout);
+        compraButtonLayout.setHorizontalGroup(
+            compraButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(compraTxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        compraButtonLayout.setVerticalGroup(
+            compraButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(compraTxt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+
+        background.add(compraButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 80, 160, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -475,6 +510,31 @@ public class Rentabilidade extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_fimCampoFocusLost
 
+    private void compraTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_compraTxtMouseClicked
+        RegistroCompra r = new RegistroCompra(this, true);
+        
+        r.setVisible(true);
+        
+        try {
+            atualizarTabela(ManterRentabilidade.listar());
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Ocorreu um erro inesperado.", "Erro", JOptionPane.ERROR_MESSAGE);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Falha na conexão com o banco de dados.", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }//GEN-LAST:event_compraTxtMouseClicked
+
+    private void compraTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_compraTxtMouseEntered
+        if (compraButton.isEnabled())
+            compraButton.setBackground(new Color(119, 34, 51));
+    }//GEN-LAST:event_compraTxtMouseEntered
+
+    private void compraTxtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_compraTxtMouseExited
+        if (compraButton.isEnabled())
+            compraButton.setBackground(header.getBackground());
+    }//GEN-LAST:event_compraTxtMouseExited
+
     /**
      * @param args the command line arguments
      */
@@ -519,6 +579,8 @@ public class Rentabilidade extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel background;
+    private javax.swing.JPanel compraButton;
+    private javax.swing.JLabel compraTxt;
     private javax.swing.JPanel fecharButton;
     private javax.swing.JLabel fecharTxt;
     private javax.swing.JPanel filtrarButton;

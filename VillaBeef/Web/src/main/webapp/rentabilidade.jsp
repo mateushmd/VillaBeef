@@ -31,6 +31,8 @@
                 rd.forward(request, response);
              }
              
+             int soma = 0;
+             
         %>
         
         <%!
@@ -47,6 +49,10 @@
         <sql:setDataSource var= "conexao" driver= "com.mysql.jdbc.Driver" url= "jdbc:mysql://us-cdbr-east-06.cleardb.net:3306/heroku_b695d40b1c0e531?useSSL=false" user= "b4ef7c73d61cc7"  password= "c101e0f6" />
         <sql:query dataSource="${conexao}" var="result" >
             select * from conta
+        </sql:query>
+            
+        <sql:query dataSource="${conexao}" var="result2" >
+            select * from dados
         </sql:query>
 
         <header>
@@ -80,7 +86,9 @@
                             <th scope="row">Total Líquido</th>
                             <td></td>
                             <td></td>
-                            <td>R$ 900,00</td>
+                            <c:forEach var="row" items="${result2.rows}">
+                                <td><c:out value="R$ ${String.valueOf(row.saldo).replace('.', ',')}"/></td>
+                            </c:forEach>
                         </tr>
                     </tfoot>
                 </table>

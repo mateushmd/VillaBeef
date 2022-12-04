@@ -38,25 +38,47 @@ public class ProdutosServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ParseException {
         
-        String tipo = request.getParameter("tipo");
-        String marca = request.getParameter("marca");
-        String id = request.getParameter("id");
-        String data = request.getParameter("validade");
+        String tipo;
+        String marca;
+        String id;
+        String data;
 
-        double valor = Double.parseDouble(request.getParameter("valor").replace(",", "."));
-        double venda = Double.parseDouble(request.getParameter("valor-venda").replace(",", "."));
+        double valor;
+        double venda;
 
         String op = request.getParameter("op");
         
         try {
-             if (op.equals("a")) {
-                ManterEstoque.inserirServlet(tipo, marca, valor, venda, data, id);
+             
+             switch(op){
+                case "a":
+                    tipo = request.getParameter("tipo");
+                    request.setAttribute("res", tipo);
+                    marca = request.getParameter("marca");
+                    id = request.getParameter("id");
+                    data = request.getParameter("validade");
+                    valor = Double.parseDouble(request.getParameter("valor").replace(",", "."));
+                    venda = Double.parseDouble(request.getParameter("valor-venda").replace(",", "."));
+                    ManterEstoque.inserirServlet(tipo, marca, valor, venda, data, id);
+                    request.setAttribute("op", "a");
+                    break;
+                case "e":
+                    // Manter Estoque EDITAR
+                    request.setAttribute("op", "e");
+                    // request.setAttribute("res", tipo);
+                    break;
+                case "ex":
+                    id = request.getParameter("identificacao2");
+                    ManterEstoque.excluir(ManterEstoque.obterPorId(id));
+                    request.setAttribute("res", id);
+                    request.setAttribute("op", "ex");
+                    break;
              }
+             
             RequestDispatcher rd = request.getRequestDispatcher("estoque.jsp");
             rd.forward(request, response);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(FuncionarioServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
+            
+        } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(FuncionarioServlet.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParseException ex) {
             Logger.getLogger(ProdutosServlet.class.getName()).log(Level.SEVERE, null, ex);
