@@ -5,8 +5,7 @@ package com.villabeef.servlets;
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-import com.villabeef.model.dto.Funcionario;
-import com.villabeef.model.service.ManterFuncionario;
+import com.villabeef.model.service.ManterEstoque;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,16 +14,17 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import static java.lang.System.out;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Samsung
- */
-@WebServlet(urlPatterns = {"/FuncionarioServlet"})
-public class FuncionarioServlet extends HttpServlet {
+
+@WebServlet(urlPatterns = {"/ProdutosServlet"})
+public class ProdutosServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,62 +36,52 @@ public class FuncionarioServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String nome;
-        String cpf;
-        String conta;
-        String funcao;
-        double salario;
+            throws ServletException, IOException, ParseException {
         
-        Funcionario funcionario;
+        String tipo;
+        String marca;
+        String id;
+        String data;
+
+        double valor;
+        double venda;
 
         String op = request.getParameter("op");
-
+        
         try {
-            switch(op) {
+             
+             switch(op){
                 case "a":
-                    nome = request.getParameter("fname");
-                    cpf = request.getParameter("cpf");
-                    request.setAttribute("res", nome);
-                    cpf = cpf.replace(".", "");
-                    cpf = cpf.replace("-", "");
-                    conta = request.getParameter("conta");
-                    funcao = request.getParameter("funcao");
-                    salario = Double.parseDouble(request.getParameter("salario").replace(",", "."));
-                    
-                    ManterFuncionario.adicionar(nome, salario, conta, funcao, cpf);
+                    tipo = request.getParameter("tipo");
+                    request.setAttribute("res", tipo);
+                    marca = request.getParameter("marca");
+                    id = request.getParameter("id");
+                    data = request.getParameter("validade");
+                    valor = Double.parseDouble(request.getParameter("valor").replace(",", "."));
+                    venda = Double.parseDouble(request.getParameter("valor-venda").replace(",", "."));
+                    ManterEstoque.inserirServlet(tipo, marca, valor, venda, data, id);
                     request.setAttribute("op", "a");
                     break;
                 case "e":
-                    nome = request.getParameter("fname");
-                    cpf = request.getParameter("identificacao");
-                    cpf = cpf.replace(".", "");
-                    cpf = cpf.replace("-", "");
-                    request.setAttribute("res", nome);
-                    conta = request.getParameter("conta");
-                    funcao = request.getParameter("funcao");
-                    salario = Double.parseDouble(request.getParameter("salario").replace(",", "."));
-                    
-                    funcionario = new Funcionario(nome, salario, conta, funcao, cpf);
-                    
-                    ManterFuncionario.alterar(ManterFuncionario.obterPorId(cpf), funcionario);
+                    // Manter Estoque EDITAR
                     request.setAttribute("op", "e");
+                    // request.setAttribute("res", tipo);
                     break;
                 case "ex":
-                    cpf = request.getParameter("identificacao2");
-                    request.setAttribute("res", cpf);
-                    ManterFuncionario.excluirServlet(cpf);
+                    id = request.getParameter("identificacao2");
+                    ManterEstoque.excluir(ManterEstoque.obterPorId(id));
+                    request.setAttribute("res", id);
                     request.setAttribute("op", "ex");
                     break;
-            }
-            
-            RequestDispatcher rd = request.getRequestDispatcher("funcionarios.jsp");
+             }
+             
+            RequestDispatcher rd = request.getRequestDispatcher("estoque.jsp");
             rd.forward(request, response);
             
-        } catch (ClassNotFoundException ex) {
+        } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(FuncionarioServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(FuncionarioServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(ProdutosServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -107,7 +97,11 @@ public class FuncionarioServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ParseException ex) {
+            Logger.getLogger(ProdutosServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -121,7 +115,11 @@ public class FuncionarioServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ParseException ex) {
+            Logger.getLogger(ProdutosServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

@@ -5,6 +5,23 @@
     box-sizing: border-box;
 }
 
+.btn-outline-primary {
+    --bs-btn-color: wheat!important;
+    --bs-btn-border-color: wheat!important;
+    --bs-btn-hover-color: hsl(348deg 56% 19%)!important;
+    --bs-btn-hover-bg: wheat!important;
+    --bs-btn-hover-border-color: wheat!important;
+    --bs-btn-focus-shadow-rgb: hsl(348deg 56% 19%)!important;
+    --bs-btn-active-color: hsl(348deg 56% 19%)!important;
+    --bs-btn-active-bg: wheat!important;
+    --bs-btn-active-border-color: wheat!important;
+    --bs-btn-active-shadow: inset 0 3px 5pxrgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: wheat!important;
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: wheat!important;
+    --bs-gradient: none;
+}
+
 
 header {
     background: hsl(348deg 56% 19%);
@@ -142,6 +159,7 @@ main{
     display: flex;
     justify-content: flex-end;
     position: relative;
+    color: hsl(348deg 56% 19%);
 }
 
 .commands-text{
@@ -169,4 +187,12 @@ main{
 
 .btn-add-prod:hover{
     fill: hsl(348deg 56% 30%);
+}
+
+.result{
+    color: hsl(348deg 56% 19%);
+}
+
+.result-info{
+    font-weight: 600;
 }
