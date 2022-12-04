@@ -12,7 +12,6 @@
         <link rel="icon" href="imgs/icon.png" type="image/png">
         <title>Villa Beef</title>
         <link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="fonts/icomoon/style.css">
         <link rel="stylesheet" href="css/owl.carousel.min.css">
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/table.css">
@@ -21,6 +20,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     </head>
     <body>
 
@@ -47,6 +47,20 @@
         </header>
         <div class="content">
             <div class="table-responsive">
+                <p class="result"><c:if test = "${not empty op}">
+                            <c:choose> 
+                                <c:when test = "${op eq 'a'}">
+                                    Produto <label class="result-info"><c:out value="${res}"/></label> cadastrado com sucesso!
+                                </c:when>
+                                <c:when test = "${op eq 'e'}">
+                                    Produto <label class="result-info"><c:out value="${res}"/></label> editado com sucesso!
+                                </c:when>
+                                <c:when test = "${op eq 'ex'}">
+                                    Produto <label class="result-info"><c:out value="${res}"/></label> excluído com sucesso!
+                                </c:when>
+                            </c:choose>
+                      </c:if>
+                </p>
                 <table class="table custom-table">
                     <thead>
                         <tr>
@@ -78,8 +92,8 @@
                                 <td><c:out value = "${row.validade}"/></td>
                                 <td><c:out value = "R$ ${String.valueOf(row.valor).replace('.', ',')}"/></td>
                                 <td>
-                                    <button type="button" class="btn btn-outline-primary" name="editar" data-bs-toggle="modal" data-bs-target="#editarFun" data-backdrop="false" data-id="<c:out value = "${row.id}"/>" role="button" onclick="document.getElementById('editarFun').classList.toggle('visible')">Editar</button>
-                                    <button type="button" class="btn btn-outline-primary" name="excluir" data-bs-toggle="modal" data-bs-target="#removerFun" data-backdrop="false" data-id="<c:out value = "${row.id}"/>" data-nome="<c:out value = "${row.nome}"/>" role="button" onclick="document.getElementById('removerFun').classList.toggle('visible')">Excluir</button>
+                                    <button type="button" class="btn btn-outline-primary" name="editar" data-bs-toggle="modal" data-bs-target="#editarProd" data-backdrop="false" data-id="<c:out value = "${row.id}"/>" role="button" onclick="document.getElementById('editarProd').classList.toggle('visible')">Editar</button>
+                                    <button type="button" class="btn btn-outline-primary" name="excluir" data-bs-toggle="modal" data-bs-target="#removerProd" data-backdrop="false" data-id="<c:out value = "${row.id}"/>" data-nome="<c:out value = "${row.nome}"/>" role="button" onclick="document.getElementById('removerProd').classList.toggle('visible')">Excluir</button>
                                 </td>
                             </tr>
                         </c:forEach> 
@@ -87,8 +101,6 @@
                 </table>
                 <div id="commands">
                     <p class="commands-text" onclick="document.getElementById('cadastroProd').classList.toggle('visible')" id="commands-cadastrar">Cadastrar</p>
-                    <p class="commands-text" onclick="document.getElementById('editarProd').classList.toggle('visible')">Editar</p>
-                    <p class="commands-text" onclick="document.getElementById('removerProd').classList.toggle('visible')">Remover</p>
                 </div>
             </div>
             <div class="modal modal-wrap" id="cadastroProd">
@@ -120,7 +132,7 @@
             </div>
             <div class="modal modal-wrap" id="editarProd">
                 <div class="wrap">
-                    <form>
+                    <form  method="post" action="ProdutosServlet?op=e">
                         <div class="form-body">
                             <fieldset>
                                 <legend><i class="fa fa-user"></i>Editar Produto</legend>
@@ -129,11 +141,13 @@
                                 <label for="marca">Marca</label>
                                 <input type="text" id="marca" name="marca" required="">
                                 <label for="id">ID</label>
-                                <input type="text" id="id" name="id" required="">
+                                <input type="text" id="identificacao" name="identificacao" required="">
                                 <label for="validade">Validade</label>
                                 <input type="date" id="validade" name="validade" required="">
-                                <label for="valor">Valor</label>
-                                <input type="number" id="valor" name="valor" required="">
+                                <label for="valor">Valor De Compra</label>
+                                <input type="text" id="valor" name="valor" required="">
+                                <label for="valor-venda">Valor de Venda</label>
+                                <input type="text" id="valor-venda" name="valor-venda" required="">
                             </fieldset>
                         </div>
                         <div class="form-footer">
@@ -145,13 +159,13 @@
             </div>
             <div class="modal modal-wrap" id="removerProd">
                 <div class="wrap">
-                    <form>
+                    <form  method="post" action="ProdutosServlet?op=ex">
                         <div class="form-body">
                             <legend><i class="fa fa-user"></i> Remover Produto</legend>
-                            <p>Deseja mesmo remover o produtos?</p>
+                            <p>Deseja mesmo remover o produto?</p>
                             <fieldset> 
                                 <label for="identificacao">ID</label>
-                                <input type="text" id="identificacao" name="identificacao" required="" max="11" disabled>
+                                <input type="text" id="identificacao2" name="identificacao2" required="" max="11">
                             </fieldset>
                         </div>
                         <div class="form-footer">
@@ -164,39 +178,25 @@
         </div>
         <script src="js/jquery-3.3.1.min.js"></script>
         <script src="js/popper.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
         <script src="js/main.js"></script>
         <script src="js/mask.js"></script>
 
         <script>
-                                const editarModal = document.getElementById('editarProd')
+                                let editarModal = document.getElementById('editarProd')
                                 editarModal.addEventListener('show.bs.modal', event => {
-                                    // Button that triggered the modal
-                                    const button = event.relatedTarget
-                                    // Extract info from data-bs-* attributes
-                                    const recipient = button.getAttribute('data-id')
-                                    // If necessary, you could initiate an AJAX request here
-                                    // and then do the updating in a callback.
-                                    //
-                                    // Update the modal's content.
-                                    const modalBodyInput = editarModal.querySelector('#id')
-
+                                    let button = event.relatedTarget
+                                    let recipient = button.getAttribute('data-id')
+                                    let modalBodyInput = editarModal.querySelector('#identificacao')
                                     modalBodyInput.value = recipient
                                 })
 
-                                const excluirModal = document.getElementById('removerProd')
+                                let excluirModal = document.getElementById('removerProd')
                                 excluirModal.addEventListener('show.bs.modal', event => {
-                                    // Button that triggered the modal
-                                    const button = event.relatedTarget
-                                    // Extract info from data-bs-* attributes
-                                    const recipient = button.getAttribute('data-id')
-                                    // If necessary, you could initiate an AJAX request here
-                                    // and then do the updating in a callback.
-                                    //
-                                    // Update the modal's content.
-                                    const modalBodyInput = excluirModal.querySelector('#identificacao')
-
-                                    modalBodyInput.value = recipient
+                                  let button = event.relatedTarget
+                                  let recipient = button.getAttribute('data-id')
+                                  let modalBodyInput = excluirModal.querySelector('#identificacao2')
+                                  modalBodyInput.value = recipient
                                 })
         </script>
     </body>

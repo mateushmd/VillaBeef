@@ -7,6 +7,7 @@ package com.villabeef.servlets;
 
 import com.villabeef.model.dto.Funcionario;
 import com.villabeef.model.service.ManterFuncionario;
+import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -51,6 +52,7 @@ public class FuncionarioServlet extends HttpServlet {
                 case "a":
                     nome = request.getParameter("fname");
                     cpf = request.getParameter("cpf");
+                    request.setAttribute("res", nome);
                     cpf = cpf.replace(".", "");
                     cpf = cpf.replace("-", "");
                     conta = request.getParameter("conta");
@@ -58,12 +60,14 @@ public class FuncionarioServlet extends HttpServlet {
                     salario = Double.parseDouble(request.getParameter("salario").replace(",", "."));
                     
                     ManterFuncionario.adicionar(nome, salario, conta, funcao, cpf);
+                    request.setAttribute("op", "a");
                     break;
                 case "e":
                     nome = request.getParameter("fname");
                     cpf = request.getParameter("identificacao");
                     cpf = cpf.replace(".", "");
                     cpf = cpf.replace("-", "");
+                    request.setAttribute("res", nome);
                     conta = request.getParameter("conta");
                     funcao = request.getParameter("funcao");
                     salario = Double.parseDouble(request.getParameter("salario").replace(",", "."));
@@ -71,14 +75,19 @@ public class FuncionarioServlet extends HttpServlet {
                     funcionario = new Funcionario(nome, salario, conta, funcao, cpf);
                     
                     ManterFuncionario.alterar(ManterFuncionario.obterPorId(cpf), funcionario);
+                    request.setAttribute("op", "e");
                     break;
                 case "ex":
-                    cpf = request.getParameter("identificacao");
+                    cpf = request.getParameter("identificacao2");
+                    request.setAttribute("res", cpf);
                     ManterFuncionario.excluirServlet(cpf);
+                    request.setAttribute("op", "ex");
                     break;
             }
             
-            response.sendRedirect("funcionarios.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("funcionarios.jsp");
+            rd.forward(request, response);
+            
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(FuncionarioServlet.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {

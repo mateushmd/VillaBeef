@@ -10,9 +10,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link rel="icon" href="imgs/icon.png" type="image/png">
-        <title>Villa Beef</title>
+        <title>Gerenciar Funcionários - Villa Beef</title>
         <link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="fonts/icomoon/style.css">
         <link rel="stylesheet" href="css/owl.carousel.min.css">
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/table.css">
@@ -46,6 +45,20 @@
         </header>
         <div class="content">
             <div class="table-responsive">
+                <p class="result"><c:if test = "${not empty op}">
+                            <c:choose> 
+                                <c:when test = "${op eq 'a'}">
+                                    Usuário <label class="result-info"><c:out value="${res}"/></label> cadastrado com sucesso!
+                                </c:when>
+                                <c:when test = "${op eq 'e'}">
+                                    Usuário <label class="result-info"><c:out value="${res}"/></label> editado com sucesso!
+                                </c:when>
+                                <c:when test = "${op eq 'ex'}">
+                                    Usuário <label class="result-info"><c:out value="${res}"/></label> excluído com sucesso!
+                                </c:when>
+                            </c:choose>
+                      </c:if>
+                </p>
                 <table class="table custom-table">
                     <thead>
                         <tr>
@@ -127,7 +140,7 @@
                                 <label for="fname">Nome Completo</label>
                                 <input type="text" id="fname" name="fname" required="">
                                 <label for="identificacao">ID</label>
-                                <input type="text" id="identificacao" class="form-control" name="identificacao" placeholder="" value="" disabled>
+                                <input type="text" id="identificacao" class="form-control" name="identificacao" placeholder="">
                                 <label for="address">Conta Bancária</label>
                                 <input type="text" id="conta" name="conta" required="">
                                 <label for="funcao">Função</label>
@@ -150,8 +163,8 @@
                             <legend><i class="fa fa-user"></i>Remover Funcionário</legend>
                             <p>Deseja mesmo remover o funcionário?</p>
                             <fieldset> 
-                                <label for="identificacao">ID</label>
-                                <input type="text" id="identificacao" name="identificacao" required="" max="11" disabled>
+                                <label for="identificacao2">ID</label>
+                                <input type="text" id="identificacao2" name="identificacao2" required="" max="11">
                             </fieldset>
                         </div>
                         <div class="form-footer">
@@ -161,6 +174,7 @@
                     </form>
                 </div>
             </div>
+            
         </div>
         <script src="js/jquery-3.3.1.min.js"></script>
         <script src="js/popper.min.js"></script>
@@ -171,14 +185,9 @@
         <script>
         const editarModal = document.getElementById('editarFun')
             editarModal.addEventListener('show.bs.modal', event => {
-              // Button that triggered the modal
+
               const button = event.relatedTarget
-              // Extract info from data-bs-* attributes
               const recipient = button.getAttribute('data-id')
-              // If necessary, you could initiate an AJAX request here
-              // and then do the updating in a callback.
-              //
-              // Update the modal's content.
               const modalBodyInput = editarModal.querySelector('#identificacao')
 
               modalBodyInput.value = recipient
@@ -186,15 +195,10 @@
             
         const excluirModal = document.getElementById('removerFun')
         excluirModal.addEventListener('show.bs.modal', event => {
-          // Button that triggered the modal
+            
           const button = event.relatedTarget
-          // Extract info from data-bs-* attributes
           const recipient = button.getAttribute('data-id')
-          // If necessary, you could initiate an AJAX request here
-          // and then do the updating in a callback.
-          //
-          // Update the modal's content.
-          const modalBodyInput = excluirModal.querySelector('#identificacao')
+          const modalBodyInput = excluirModal.querySelector('#identificacao2')
 
           modalBodyInput.value = recipient
         })
