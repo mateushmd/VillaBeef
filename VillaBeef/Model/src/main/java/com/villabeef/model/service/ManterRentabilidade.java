@@ -19,14 +19,17 @@ public class ManterRentabilidade  {
         return RentabilidadeDAO.inserir(new Conta(data, tipo, descricao, valor));
     }
     
-    public static LinkedHashSet<Conta> listar() throws ClassNotFoundException, SQLException {
-        LinkedHashSet<Conta> lista = new LinkedHashSet<>();
+    public static boolean inserir(String data, char tipo, String descricao, double valor) throws ClassNotFoundException, SQLException, ParseException {
+        SimpleDateFormat formato1 = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat formato2 = new SimpleDateFormat("yyyy-MM-dd");
 
-        lista.addAll(ManterRentabilidade.listar('s'));
-
-        lista.addAll(ManterRentabilidade.listar('e'));
+        Date dataFormatada = Date.valueOf(formato2.format(formato1.parse(data)));
         
-        return lista;
+        return RentabilidadeDAO.inserir(new Conta(dataFormatada, tipo, descricao, valor));
+    }
+    
+    public static LinkedHashSet<Conta> listar() throws ClassNotFoundException, SQLException { 
+        return RentabilidadeDAO.listar("SELECT * FROM conta ORDER BY dataC");
     }
     
     public static LinkedHashSet<Conta> listar(String inicio, String fim) throws ClassNotFoundException, SQLException, ParseException {
@@ -36,12 +39,12 @@ public class ManterRentabilidade  {
         Date dataInicio = Date.valueOf(formato2.format(formato1.parse(inicio)));
         Date dataFim = Date.valueOf(formato2.format(formato1.parse(fim)));
 
-        String sql = "SELECT * FROM conta WHERE dataC BETWEEN '" + dataInicio.toString() + "' AND '" + dataFim.toString() + "'";
+        String sql = "SELECT * FROM conta WHERE dataC BETWEEN '" + dataInicio.toString() + "' AND '" + dataFim.toString() + "' ORDER BY dataC";
         return RentabilidadeDAO.listar(sql);
     }
     
     public static LinkedHashSet<Conta> listar(char tipo) throws ClassNotFoundException, SQLException {
-        String sql = "SELECT * FROM conta WHERE tipo = '" + tipo + "'";
+        String sql = "SELECT * FROM conta WHERE tipo = '" + tipo + "' ORDER BY dataC";
         return RentabilidadeDAO.listar(sql);
     }
     
@@ -52,7 +55,7 @@ public class ManterRentabilidade  {
         Date dataInicio = Date.valueOf(formato2.format(formato1.parse(inicio)));
         Date dataFim = Date.valueOf(formato2.format(formato1.parse(fim)));
         
-        String sql = "SELECT * FROM conta WHERE dataC BETWEEN '" + dataInicio.toString() + "' AND '" + dataFim.toString() + "' AND tipo = '" + tipo + "'";
+        String sql = "SELECT * FROM conta WHERE dataC BETWEEN '" + dataInicio.toString() + "' AND '" + dataFim.toString() + "' AND tipo = '" + tipo + "' ORDER BY dataC";
         return RentabilidadeDAO.listar(sql);
     }
     
