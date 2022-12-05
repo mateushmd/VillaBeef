@@ -10,7 +10,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link rel="icon" href="imgs/icon.png" type="image/png">
-        <title>Villa Beef</title>
+        <title>Gerenciar Rentabilidade - Villa Beef</title>
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="fonts/icomoon/style.css">
         <link rel="stylesheet" href="css/owl.carousel.min.css">
@@ -75,7 +75,15 @@
                         <c:forEach var="row" items="${result.rows}">
                             <tr>
                                 <td><c:out value = "${row.dataString}"/></td>
-                                <td><c:out value = "${row.tipo}"/></td>
+                                <td>
+                                    <c:choose>
+                                            <c:when test = "${row.tipo eq 's'}">
+                                                <c:out value = "Saída"/></td>
+                                            </c:when>
+                                            <c:when test = "${row.tipo eq 'e'}">
+                                                <c:out value = "Entrada"/></td>
+                                            </c:when>
+                                    </c:choose>
                                 <td><c:out value = "${row.descricao}"/></td>
                                 <td><c:out value = "R$ ${String.valueOf(row.valor > 0 ? row.valor : row.valor * -1).replace('.', ',')}"/></td>
                             </tr>

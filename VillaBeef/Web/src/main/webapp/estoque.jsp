@@ -10,7 +10,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link rel="icon" href="imgs/icon.png" type="image/png">
-        <title>Villa Beef</title>
+        <title>Gerenciar Estoque - Villa Beef</title>
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/owl.carousel.min.css">
         <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -64,28 +64,19 @@
                 <table class="table custom-table">
                     <thead>
                         <tr>
-                            <th scope="col">
-                                <label class="control control--checkbox">
-                                    <input type="checkbox" class="js-check-all"/>
-                                    <div class="control__indicator"></div>
-                                </label>
-                            </th>
+                            <th scope="col"></th>
                             <th scope="col">Tipo</th>
                             <th scope="col">Marca</th>
                             <th scope="col">ID</th>
                             <th scope="col">Validade</th>
                             <th scope="col">Valor</th>
+                            <th scope="col">Gerenciar</th>
                         </tr>
                     </thead>
                     <tbody>
                         <c:forEach var="row" items="${itens.rows}">
                             <tr>
-                                <th scope="row">
-                                    <label class="control control--checkbox">
-                                        <input type="checkbox"/>
-                                        <div class="control__indicator"></div>
-                                    </label>
-                                </th>
+                                <th scope="row"></th>
                                 <td><c:out value = "${produtos.rows[row.id_produto - 1].tipo}"/></td>
                                 <td><c:out value = "${produtos.rows[row.id_produto - 1].marca}"/></td>
                                 <td><c:out value = "${row.id}"/></td>
@@ -181,23 +172,22 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
         <script src="js/main.js"></script>
         <script src="js/mask.js"></script>
-
         <script>
-                                let editarModal = document.getElementById('editarProd')
-                                editarModal.addEventListener('show.bs.modal', event => {
-                                    let button = event.relatedTarget
-                                    let recipient = button.getAttribute('data-id')
-                                    let modalBodyInput = editarModal.querySelector('#identificacao')
-                                    modalBodyInput.value = recipient
-                                })
+                let editarModal = document.getElementById('editarProd')
+                editarModal.addEventListener('show.bs.modal', event => {
+                    let button = event.relatedTarget
+                    let recipient = button.getAttribute('data-id')
+                    let modalBodyInput = editarModal.querySelector('#identificacao')
+                    modalBodyInput.value = recipient
+                })
 
-                                let excluirModal = document.getElementById('removerProd')
-                                excluirModal.addEventListener('show.bs.modal', event => {
-                                  let button = event.relatedTarget
-                                  let recipient = button.getAttribute('data-id')
-                                  let modalBodyInput = excluirModal.querySelector('#identificacao2')
-                                  modalBodyInput.value = recipient
-                                })
+                let excluirModal = document.getElementById('removerProd')
+                excluirModal.addEventListener('show.bs.modal', event => {
+                  let button = event.relatedTarget
+                  let recipient = button.getAttribute('data-id')
+                  let modalBodyInput = excluirModal.querySelector('#identificacao2')
+                  modalBodyInput.value = recipient
+                })
         </script>
     </body>
 </html>
