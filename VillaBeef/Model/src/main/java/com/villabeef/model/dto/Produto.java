@@ -8,6 +8,7 @@ public class Produto {
     private String id;
     private int quantidade;
     private int quantidadeMinima;
+    private int faltando;
     
     private Set<ItemProduto> itens;
     
@@ -47,6 +48,10 @@ public class Produto {
     public Set<ItemProduto> getItens() {
         return itens;
     }
+    
+    public int getFaltando() {
+        return faltando;
+    }
 
     public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
@@ -65,5 +70,9 @@ public class Produto {
     }
     public void setQuantidadeMinima(int quantidadeMinima) {
         this.quantidadeMinima = quantidadeMinima;
+    }
+    
+    public void setFaltando(int faltando) {    
+        this.faltando = faltando;
     }
 }
