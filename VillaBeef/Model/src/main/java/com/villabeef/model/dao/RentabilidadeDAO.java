@@ -60,7 +60,7 @@ public class RentabilidadeDAO {
             
             if(resultado > 0) {
                 sql = "INSERT INTO conta VALUES('" + conta.getData().toString() + "', '" + conta.getTipo() + "', '"
-                    + conta.getDescricao() + "', '" + conta.getValor() + "', '" + id + "', '" + rs.getDouble("saldo") + ", " + formato.format(conta.getData()) + "')";
+                    + conta.getDescricao() + "', '" + conta.getValor() + "', '" + id + "', '" + rs.getDouble("saldo") + "', '" + formato.format(conta.getData()) + "')";
 
                 resultado = comando.executeUpdate(sql);
             }
