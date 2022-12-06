@@ -20,6 +20,8 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.HashSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -53,11 +55,15 @@ public class Estoque extends javax.swing.JFrame {
 
         try {
             atualizarTabela(ManterEstoque.listar());
+            
+
         } catch (ClassNotFoundException ex) {
             JOptionPane.showMessageDialog(rootPane, "Ocorreu um erro inesperado.", "Erro", JOptionPane.ERROR_MESSAGE);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Falha na conexão com o banco de dados.", JOptionPane.ERROR_MESSAGE);
         }
+        
+        temItemVencido();
     }
 
     private void atualizarTabela(HashSet<ItemProduto> lista) {
@@ -119,6 +125,27 @@ public class Estoque extends javax.swing.JFrame {
         validadeCampo.setEnabled(false);
         valorCampo.setEnabled(false);
     }
+    
+    private void temItemVencido() {
+        try {
+            if(ManterEstoque.obterItensVencidos().size() > 0) {
+                avisoValidadeTxt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/avisoB.png"))); // NOI18N
+                avisoValidadeButton.setEnabled(true);
+                avisoValidadeTxt.setEnabled(true);
+                avisoValidadeTxt.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            }
+            else {
+                avisoValidadeTxt.setIcon(null);
+                avisoValidadeButton.setEnabled(false);
+                avisoValidadeTxt.setEnabled(false);
+                avisoValidadeTxt.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            }
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Ocorreu um erro inesperado.", "Erro", JOptionPane.ERROR_MESSAGE);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Falha na conexão com o banco de dados.", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -134,6 +161,8 @@ public class Estoque extends javax.swing.JFrame {
         nomeIcone = new javax.swing.JLabel();
         fecharButton = new javax.swing.JPanel();
         fecharTxt = new javax.swing.JLabel();
+        avisoValidadeButton = new javax.swing.JPanel();
+        avisoValidadeTxt = new javax.swing.JLabel();
         scrollPane = new javax.swing.JScrollPane();
         tabela = new javax.swing.JTable();
         valor = new javax.swing.JLabel();
@@ -232,6 +261,33 @@ public class Estoque extends javax.swing.JFrame {
         );
 
         header.add(fecharButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 40));
+
+        avisoValidadeButton.setBackground(header.getBackground());
+        avisoValidadeButton.setEnabled(false);
+
+        avisoValidadeTxt.setEnabled(false);
+        avisoValidadeTxt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                avisoValidadeTxtMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout avisoValidadeButtonLayout = new javax.swing.GroupLayout(avisoValidadeButton);
+        avisoValidadeButton.setLayout(avisoValidadeButtonLayout);
+        avisoValidadeButtonLayout.setHorizontalGroup(
+            avisoValidadeButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
+            .addGroup(avisoValidadeButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(avisoValidadeTxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        avisoValidadeButtonLayout.setVerticalGroup(
+            avisoValidadeButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
+            .addGroup(avisoValidadeButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(avisoValidadeTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE))
+        );
+
+        header.add(avisoValidadeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 0, 40, 40));
 
         background.add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 40));
 
@@ -439,11 +495,11 @@ public class Estoque extends javax.swing.JFrame {
         editarButton.setLayout(editarButtonLayout);
         editarButtonLayout.setHorizontalGroup(
             editarButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(editarTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+            .addComponent(editarTxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         editarButtonLayout.setVerticalGroup(
             editarButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(editarTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+            .addComponent(editarTxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         background.add(editarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 470, 100, 40));
@@ -473,11 +529,11 @@ public class Estoque extends javax.swing.JFrame {
         aplicarButton.setLayout(aplicarButtonLayout);
         aplicarButtonLayout.setHorizontalGroup(
             aplicarButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(aplicarTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+            .addComponent(aplicarTxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         aplicarButtonLayout.setVerticalGroup(
             aplicarButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(aplicarTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+            .addComponent(aplicarTxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         background.add(aplicarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 470, 100, 40));
@@ -507,11 +563,11 @@ public class Estoque extends javax.swing.JFrame {
         limparButton.setLayout(limparButtonLayout);
         limparButtonLayout.setHorizontalGroup(
             limparButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(limparTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+            .addComponent(limparTxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         limparButtonLayout.setVerticalGroup(
             limparButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(limparTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+            .addComponent(limparTxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         background.add(limparButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 470, 100, 40));
@@ -539,11 +595,11 @@ public class Estoque extends javax.swing.JFrame {
         adicionarButton.setLayout(adicionarButtonLayout);
         adicionarButtonLayout.setHorizontalGroup(
             adicionarButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(adicionarTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+            .addComponent(adicionarTxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         adicionarButtonLayout.setVerticalGroup(
             adicionarButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(adicionarTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+            .addComponent(adicionarTxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         background.add(adicionarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 530, 150, 40));
@@ -600,11 +656,11 @@ public class Estoque extends javax.swing.JFrame {
         excluirButton.setLayout(excluirButtonLayout);
         excluirButtonLayout.setHorizontalGroup(
             excluirButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(excluirTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+            .addComponent(excluirTxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         excluirButtonLayout.setVerticalGroup(
             excluirButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(excluirTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+            .addComponent(excluirTxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         background.add(excluirButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 530, 150, 40));
@@ -739,6 +795,8 @@ public class Estoque extends javax.swing.JFrame {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Falha na conexão com o banco de dados.", JOptionPane.ERROR_MESSAGE);
         }
+        
+        temItemVencido();
     }//GEN-LAST:event_adicionarTxtMouseClicked
 
     private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
@@ -921,6 +979,8 @@ public class Estoque extends javax.swing.JFrame {
         } catch (ParseException ex) {
             JOptionPane.showMessageDialog(rootPane, "Ocorreu um erro inesperado.", "Erro", JOptionPane.ERROR_MESSAGE);
         }
+        
+        temItemVencido();
     }//GEN-LAST:event_aplicarTxtMouseClicked
 
     private void buscaIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buscaIconMouseClicked
@@ -932,6 +992,21 @@ public class Estoque extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Falha na conexão com o banco de dados.", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_buscaIconMouseClicked
+
+    private void avisoValidadeTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_avisoValidadeTxtMouseClicked
+        try {
+            ItensVencidos i = new ItensVencidos(this, true, ManterEstoque.obterItensVencidos());
+            i.setVisible(true);
+            i.setLocationRelativeTo(null);
+            
+            atualizarTabela(ManterEstoque.listar());
+            temItemVencido();
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Ocorreu um erro inesperado.", "Erro", JOptionPane.ERROR_MESSAGE);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Falha na conexão com o banco de dados.", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_avisoValidadeTxtMouseClicked
 
     /**
      * @param args the command line arguments
@@ -981,6 +1056,8 @@ public class Estoque extends javax.swing.JFrame {
     private javax.swing.JLabel adicionarTxt;
     private javax.swing.JPanel aplicarButton;
     private javax.swing.JLabel aplicarTxt;
+    private javax.swing.JPanel avisoValidadeButton;
+    private javax.swing.JLabel avisoValidadeTxt;
     private javax.swing.JPanel background;
     private javax.swing.JPanel buscaButton;
     private javax.swing.JLabel buscaIcon;
