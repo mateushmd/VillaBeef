@@ -6,12 +6,16 @@ package com.villabeef.model.dao;
 
 import com.villabeef.model.dto.Conta;
 import com.villabeef.model.dto.Funcionario;
+import com.villabeef.model.dto.Imposto;
+import com.villabeef.model.service.ManterFuncionario;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 
 public class RentabilidadeDAO {
@@ -173,5 +177,137 @@ public class RentabilidadeDAO {
         }
         
         return saldo;
+    }
+    
+    public static boolean inserirImposto(Imposto imposto) throws ClassNotFoundException, SQLException {
+        Connection conexao = null;
+        
+        Statement comando = null;
+        
+        ResultSet rs = null;
+        
+        String sql = null;
+
+        int resultado = 0;
+
+        try {
+            conexao = ConexaoBD.getConexao();
+
+            comando = conexao.createStatement();
+            
+            sql = "SELECT COUNT(*) FROM impostos";
+                
+            rs = comando.executeQuery(sql);
+
+            rs.next();
+
+            String id = String.valueOf(rs.getInt(1) + 1);
+            
+            sql = "INSERT INTO impostos VALUES('" + id + "', '" + imposto.getDescricao() + "', '" + imposto.getValor() + "')";
+            
+            resultado = comando.executeUpdate(sql);
+        } finally {
+            ConexaoBD.fecharConexao(conexao, comando, rs);
+        }
+        
+        return resultado > 0;
+    }
+    
+    public static HashSet<Imposto> listarImpostos() throws ClassNotFoundException, SQLException {
+        HashSet<Imposto> impostos = new HashSet<>();
+        
+        Connection conexao = null;
+        
+        Statement comando = null;
+        
+        ResultSet rs = null;
+        
+        String sql = "SELECT * FROM impostos";
+
+        try {
+            conexao = ConexaoBD.getConexao();
+
+            comando = conexao.createStatement();
+                
+            rs = comando.executeQuery(sql);
+
+            while(rs.next()) {
+                Imposto i = new Imposto(rs.getString("descricao"), 
+                                        rs.getDouble("valor"));
+                
+                impostos.add(i);
+            }
+        } finally {
+            ConexaoBD.fecharConexao(conexao, comando, rs);
+        }
+        
+        return impostos;
+    }
+    
+    public static void pagarFuncionarios() throws ClassNotFoundException, SQLException {
+        HashSet<Funcionario> funcionarios = ManterFuncionario.listar();
+        
+        for(Funcionario f : funcionarios) {
+            Conta c = new Conta(Date.valueOf(LocalDate.now()), 's', "Pagamento de salário (" + f.getNome() + ")", f.getSalario());
+            inserir(c);
+        }
+    }
+    
+    public static void pagarImpostos() throws ClassNotFoundException, SQLException {
+        HashSet<Imposto> impostos = listarImpostos();
+        
+        for(Imposto i : impostos) {
+            Conta c = new Conta(Date.valueOf(LocalDate.now()), 's', "Pagamento de imposto (" + i.getDescricao() + ")", i.getValor());
+            inserir(c);
+        }
+    }
+    
+    public static boolean resolverPendencias(int status) throws ClassNotFoundException, SQLException {
+        Connection conexao = null;
+        
+        Statement comando = null;
+
+        String sql = "UPDATE dados SET pendenciasPagas = " + status + " WHERE id = '1'";
+
+        int resultado = 0;
+
+        try {
+            conexao = ConexaoBD.getConexao();
+
+            comando = conexao.createStatement();
+            
+            resultado = comando.executeUpdate(sql);
+        } finally {
+            ConexaoBD.fecharConexao(conexao, comando);
+        }
+        
+        return resultado > 0;
+    }
+    
+    public static boolean getPendencias() throws ClassNotFoundException, SQLException{
+        String sql = "SELECT * FROM dados";
+        
+        Connection conexao = null;
+
+        Statement comando = null;
+
+        ResultSet rs = null;
+        
+        int resultado;
+        
+        try {
+            conexao = ConexaoBD.getConexao();
+            comando = conexao.createStatement();
+            
+            rs = comando.executeQuery(sql);
+            
+            rs.next();
+            
+            resultado = rs.getInt("pendenciasPagas");
+        } finally {
+            ConexaoBD.fecharConexao(conexao, comando, rs);
+        }
+        
+        return resultado > 0;
     }
 }

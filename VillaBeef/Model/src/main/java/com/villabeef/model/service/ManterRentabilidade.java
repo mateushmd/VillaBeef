@@ -1,12 +1,17 @@
 package com.villabeef.model.service;
 
 import com.villabeef.model.dao.RentabilidadeDAO;
+import static com.villabeef.model.dao.RentabilidadeDAO.inserir;
+import static com.villabeef.model.dao.RentabilidadeDAO.listarImpostos;
 import com.villabeef.model.dto.Conta;
+import com.villabeef.model.dto.Funcionario;
+import com.villabeef.model.dto.Imposto;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -71,5 +76,39 @@ public class ManterRentabilidade  {
     public static double obterSaldo() throws ClassNotFoundException, SQLException, ParseException {
         
         return RentabilidadeDAO.obterSaldo();
+    }
+    
+    public static void inserirImposto(String descricao, double valor) throws ClassNotFoundException, SQLException {
+        RentabilidadeDAO.inserirImposto(new Imposto(descricao, valor));
+    }
+    
+    public static HashSet<Imposto> listarImpostos() throws ClassNotFoundException, SQLException {
+        return RentabilidadeDAO.listarImpostos();
+    }
+    
+    public static void pagarFuncionarios() throws ClassNotFoundException, SQLException {
+        HashSet<Funcionario> funcionarios = ManterFuncionario.listar();
+        
+        for(Funcionario f : funcionarios) {
+            Conta c = new Conta(Date.valueOf(LocalDate.now()), 's', "Pagamento de salário (" + f.getNome() + ")", f.getSalario());
+            RentabilidadeDAO.inserir(c);
+        }
+    }
+    
+    public static void pagarImpostos() throws ClassNotFoundException, SQLException {
+        HashSet<Imposto> impostos = listarImpostos();
+        
+        for(Imposto i : impostos) {
+            Conta c = new Conta(Date.valueOf(LocalDate.now()), 's', "Pagamento de imposto (" + i.getDescricao() + ")", i.getValor());
+            RentabilidadeDAO.inserir(c);
+        }
+    }
+    
+    public static void resolverPendencias(int estado) throws ClassNotFoundException, SQLException {
+        RentabilidadeDAO.resolverPendencias(estado);
+    }
+    
+    public static boolean getPendencias() throws ClassNotFoundException, SQLException {
+        return RentabilidadeDAO.getPendencias();
     }
 }

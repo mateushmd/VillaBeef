@@ -124,6 +124,8 @@ public class Rentabilidade extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         compraButton = new javax.swing.JPanel();
         compraTxt = new javax.swing.JLabel();
+        impostoButton = new javax.swing.JPanel();
+        impostoTxt = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(670, 671));
@@ -404,14 +406,46 @@ public class Rentabilidade extends javax.swing.JFrame {
         compraButton.setLayout(compraButtonLayout);
         compraButtonLayout.setHorizontalGroup(
             compraButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(compraTxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(compraTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
         );
         compraButtonLayout.setVerticalGroup(
             compraButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(compraTxt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+            .addComponent(compraTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
         );
 
-        background.add(compraButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 80, 160, 40));
+        background.add(compraButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 50, 160, 30));
+
+        impostoButton.setBackground(header.getBackground());
+
+        impostoTxt.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        impostoTxt.setForeground(new java.awt.Color(255, 255, 255));
+        impostoTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        impostoTxt.setText("IMPOSTOS");
+        impostoTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        impostoTxt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                impostoTxtMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                impostoTxtMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                impostoTxtMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout impostoButtonLayout = new javax.swing.GroupLayout(impostoButton);
+        impostoButton.setLayout(impostoButtonLayout);
+        impostoButtonLayout.setHorizontalGroup(
+            impostoButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(impostoTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+        );
+        impostoButtonLayout.setVerticalGroup(
+            impostoButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(impostoTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+        );
+
+        background.add(impostoButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 90, 160, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -514,6 +548,7 @@ public class Rentabilidade extends javax.swing.JFrame {
         RegistroCompra r = new RegistroCompra(this, true);
         
         r.setVisible(true);
+        r.setLocationRelativeTo(null);
         
         try {
             atualizarTabela(ManterRentabilidade.listar());
@@ -534,6 +569,22 @@ public class Rentabilidade extends javax.swing.JFrame {
         if (compraButton.isEnabled())
             compraButton.setBackground(header.getBackground());
     }//GEN-LAST:event_compraTxtMouseExited
+
+    private void impostoTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_impostoTxtMouseClicked
+        Impostos i = new Impostos(this, true);
+        i.setVisible(true);
+        i.setLocationRelativeTo(null);
+    }//GEN-LAST:event_impostoTxtMouseClicked
+
+    private void impostoTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_impostoTxtMouseEntered
+        if (impostoButton.isEnabled())
+            impostoButton.setBackground(new Color(119, 34, 51));
+    }//GEN-LAST:event_impostoTxtMouseEntered
+
+    private void impostoTxtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_impostoTxtMouseExited
+        if (impostoButton.isEnabled())
+            impostoButton.setBackground(header.getBackground());
+    }//GEN-LAST:event_impostoTxtMouseExited
 
     /**
      * @param args the command line arguments
@@ -587,6 +638,8 @@ public class Rentabilidade extends javax.swing.JFrame {
     private javax.swing.JLabel filtrarTxt;
     private javax.swing.JTextField fimCampo;
     private javax.swing.JPanel header;
+    private javax.swing.JPanel impostoButton;
+    private javax.swing.JLabel impostoTxt;
     private javax.swing.JTextField inicioCampo;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;

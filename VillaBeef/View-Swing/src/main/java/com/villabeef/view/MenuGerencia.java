@@ -6,8 +6,11 @@ package com.villabeef.view;
 
 import com.villabeef.model.dto.ItemProduto;
 import com.villabeef.model.service.ManterEstoque;
+import com.villabeef.model.service.ManterRentabilidade;
 import java.awt.Color;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.HashSet;
 import javax.swing.JOptionPane;
 
@@ -19,6 +22,7 @@ public class MenuGerencia extends javax.swing.JFrame {
     
     private int mouseX, mouseY;
     
+    private final int diaPagamento = 7;
     
     /**
      * Creates new form MenuGerencia1
@@ -33,6 +37,16 @@ public class MenuGerencia extends javax.swing.JFrame {
         
             if(itens.size() > 0)
                 aviso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/avisoP.png"))); // NOI18N
+            
+            int diaAtual = Integer.parseInt(Date.valueOf(LocalDate.now()).toString().substring(8));
+            
+            if(diaAtual == diaPagamento && !ManterRentabilidade.getPendencias()) {
+                ManterRentabilidade.pagarFuncionarios();
+                ManterRentabilidade.pagarImpostos();
+                ManterRentabilidade.resolverPendencias(1);
+            } else if(diaAtual > diaPagamento) {
+                ManterRentabilidade.resolverPendencias(0);
+            }
         } catch (ClassNotFoundException ex) {
             JOptionPane.showMessageDialog(rootPane, "Ocorreu um erro inesperado.", "Erro", JOptionPane.ERROR_MESSAGE);
         } catch (SQLException ex) {
