@@ -159,6 +159,7 @@ main{
     display: flex;
     justify-content: flex-end;
     position: relative;
+    color: hsl(348deg 56% 19%);
 }
 
 .commands-text{
@@ -186,4 +187,12 @@ main{
 
 .btn-add-prod:hover{
     fill: hsl(348deg 56% 30%);
+}
+
+.result{
+    color: hsl(348deg 56% 19%);
+}
+
+.result-info{
+    font-weight: 600;
 }

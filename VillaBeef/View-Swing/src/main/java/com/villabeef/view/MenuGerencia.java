@@ -4,7 +4,12 @@
  */
 package com.villabeef.view;
 
+import com.villabeef.model.dto.ItemProduto;
+import com.villabeef.model.service.ManterEstoque;
 import java.awt.Color;
+import java.sql.SQLException;
+import java.util.HashSet;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -22,6 +27,17 @@ public class MenuGerencia extends javax.swing.JFrame {
         initComponents();
         
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        
+        try {
+            HashSet<ItemProduto> itens = ManterEstoque.obterItensVencidos();
+        
+            if(itens.size() > 0)
+                aviso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/avisoP.png"))); // NOI18N
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Ocorreu um erro inesperado.", "Erro", JOptionPane.ERROR_MESSAGE);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Falha na conexão com o banco de dados.", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     /**
@@ -43,6 +59,7 @@ public class MenuGerencia extends javax.swing.JFrame {
         rentabilidadeButton = new javax.swing.JPanel();
         rentabilidadeIcon = new javax.swing.JLabel();
         rentabilidadeTxt = new javax.swing.JLabel();
+        aviso = new javax.swing.JLabel();
         estoqueButton = new javax.swing.JPanel();
         estoqueIcon = new javax.swing.JLabel();
         estoqueTxt = new javax.swing.JLabel();
@@ -53,6 +70,11 @@ public class MenuGerencia extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         setResizable(false);
+        addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                formFocusGained(evt);
+            }
+        });
 
         background.setBackground(new java.awt.Color(245, 222, 179));
         background.setMaximumSize(new java.awt.Dimension(900, 500));
@@ -166,6 +188,7 @@ public class MenuGerencia extends javax.swing.JFrame {
         rentabilidadeButton.add(rentabilidadeTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, -1, -1));
 
         background.add(rentabilidadeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(575, 160, 150, 190));
+        background.add(aviso, new org.netbeans.lib.awtextra.AbsoluteConstraints(175, 360, -1, -1));
 
         estoqueButton.setBackground(header.getBackground());
         estoqueButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -311,6 +334,21 @@ public class MenuGerencia extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jLabel1MouseClicked
 
+    private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
+        try {
+            HashSet<ItemProduto> itens = ManterEstoque.obterItensVencidos();
+        
+            if(itens.size() > 0)
+                aviso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/avisoP.png"))); // NOI18N
+            else
+                aviso.setIcon(null);
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Ocorreu um erro inesperado.", "Erro", JOptionPane.ERROR_MESSAGE);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Falha na conexão com o banco de dados.", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_formFocusGained
+
     /**
      * @param args the command line arguments
      */
@@ -348,6 +386,7 @@ public class MenuGerencia extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private static javax.swing.JLabel aviso;
     private javax.swing.JPanel background;
     private javax.swing.JPanel estoqueButton;
     private javax.swing.JLabel estoqueIcon;

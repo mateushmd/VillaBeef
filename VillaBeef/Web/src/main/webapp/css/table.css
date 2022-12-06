@@ -85,3 +85,7 @@ thead{
   background-color: #007bff;
   opacity: .2;
   border: 2px solid #007bff; }
+
+.table-responsive{
+    overflow: hidden!important;
+}

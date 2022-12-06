@@ -10,7 +10,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link rel="icon" href="imgs/icon.png" type="image/png">
-        <title>Villa Beef</title>
+        <title>Gerenciar Rentabilidade - Villa Beef</title>
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="fonts/icomoon/style.css">
         <link rel="stylesheet" href="css/owl.carousel.min.css">
@@ -31,6 +31,8 @@
                 rd.forward(request, response);
              }
              
+             int soma = 0;
+             
         %>
         
         <%!
@@ -47,6 +49,10 @@
         <sql:setDataSource var= "conexao" driver= "com.mysql.jdbc.Driver" url= "jdbc:mysql://us-cdbr-east-06.cleardb.net:3306/heroku_b695d40b1c0e531?useSSL=false" user= "b4ef7c73d61cc7"  password= "c101e0f6" />
         <sql:query dataSource="${conexao}" var="result" >
             select * from conta
+        </sql:query>
+            
+        <sql:query dataSource="${conexao}" var="result2" >
+            select * from dados
         </sql:query>
 
         <header>
@@ -69,7 +75,15 @@
                         <c:forEach var="row" items="${result.rows}">
                             <tr>
                                 <td><c:out value = "${row.dataString}"/></td>
-                                <td><c:out value = "${row.tipo}"/></td>
+                                <td>
+                                    <c:choose>
+                                            <c:when test = "${row.tipo eq 's'}">
+                                                <c:out value = "Saída"/></td>
+                                            </c:when>
+                                            <c:when test = "${row.tipo eq 'e'}">
+                                                <c:out value = "Entrada"/></td>
+                                            </c:when>
+                                    </c:choose>
                                 <td><c:out value = "${row.descricao}"/></td>
                                 <td><c:out value = "R$ ${String.valueOf(row.valor > 0 ? row.valor : row.valor * -1).replace('.', ',')}"/></td>
                             </tr>
@@ -80,7 +94,9 @@
                             <th scope="row">Total Líquido</th>
                             <td></td>
                             <td></td>
-                            <td>R$ 900,00</td>
+                            <c:forEach var="row" items="${result2.rows}">
+                                <td><c:out value="R$ ${String.valueOf(row.saldo).replace('.', ',')}"/></td>
+                            </c:forEach>
                         </tr>
                     </tfoot>
                 </table>

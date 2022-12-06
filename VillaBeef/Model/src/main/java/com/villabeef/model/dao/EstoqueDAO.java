@@ -221,6 +221,42 @@ public class EstoqueDAO {
         return lista;
     }
     
+    public static HashSet<Produto> listarProdutos() throws ClassNotFoundException, SQLException {
+        HashSet<Produto> lista = new HashSet<>();
+
+        Produto produto;
+
+        String sql = "SELECT * FROM produtos";
+        
+        Connection conexao = null;
+        
+        Statement comando = null;
+        
+        ResultSet rs = null;
+
+        try {
+
+            conexao = ConexaoBD.getConexao();
+            comando = conexao.createStatement();
+            
+            rs = comando.executeQuery(sql);
+            
+            while(rs.next()) {
+                produto = new Produto(rs.getString("id"),
+                        rs.getString("marca"),
+                        rs.getString("tipo"),
+                        rs.getInt("quantidade"),
+                        rs.getInt("quantidade_minima"));
+                
+                lista.add(produto);
+            }
+        } finally {
+            ConexaoBD.fecharConexao(conexao, comando, rs);
+        }
+        
+        return lista;
+    }
+    
     public static ItemProduto obterPorId(String id) throws ClassNotFoundException, SQLException {
         ItemProduto item = null;
 
@@ -393,4 +429,6 @@ public class EstoqueDAO {
         
         return resultado;
     }
+    
+    
 }
