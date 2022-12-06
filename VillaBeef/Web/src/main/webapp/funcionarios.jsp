@@ -62,12 +62,7 @@
                 <table class="table custom-table">
                     <thead>
                         <tr>
-                            <th scope="col">
-                                <label class="control control--checkbox">
-                                    <input type="checkbox" class="js-check-all"/>
-                                    <div class="control__indicator"></div>
-                                </label>
-                            </th>
+                            <th scope="col"></th>
                             <th scope="col">ID</th>
                             <th scope="col">Nome</th>
                             <th scope="col">Ocupação</th>
@@ -77,12 +72,7 @@
                     <tbody>
                         <c:forEach var="row" items="${result.rows}">
                             <tr>
-                                <th scope="row">
-                                    <label class="control control--checkbox">
-                                        <input type="checkbox"/>
-                                        <div class="control__indicator"></div>
-                                    </label>
-                                </th>
+                                <th scope="row"></th>
                                 <td><c:out value = "${row.id}"/></td>
                                 <td><c:out value = "${row.nome}"/></td>
                                 <td><c:out value = "${row.funcao}"/></td>
@@ -91,7 +81,6 @@
                                     <button type="button" class="btn btn-outline-primary" name="editar" data-bs-toggle="modal" data-bs-target="#editarFun" data-backdrop="false" data-id="<c:out value = "${row.id}"/>" role="button" onclick="document.getElementById('editarFun').classList.toggle('visible')">Editar</button>
                                     <button type="button" class="btn btn-outline-primary" name="excluir" data-bs-toggle="modal" data-bs-target="#removerFun" data-backdrop="false" data-id="<c:out value = "${row.id}"/>" data-nome="<c:out value = "${row.nome}"/>" role="button" onclick="document.getElementById('removerFun').classList.toggle('visible')">Excluir</button>
                                 </td>
-
                             </tr>
                         </c:forEach>
                     </tbody>
@@ -100,7 +89,6 @@
                     <button class="btn" onclick="document.getElementById('cadastroFun').classList.toggle('visible')" id="commands-cadastrar">Cadastrar</button>
                 </div>
             </div>
-            
             <div class="modal modal-wrap" id="cadastroFun">
                 <div class="wrap">
                     <form method="post" action="FuncionarioServlet?op=a">
@@ -174,34 +162,32 @@
                     </form>
                 </div>
             </div>
-            
         </div>
         <script src="js/jquery-3.3.1.min.js"></script>
         <script src="js/popper.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
         <script src="js/main.js"></script>
         <script src="js/mask.js"></script>
-
         <script>
-        const editarModal = document.getElementById('editarFun')
-            editarModal.addEventListener('show.bs.modal', event => {
+                const editarModal = document.getElementById('editarFun')
+                    editarModal.addEventListener('show.bs.modal', event => {
 
-              const button = event.relatedTarget
-              const recipient = button.getAttribute('data-id')
-              const modalBodyInput = editarModal.querySelector('#identificacao')
+                      const button = event.relatedTarget
+                      const recipient = button.getAttribute('data-id')
+                      const modalBodyInput = editarModal.querySelector('#identificacao')
 
-              modalBodyInput.value = recipient
-            })
-            
-        const excluirModal = document.getElementById('removerFun')
-        excluirModal.addEventListener('show.bs.modal', event => {
-            
-          const button = event.relatedTarget
-          const recipient = button.getAttribute('data-id')
-          const modalBodyInput = excluirModal.querySelector('#identificacao2')
+                      modalBodyInput.value = recipient
+                    })
 
-          modalBodyInput.value = recipient
-        })
+                const excluirModal = document.getElementById('removerFun')
+                excluirModal.addEventListener('show.bs.modal', event => {
+
+                  const button = event.relatedTarget
+                  const recipient = button.getAttribute('data-id')
+                  const modalBodyInput = excluirModal.querySelector('#identificacao2')
+
+                  modalBodyInput.value = recipient
+                })
         </script>
     </body>
 </html>
