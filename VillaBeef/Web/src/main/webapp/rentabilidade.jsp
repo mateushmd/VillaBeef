@@ -69,7 +69,7 @@
                     <div class="card mb-4" id="card-st-1">
                         <div class="card-body pb-0 d-flex justify-content-between align-items-start">
                             <div>
-                                <div class="fs-4 fw-semibold">26 <span class="fs-6 fw-normal"></span></div>
+                                <div class="fs-4 fw-semibold">160K <span class="fs-6 fw-normal"></span></div>
                                 <div>Vendas</div>
                             </div>
                         </div>
@@ -80,8 +80,8 @@
                     <div class="card mb-4" id="card-st-2">
                         <div class="card-body pb-0 d-flex justify-content-between align-items-start">
                             <div>
-                                <div class="fs-4 fw-semibold">26 <span class="fs-6 fw-normal"></span></div>
-                                <div>Vendas</div>
+                                <div class="fs-4 fw-semibold">56K <span class="fs-6 fw-normal"></span></div>
+                                <div>Gastos</div>
                             </div>
                         </div>
                         <div class="c-chart-wrapper mt-3 mx-3" style="height:70px;">

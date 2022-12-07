@@ -17,16 +17,72 @@ Chart.defaults.defaultFontColor = '#646470';
 const random = (min, max) => // eslint-disable-next-line no-mixed-operators
 Math.floor(Math.random() * (max - min + 1) + min); // eslint-disable-next-line no-unused-vars
 
+
+const cardChart1 = new Chart(document.getElementById('card-chart1'), {
+  type: 'line',
+  data: {
+    labels: ['Outubro', 'Novembro', 'Dezembro'],
+    datasets: [{
+      label: 'Valor',
+      backgroundColor: 'transparent',
+      borderColor: 'rgba(255,255,255,.55)',
+      pointBackgroundColor: coreui.Utils.getStyle('--cui-primary'),
+      data: [40, 70, 50]
+    }]
+  },
+  options: {
+    plugins: {
+      legend: {
+        display: false
+      }
+    },
+    maintainAspectRatio: false,
+    scales: {
+      x: {
+        grid: {
+          display: false,
+          drawBorder: false
+        },
+        ticks: {
+          display: false
+        }
+      },
+      y: {
+        min: 30,
+        max: 89,
+        display: false,
+        grid: {
+          display: false
+        },
+        ticks: {
+          display: false
+        }
+      }
+    },
+    elements: {
+      line: {
+        borderWidth: 1,
+        tension: 0.4
+      },
+      point: {
+        radius: 4,
+        hitRadius: 10,
+        hoverRadius: 4
+      }
+    }
+  }
+}); // eslint-disable-next-line no-unused-vars
+
 const cardChart2 = new Chart(document.getElementById('card-chart2'), {
   type: 'line',
   data: {
-    labels: [ 'June', 'July'],
+    labels: ['Outubro', 'Novembro', 'Dezembro'],
     datasets: [{
-      label: 'My First dataset',
+      label: 'Valor',
       backgroundColor: 'transparent',
       borderColor: 'rgba(255,255,255,.55)',
-      pointBackgroundColor: coreui.Utils.getStyle('--cui-info'),
-      data: [22, 11]
+      pointBackgroundColor: coreui.Utils.getStyle('--cui-primary'),
+      data: [6, 30, 20]
     }]
   },
   options: {
