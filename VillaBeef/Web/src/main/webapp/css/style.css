@@ -40,6 +40,7 @@ body {
     margin: 0;
     background: wheat!important;
     height: 100vh;
+    overflow-x: hidden;
 }
 
 #header-logo {
@@ -54,6 +55,7 @@ body {
     top: 20px;
     left: 10px;
     width: 40px;
+    height: 40px;
 }
 
 #header-title {
@@ -157,7 +159,6 @@ main{
 
 #commands{
     display: flex;
-    justify-content: flex-end;
     position: relative;
     color: hsl(348deg 56% 19%);
 }
@@ -170,8 +171,15 @@ main{
 }
 
 #commands-cadastrar{
-    position: absolute;
-    left: 0;
+    padding: 0.5em 1em;
+    margin: .5rem;
+    border-radius: .375rem;
+    background-color: hsl(348deg 56% 19%);
+    color: wheat!important;
+}
+
+#commands-cadastrar:hover{
+    background-color: hsl(348deg 56% 30%);
 }
 
 .commands-text:hover{
@@ -195,4 +203,32 @@ main{
 
 .result-info{
     font-weight: 600;
+}
+
+.cards{
+    padding: 30px;
+    padding-bottom: 0;
+    display: flex;
+}
+
+.card .mb-4{
+    margin: 1rem!important;
+}
+
+.bg-primary{
+    background-color: hsl(348deg 56% 19%)!important;
+}
+
+#card-st-1,
+#card-st-2{
+    background-color: hsl(348deg 56% 19%)!important;
+    color: wheat!important;
+    width: 100%;
+    margin: 1rem!important;
+}
+
+@media screen and (max-width: 768px){
+    .cards{
+        flex-wrap: wrap;
+    }
 }
