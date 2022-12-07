@@ -2,6 +2,7 @@
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -76,7 +77,7 @@
                                 <td><c:out value = "${row.id}"/></td>
                                 <td><c:out value = "${row.nome}"/></td>
                                 <td><c:out value = "${row.funcao}"/></td>
-                                <td><c:out value = "R$ ${String.valueOf(row.salario).replace('.', ',')}"/></td>
+                                <td><fmt:formatNumber value = "${row.salario}" type = "currency"/></td>
                                 <td>
                                     <button type="button" class="btn btn-outline-primary" name="editar" data-bs-toggle="modal" data-bs-target="#editarFun" data-backdrop="false" data-id="<c:out value = "${row.id}"/>" role="button" onclick="document.getElementById('editarFun').classList.toggle('visible')">Editar</button>
                                     <button type="button" class="btn btn-outline-primary" name="excluir" data-bs-toggle="modal" data-bs-target="#removerFun" data-backdrop="false" data-id="<c:out value = "${row.id}"/>" data-nome="<c:out value = "${row.nome}"/>" role="button" onclick="document.getElementById('removerFun').classList.toggle('visible')">Excluir</button>

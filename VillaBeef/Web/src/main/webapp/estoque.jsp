@@ -2,6 +2,7 @@
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,6 +12,7 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link rel="icon" href="imgs/icon.png" type="image/png">
         <title>Gerenciar Estoque - Villa Beef</title>
+        <link rel="stylesheet" href="https://cdn.discordapp.com/attachments/870019938511880232/1049902430587990116/coreui-min.css">
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/owl.carousel.min.css">
         <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -20,7 +22,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
-         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     </head>
     <body>
 
@@ -46,6 +48,30 @@
                 <h1 id="header-title">VILLA</h1></a>
         </header>
         <div class="content">
+            <div class="cards">
+                <div class="card mb-4" id="card-st-1">
+                    <div class="card-body pb-0 d-flex justify-content-between align-items-start">
+                        <div>
+                            <div class="fs-4 fw-semibold">26 <span class="fs-6 fw-normal"></span></div>
+                            <div>Vendas</div>
+                        </div>
+                    </div>
+                    <div class="c-chart-wrapper mt-3 mx-3" style="height:70px;">
+                        <canvas class="chart" id="card-chart1" height="70"></canvas>
+                    </div>
+                </div>
+                <div class="card mb-4" id="card-st-2">
+                    <div class="card-body pb-0 d-flex justify-content-between align-items-start">
+                        <div>
+                            <div class="fs-4 fw-semibold">26 <span class="fs-6 fw-normal"></span></div>
+                            <div>Vendas</div>
+                        </div>
+                    </div>
+                    <div class="c-chart-wrapper mt-3 mx-3" style="height:70px;">
+                        <canvas class="chart" id="card-chart2" height="70"></canvas>
+                    </div>
+                </div>
+            </div>
             <div class="table-responsive">
                 <p class="result"><c:if test = "${not empty op}">
                             <c:choose> 
@@ -81,7 +107,7 @@
                                 <td><c:out value = "${produtos.rows[row.id_produto - 1].marca}"/></td>
                                 <td><c:out value = "${row.id}"/></td>
                                 <td><c:out value = "${row.validade}"/></td>
-                                <td><c:out value = "R$ ${String.valueOf(row.valor).replace('.', ',')}"/></td>
+                                <td><fmt:formatNumber value = "${row.valor}" type = "currency"/></td>
                                 <td>
                                     <button type="button" class="btn btn-outline-primary" name="editar" data-bs-toggle="modal" data-bs-target="#editarProd" data-backdrop="false" data-id="<c:out value = "${row.id}"/>" role="button" onclick="document.getElementById('editarProd').classList.toggle('visible')">Editar</button>
                                     <button type="button" class="btn btn-outline-primary" name="excluir" data-bs-toggle="modal" data-bs-target="#removerProd" data-backdrop="false" data-id="<c:out value = "${row.id}"/>" data-nome="<c:out value = "${row.nome}"/>" role="button" onclick="document.getElementById('removerProd').classList.toggle('visible')">Excluir</button>
@@ -172,6 +198,11 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
         <script src="js/main.js"></script>
         <script src="js/mask.js"></script>
+        <script src="js/chart.min.js"></script>
+        <script src="js/coreui-chartjs.js"></script>
+        <script src="js/coreui-utils.js"></script>
+        <script src="js/coreui-main.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
         <script>
                 let editarModal = document.getElementById('editarProd')
                 editarModal.addEventListener('show.bs.modal', event => {
@@ -188,6 +219,61 @@
                   let modalBodyInput = excluirModal.querySelector('#identificacao2')
                   modalBodyInput.value = recipient
                 })
+
+                const cardChart = new Chart(document.getElementById('card-chart'), {
+                    type: 'line',
+                    data: {
+                        labels: ['Novembro', 'Dezembro'],
+                        datasets: [{
+                        label: 'Total Vendido',
+                        backgroundColor: 'transparent',
+                        borderColor: 'rgba(255,255,255,.55)',
+                        pointBackgroundColor: coreui.Utils.getStyle('--cui-primary'),
+                        data: [55, 40]
+                        }]
+                    },
+                    options: {
+                        plugins: {
+                        legend: {
+                            display: false
+                        }
+                        },
+                        maintainAspectRatio: false,
+                        scales: {
+                        x: {
+                            grid: {
+                            display: false,
+                            drawBorder: false
+                            },
+                            ticks: {
+                            display: false
+                            }
+                        },
+                        y: {
+                            min: 30,
+                            max: 89,
+                            display: false,
+                            grid: {
+                            display: false
+                            },
+                            ticks: {
+                            display: false
+                            }
+                        }
+                        },
+                        elements: {
+                        line: {
+                            borderWidth: 1,
+                            tension: 0.4
+                        },
+                        point: {
+                            radius: 4,
+                            hitRadius: 10,
+                            hoverRadius: 4
+                        }
+                        }
+                    }
+                    });
         </script>
     </body>
 </html>
