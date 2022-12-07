@@ -21,13 +21,13 @@ Math.floor(Math.random() * (max - min + 1) + min); // eslint-disable-next-line n
 const cardChart1 = new Chart(document.getElementById('card-chart1'), {
   type: 'line',
   data: {
-    labels: ['Outubro', 'Novembro', 'Dezembro'],
+    labels: ['Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
     datasets: [{
       label: 'Valor',
       backgroundColor: 'transparent',
       borderColor: 'rgba(255,255,255,.55)',
       pointBackgroundColor: coreui.Utils.getStyle('--cui-primary'),
-      data: [40, 70, 50]
+      data: [35, 43, 40, 70, 50]
     }]
   },
   options: {
@@ -76,13 +76,13 @@ const cardChart1 = new Chart(document.getElementById('card-chart1'), {
 const cardChart2 = new Chart(document.getElementById('card-chart2'), {
   type: 'line',
   data: {
-    labels: ['Outubro', 'Novembro', 'Dezembro'],
+    labels: ['Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
     datasets: [{
       label: 'Valor',
       backgroundColor: 'transparent',
       borderColor: 'rgba(255,255,255,.55)',
       pointBackgroundColor: coreui.Utils.getStyle('--cui-primary'),
-      data: [6, 30, 20]
+      data: [20, 24, 6, 30, 17]
     }]
   },
   options: {
